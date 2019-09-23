@@ -1,0 +1,32 @@
+{
+  "name": "vocesy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "next start",
+    "dev": "next",
+    "build": "next build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@auth0/auth0-spa-js": "^1.2.3",
+    "@zeit/next-css": "^1.0.1",
+    "bootstrap": "^4.3.1",
+    "dotenv": "^8.1.0",
+    "express-session": "^1.16.2",
+    "next": "^9.0.6",
+    "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.9.0",
+    "serverless-mysql": "^1.5.1",
+    "sql-template-strings": "^2.2.2",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^7.14.3"
+  }
+}
