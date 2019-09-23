@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {Button, Container, Card} from "react-bootstrap"
-import { useAuth0 } from "../components/Auth0wrapper"
-import { Layout } from "../components/Layout"
+import { useAuth0 } from "../../components/Auth0wrapper"
+import { Layout } from "../../components/Layout"
 import Link from "next/link"
 
 const Decks = () => {
@@ -28,7 +28,7 @@ const Decks = () => {
 				}).catch(err => console.error(err))
 		}
 		return () => "done"
-	})
+	}, [user])
 
 	//console.log(decks)
 	return (
@@ -39,7 +39,7 @@ const Decks = () => {
 				{decks && decks.map((deck, i) => {
 					return (
 						<Card style={{width: "18rem"}} key={i}>
-							<Link href="/">
+							<Link href={`/decks/${deck.slug}`}>
 								<a>
 									<Card.Img variant="top" src="https://via.placeholder.com/450"/>
 								</a>

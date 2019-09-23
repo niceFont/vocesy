@@ -17,7 +17,7 @@ export const CreateDeck = () => {
 			})
 
 			if (res.status === 200) {
-				////				window.location.replace("localhost:3000/decks")
+				window.location.replace("http://localhost:3000/decks")
 			}
 			return
 		}

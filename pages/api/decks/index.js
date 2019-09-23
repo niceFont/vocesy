@@ -5,11 +5,16 @@ const escape = require("sql-template-strings")
 
 module.exports = async (req, res) => {
 
-    const {user} = req.query
+    const { user, slug } = req.query
+    let queryString
 
-    let decks = await db.query(escape`
-        SELECT * FROM decks WHERE user=${user} 
-    `)
+    if (typeof slug !== "undefined") {
+     queryString = escape`SELECT * FROM vocesy.decks WHERE user=${user} AND slug=${slug};`
+    } else {
+
+     queryString = escape`SELECT * FROM vocesy.decks WHERE user=${user};`
+    }
+    let decks = await db.query(queryString)
 
     return res.json(decks)
 }

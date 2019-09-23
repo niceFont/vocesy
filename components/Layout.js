@@ -1,4 +1,4 @@
-import {Nav, Navbar,Container, NavbarBrand, Button} from "react-bootstrap"
+import {Nav,NavDropdown, Navbar,Container, NavbarBrand, Button} from "react-bootstrap"
 import Link from "next/link"
 import {useAuth0} from "./Auth0wrapper"
 
@@ -29,11 +29,22 @@ export const Layout = (props) => {
 							</Button>
 						)}	
 						{isAuthenticated && typeof user !== "undefined"&&
-					<Link href={`/user/${encodeURI(user.name)}`}>
-						<Nav.Link as="a">
-							{user.name.toLowerCase()}
-						</Nav.Link>
-					</Link>
+
+							<NavDropdown title={user.name} id="nav-dropdown">
+									
+								<Link href={`/user/${encodeURI(user.name)}`}>
+									<NavDropdown.Item as="a">
+											Profile
+									</NavDropdown.Item>
+								</Link>
+
+								<Link href="/decks">
+									<NavDropdown.Item as="a">
+											My Decks
+									</NavDropdown.Item>
+								</Link>
+							</NavDropdown>
+							
 						}
 						{isAuthenticated && <Button variant="outline-danger" onClick={() => logout()}>log out</Button>}
 					</Nav>
