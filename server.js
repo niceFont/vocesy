@@ -7,6 +7,7 @@ const session = require("express-session")
 const passport = require("passport")
 const Auth0Strategy = require("passport-auth0")
 
+const BASE_URL = "http://localhost:3000"
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== "production"
 const app = next({ dev })
@@ -32,9 +33,11 @@ passport.deserializeUser(function(user, done) {
 
 const sess = {
     secret: process.env.SECRET,
-    cookie: {},
+    cookie: {
+        maxAge: 3600 * 24
+    },
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 }
 
 if (process.env.NODE_ENV === "production") {
@@ -55,9 +58,8 @@ app.prepare().then(() => {
     server.use(session(sess))
     server.use(passport.initialize())
     server.use(passport.session())
-    server.use("/decks", isAuth)
 	server.get("/", (req, res) => {
-		return app.render(req, res, "/", req.query)
+        return app.render(req, res, "/", req.query)
     })
     server.get("/callback", (req, res, next) => {
         passport.authenticate("auth0", (err, user) => {
@@ -74,10 +76,12 @@ app.prepare().then(() => {
     })
     server.get("/logout", (req, res) => {
         req.logout()
-  
-        const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, BASE_URL } = process.env;
+        const { AUTH0_DOMAIN, AUTH0_CLIENT_ID} = process.env;
         res.redirect(`https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${BASE_URL}`);
     })
+    server.use("/decks", isAuth)
+    server.use("/decks/:slug", isAuth)
+    server.use("/new", isAuth)
 	server.get("*", (req, res) => {
 		return handle(req, res)
 	})

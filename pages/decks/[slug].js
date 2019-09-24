@@ -2,41 +2,48 @@ import { useEffect } from "react"
 import {useState} from "react"
 import {NotFound} from "../../components/NotFound"
 import fetch from "isomorphic-fetch"
-
-async function checkIfExists(user, slug) {
-	let res = await fetch(`/api/decks?user=${user.displayName}&slug=${slug}`)
-	let exists = await res.json()
-	return exists.length > 0
-}
+import {Loading} from "../../components/Loading"
+import {WithAuth} from "../../components/WithAuth"
 
 
-
-const Deck = (props) => {
+const Deck = WithAuth((props) => {
 
 	//Authentification check
 	const [exists, setExists] = useState(false)
+	const [fetched, setFetched] = useState(false)
 	//Database check
 
 
 	useEffect(() => {
-		checkIfExists(props.user, props.slug).then(exists => {
-			if (!exists) {
-				return
-			}
-			setExists(true)
+		const fetchData = async () => {
+
+			let res = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
+				.then(res => res.json())
+				.catch(err => console.error(err))
+			
+			if (res.length) setExists(true)
+			setFetched(true)
 			return
-		}).catch(err => console.error(err))
-	}, [exists])
+		}
+		fetchData()
+	}, [])
 
 
 	return (
 		<div>
-			{exists ? 
-				<div>{props.slug}</div>
-				: <NotFound></NotFound>}
+			{fetched ?
+				<div>
+
+					{exists ?
+						<div>{props.slug}</div>
+						: <NotFound></NotFound>}
+				</div>
+				:
+				<Loading fetched={fetched}></Loading>
+			}	
 		</div>
 	)
-}
+})
 
 export default Deck
 

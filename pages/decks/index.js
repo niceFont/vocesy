@@ -2,30 +2,27 @@ import {useEffect, useState} from "react"
 import {Button, Container, Card} from "react-bootstrap"
 import Link from "next/link"
 import fetch from "isomorphic-fetch"
+import {WithAuth} from "../../components/WithAuth"
 
-const Decks = ({user}) => {
+
+const Decks = WithAuth(({user}) => {
 	const [decks, setDecks] = useState()
 
-	//if (!isAuthenticated) {
-	//	if (typeof window !== "undefined") {
-	//		window.location.replace("http://localhost:3000")
-	//	}
-	//}
 	useEffect(() => {
 
-		if (typeof user !== "undefined") {
+		const fetchData = async () => {
+
 			const url = `/api/decks?user=${user.displayName}`
-			fetch(url)
+			let decks = await fetch(url)
 				.then(res => res.json())
-				.then(decks => {
-					if (decks.length) {
-						setDecks(decks)
-					}
-					return
-				}).catch(err => console.error(err))
+				.catch(err => console.error(err))
+			if (decks.length > 0) {
+				setDecks(decks)
+				return
+			}
 		}
-		return () => "done"
-	}, [user])
+		fetchData()
+	}, [])
 
 	return (
 
@@ -48,7 +45,7 @@ const Decks = ({user}) => {
 			})}
 		</Container>
 	)
-}
+})
 
 
 export default Decks
