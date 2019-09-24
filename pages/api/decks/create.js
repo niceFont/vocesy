@@ -12,13 +12,13 @@ module.exports = async (req, res) => {
         let slug = uuid.v4().slice(0,5)
     
         let deck = await db.query(escape`
-           INSERT INTO decks(title, privacy, user, slug) VALUES(${body.title}, ${body.privacy}, ${body.user.name}, ${slug});
+           INSERT INTO decks(title, privacy, user, slug) VALUES(${body.title}, ${body.privacy}, ${body.user}, ${slug});
         `)
     
         console.log(deck)
         return res.send(200)
     } catch (err) {
         console.log(err)
-        res.json(err)
+        res.status(400).json(err)
     }
 }

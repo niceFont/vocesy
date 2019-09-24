@@ -10,6 +10,7 @@ export const CreateDeck = (props) => {
 
 	const _handleSubmit = async () => {
 
+		console.log(props)
 		if (title) {
 			console.log("wad")
 			let res = await fetch("/api/decks/create", {
