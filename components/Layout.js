@@ -1,52 +1,53 @@
-import {Nav,NavDropdown, Navbar,Container, NavbarBrand, Button} from "react-bootstrap"
+import {Nav,NavDropdown, Navbar,Container, NavbarBrand} from "react-bootstrap"
 import Link from "next/link"
-import {useAuth0} from "./Auth0wrapper"
 
 export const Layout = (props) => {
 
-	const {isAuthenticated, loginWithRedirect, logout, user} = useAuth0()
-
 	return (
-		<div>
-			<Navbar fixed="top" bg="dark" variant="dark">
+		<Container>
+			<Navbar style={{paddingLeft:"4%", paddingRight: "4%",backgroundColor: "white",borderBottom: "1px solid lightgray"}} fixed="top"  variant="light">
 				<NavbarBrand>
 					<Link href="/">
-						<h3>Vocesy</h3>
+						<img style={{width: 120, height: 40}} src="/static/logo.png"/>
 					</Link>
 				</NavbarBrand>
+				<Nav>
+					<Link href="/new">
+						<Nav.Link as="a">
+								Create
+						</Nav.Link>
+					</Link>
+					<Nav.Item>
+						<Link href="/decks">
+							<Nav.Link as="a">My Deck</Nav.Link>
+						</Link>
+					</Nav.Item>
+				</Nav>
 				<Navbar.Collapse className="justify-content-end">
 					<Nav> 
-						<Link href="/new">
-							<Nav.Link as="a">
-								new
-							</Nav.Link>
-						</Link>
-
-						{!isAuthenticated && (
-					
-							<Button onClick={() => loginWithRedirect({})}>
-						Log in
-							</Button>
-						)}	
-						{isAuthenticated && typeof user !== "undefined"&&
-
-							<NavDropdown title={user.name} id="nav-dropdown">
-									
-								<Link href={`/user/${encodeURI(user.name)}`}>
+						{!props.user &&
+									<Nav.Item >
+										<Link href="/login" replace>
+											<Nav.Link as="a">log in</Nav.Link>
+										</Link>
+									</Nav.Item>
+						}	
+						{props.user &&
+							<NavDropdown title={props.user.displayName} id="nav-dropdown">
+								<Link href={`/user/${encodeURI(props.user.displayName)}`}>
 									<NavDropdown.Item as="a">
 											Profile
 									</NavDropdown.Item>
 								</Link>
 
-								<Link href="/decks">
-									<NavDropdown.Item as="a">
-											My Decks
+								<Link href="/logout">
+									<NavDropdown.Item style={{color: "#e84646"}} as="a">
+											Log Out
 									</NavDropdown.Item>
 								</Link>
 							</NavDropdown>
 							
 						}
-						{isAuthenticated && <Button variant="outline-danger" onClick={() => logout()}>log out</Button>}
 					</Nav>
 				</Navbar.Collapse>	
 			</Navbar>
@@ -56,7 +57,7 @@ export const Layout = (props) => {
 
 			<Navbar fixed="bottom" bg="dark" variant="dark">
 			</Navbar>
-		</div>
+		</Container>
 
 	)
 }

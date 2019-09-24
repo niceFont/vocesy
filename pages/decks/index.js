@@ -1,13 +1,10 @@
 import {useEffect, useState} from "react"
 import {Button, Container, Card} from "react-bootstrap"
-import { useAuth0 } from "../../components/Auth0wrapper"
-import { Layout } from "../../components/Layout"
 import Link from "next/link"
+import fetch from "isomorphic-fetch"
 
-const Decks = () => {
-
+const Decks = ({user}) => {
 	const [decks, setDecks] = useState()
-	const {user} = useAuth0()
 
 	//if (!isAuthenticated) {
 	//	if (typeof window !== "undefined") {
@@ -17,7 +14,7 @@ const Decks = () => {
 	useEffect(() => {
 
 		if (typeof user !== "undefined") {
-			const url = `/api/decks?user=${user.name}`
+			const url = `/api/decks?user=${user.displayName}`
 			fetch(url)
 				.then(res => res.json())
 				.then(decks => {
@@ -30,29 +27,26 @@ const Decks = () => {
 		return () => "done"
 	}, [user])
 
-	//console.log(decks)
 	return (
 
-		<Layout>
-			<Container>
+		<Container>
 
-				{decks && decks.map((deck, i) => {
-					return (
-						<Card style={{width: "18rem"}} key={i}>
-							<Link href={`/decks/${deck.slug}`}>
-								<a>
-									<Card.Img variant="top" src="https://via.placeholder.com/450"/>
-								</a>
-							</Link>
-							<Card.Body>
-								<Card.Title>{deck.title[0].toUpperCase() + deck.title.slice(1)}</Card.Title>
-								<Button size="sm" variant="light" disabled>{deck.privacy ? "Private" : "Public"}</Button>
-							</Card.Body>
-						</Card>
-					)
-				})}
-			</Container>
-		</Layout>
+			{decks && decks.map((deck, i) => {
+				return (
+					<Card style={{width: "18rem"}} key={i}>
+						<Link href={`/decks/${deck.slug}`}>
+							<a>
+								<Card.Img variant="top" src="https://via.placeholder.com/450"/>
+							</a>
+						</Link>
+						<Card.Body>
+							<Card.Title>{deck.title[0].toUpperCase() + deck.title.slice(1)}</Card.Title>
+							<Button size="sm" variant="light" disabled>{deck.privacy ? "Private" : "Public"}</Button>
+						</Card.Body>
+					</Card>
+				)
+			})}
+		</Container>
 	)
 }
 

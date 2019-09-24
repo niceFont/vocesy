@@ -1,21 +1,23 @@
 import { Row, Col,Form, ButtonGroup, Button } from "react-bootstrap"
-import {useAuth0} from "./Auth0wrapper"
 import {useState} from "react"
+import fetch from "isomorphic-fetch"
 
-export const CreateDeck = () => {
+export const CreateDeck = (props) => {
 
+	console.log(props)
 	const [privacy, setPrivacy] = useState(0)
 	const [title, setTitle] = useState(null)
-	const {user} = useAuth0()
 
 	const _handleSubmit = async () => {
 
 		if (title) {
+			console.log("wad")
 			let res = await fetch("/api/decks/create", {
 				method: "POST",
-				body: JSON.stringify({title, privacy, user})
+				body: JSON.stringify({title, privacy, user: props.user.displayName})
 			})
 
+			console.log(res)
 			if (res.status === 200) {
 				window.location.replace("http://localhost:3000/decks")
 			}

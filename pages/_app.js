@@ -1,15 +1,8 @@
 import React from "react"
 import App from "next/app"
 import "bootstrap/dist/css/bootstrap.min.css"
-import {Auth0Provider} from "../components/Auth0wrapper"
-import config from "../auth_config.json"
+import { Layout } from "../components/Layout"
 
-const onRedirectCallback = appState => {
-	window.history.replaceState({},
-		document.title,
-		appState && appState.targetUrl ? appState.targetUrl : window.location.pathname
-	)
-}
 
 
 class MyApp extends App {
@@ -18,24 +11,37 @@ class MyApp extends App {
 	// perform automatic static optimization, causing every page in your app to
 	// be server-side rendered.
 	//
-	// static async getInitialProps(appContext) {
-	//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-	//   const appProps = await App.getInitialProps(appContext);
-	//
-	//   return { ...appProps }
-	// }
+	static async getInitialProps({ctx, Component}) {
+		let pageProps = {} 
+
+		if (Component.getInitialProps) {
+			pageProps = await Component.getInitialProps(ctx)
+		}
+		if (ctx.req && ctx.req.session.passport) {
+			pageProps.user = ctx.req.session.passport.user
+		}
+	
+		return { pageProps }
+
+	}
+
+	constructor(props) {
+		super(props)
+		this.state = {
+			user: props.pageProps.user
+		}
+	}
 
 	render() {
 		const { Component, pageProps } = this.props
+		const props = {
+			...pageProps,
+			user: this.state.user
+		}
 		return (
-			<Auth0Provider
-				domain={config.domain}
-				client_id={config.clientId}
-				redirect_uri={typeof window !== "undefined" ? window.location.origin: null}
-				onRedirectCallback={onRedirectCallback}
-			>
-				<Component {...pageProps} />
-			</Auth0Provider>
+			<Layout user={this.state.user}>
+				<Component {...props} />
+			</Layout>
 		)
 	}
 }

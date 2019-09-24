@@ -1,11 +1,10 @@
-import { Layout } from "../../components/Layout"
 import { useEffect } from "react"
-import {useAuth0} from "../../components/Auth0wrapper"
 import {useState} from "react"
 import {NotFound} from "../../components/NotFound"
+import fetch from "isomorphic-fetch"
 
 async function checkIfExists(user, slug) {
-	let res = await fetch(`/api/decks?user=${user.name}&slug=${slug}`)
+	let res = await fetch(`/api/decks?user=${user.displayName}&slug=${slug}`)
 	let exists = await res.json()
 	return exists.length > 0
 }
@@ -15,36 +14,27 @@ async function checkIfExists(user, slug) {
 const Deck = (props) => {
 
 	//Authentification check
-	const {user, isAuthenticated} = useAuth0()
 	const [exists, setExists] = useState(false)
 	//Database check
 
 
 	useEffect(() => {
-
-		if (typeof window !== "undefined" && user) {
-			if (!isAuthenticated) {
-				window.location.replace("http://localhost:3000/")
-			}
-			
-			checkIfExists(user, props.slug).then(exists => {
-				if (!exists) {
-					return
-				}
-				setExists(true)
+		checkIfExists(props.user, props.slug).then(exists => {
+			if (!exists) {
 				return
-			}).catch(err => console.error(err))
-		}
-	}, [user, isAuthenticated])
+			}
+			setExists(true)
+			return
+		}).catch(err => console.error(err))
+	}, [exists])
 
 
 	return (
-		<Layout>
-			{exists ?
+		<div>
+			{exists ? 
 				<div>{props.slug}</div>
-				:
-				<NotFound></NotFound>}
-		</Layout>
+				: <NotFound></NotFound>}
+		</div>
 	)
 }
 
@@ -52,6 +42,6 @@ export default Deck
 
 
 Deck.getInitialProps = async function (ctx) {
-    
-	return ctx.query 
+	let slug = ctx.req.params[0].replace(/\/decks\//gi, "")
+	return {slug}
 }

@@ -15,13 +15,20 @@ const strategy = new Auth0Strategy({
     clientID: process.env.AUTH0_CLIENT_ID,
     domain: process.env.AUTH0_DOMAIN,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL || "http://localhost:3000/"
+    callbackURL: process.env.CALLBACK_URL || "http://localhost:3000/callback"
 }, function (accessToken, refreshToken, extraParams, profile, done) {
         
         return done(null, profile)
 })
 
 passport.use(strategy)
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 const sess = {
     secret: process.env.SECRET,
@@ -35,8 +42,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-function Auth(req, res, next) {
-    
+function isAuth(req, res, next) {
+    if (req.isAuthenticated()) return next()
+    res.redirect("/login")
 }
 
 
@@ -47,12 +55,28 @@ app.prepare().then(() => {
     server.use(session(sess))
     server.use(passport.initialize())
     server.use(passport.session())
+    server.use("/decks", isAuth)
 	server.get("/", (req, res) => {
-		console.log("test")
 		return app.render(req, res, "/", req.query)
-	})
-    server.get("/decks", passport.authenticate("auth0", {scope: "openid email profile"}) , (req, res) => {
-        return app.render(req, res, "/decks", req.query)
+    })
+    server.get("/callback", (req, res, next) => {
+        passport.authenticate("auth0", (err, user) => {
+            if (err) return next(err)
+            if (!user) return res.redirect("/login")
+            req.logIn(user, (err) => {
+                if (err) return next(err)
+                res.redirect("/")
+            })
+        })(req, res, next)
+    })
+    server.get("/login", passport.authenticate("auth0", {scope: "openid email profile"}) , (req, res) => {
+        res.redirect("/")
+    })
+    server.get("/logout", (req, res) => {
+        req.logout()
+  
+        const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, BASE_URL } = process.env;
+        res.redirect(`https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${BASE_URL}`);
     })
 	server.get("*", (req, res) => {
 		return handle(req, res)

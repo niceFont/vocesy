@@ -1,14 +1,13 @@
-import { Layout } from "../components/Layout"
 import {CreateDeck} from "../components/CreateDeck"
 
-const NewDeck = () => {
+const NewDeck = (props) => {
 
 	return (
-		<Layout>
+		<div>
 
 			<h2 style={{textAlign: "center"}}>Create a new Deck.</h2>
-			<CreateDeck></CreateDeck>
-		</Layout>
+			<CreateDeck user={props.user}></CreateDeck>
+		</div>
 	)
 }
 

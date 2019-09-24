@@ -4,7 +4,7 @@ const escape = require("sql-template-strings")
 const uuid = require("uuid")
 
 module.exports = async (req, res) => {
-
+ console.log("test")
     try {
 
         let body = JSON.parse(req.body)
@@ -18,6 +18,7 @@ module.exports = async (req, res) => {
         console.log(deck)
         return res.send(200)
     } catch (err) {
-        console.error(err)
+        console.log(err)
+        res.json(err)
     }
 }
