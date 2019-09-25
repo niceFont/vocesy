@@ -10,15 +10,12 @@ export const CreateDeck = (props) => {
 
 	const _handleSubmit = async () => {
 
-		console.log(props)
 		if (title) {
-			console.log("wad")
 			let res = await fetch("/api/decks/create", {
 				method: "POST",
 				body: JSON.stringify({title, privacy, user: props.user.displayName})
 			})
 
-			console.log(res)
 			if (res.status === 200) {
 				window.location.replace("http://localhost:3000/decks")
 			}

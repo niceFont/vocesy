@@ -1,12 +1,12 @@
-import { Modal, Card, Button, Row, Col, ButtonGroup } from "react-bootstrap"
+import {Modal, Row, Col, ButtonGroup, Button, Card} from "react-bootstrap"
 import React, {useState} from "react"
-import fetch from "isomorphic-fetch"
-
-export const CreateCard = (props) => {
 
 
-	const [front, editFront] = useState("")
-	const [back, editBack] = useState("")
+export const EditCard = (props) => {
+
+
+	const [front, editFront] = useState(props.data.front)
+	const [back, editBack] = useState(props.data.back)
 	const [side, switchSideTo] = useState("front")
 
 	const textAreaRef = React.createRef()
@@ -15,15 +15,17 @@ export const CreateCard = (props) => {
 	const handleSave = async () => {
 		//TODO Add error message on empty String
 		if (front !== "" && back !== "") {
-			await fetch("/api/cards/create", {
+			await fetch("/api/cards/edit", {
 				method: "POST",
-				body: JSON.stringify({front, back, deck_id: props.data.deck_id})
+				body: JSON.stringify({front, back, id: props.data.id})
 			}).then(res => res.json())
 				.catch(err => console.error(err))
 			
+			props.toggleShow(false)
 		}
 	}
 	return (
+
 		<Modal
 			centered
 			size="lg"
@@ -54,7 +56,7 @@ export const CreateCard = (props) => {
 					<Col className="text-center">
 						<Card className="mx-auto" style={{width: "18rem", height: "25rem"}} >
 							<Card.Body style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-								<textarea placeholder="Enter your Text..." ref={textAreaRef} className="my-auto" style={{ border: "none", resize: "none", height: "20rem" }} onChange={(e) => {
+								<textarea value={side === "front"? front : back} ref={textAreaRef} className="my-auto" style={{ border: "none", resize: "none", height: "20rem" }} onChange={(e) => {
 									if (side === "front") {
 										editFront(e.target.value)
 									} else {
@@ -64,7 +66,6 @@ export const CreateCard = (props) => {
 							</Card.Body>
 						</Card>
 					</Col>
-                
 				</Row>    
 				<Button variant="dark" block onClick={() => handleSave()}>Save</Button>
 			</Modal.Body>

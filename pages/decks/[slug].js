@@ -5,6 +5,7 @@ import {Loading} from "../../components/Loading"
 import {WithAuth} from "../../components/WithAuth"
 import {Container,Card , Button, Row, Col} from "react-bootstrap"
 import { CreateCard } from "../../components/CreateCard"
+import { EditCard } from "../../components/EditCard"
 
 
 const Deck = WithAuth((props) => {
@@ -12,9 +13,9 @@ const Deck = WithAuth((props) => {
 	const [exists, setExists] = useState(false)
 	const [fetched, setFetched] = useState(false)
 	const [data, setData] = useState([])
+	const [adding, toggleAdding] = useState(false)
 	const [editing, toggleEditing] = useState(false)
-	const [cards, setCards] = useState([])
-	console.log(data)
+	const [editID, setEditID] = useState()
 	useEffect(() => {
 		const fetchData = async () => {
 
@@ -30,9 +31,9 @@ const Deck = WithAuth((props) => {
 			return
 		}
 		fetchData()
-	}, [])
+	}, [editing, adding])
 
-
+	// TODO Add Card Editing
 	return (
 		<div>
 			{fetched ?
@@ -45,12 +46,15 @@ const Deck = WithAuth((props) => {
 									<h6 style={{margin: "0 0 0 50px" }}>{data[0].title[0].toUpperCase() + data[0].title.slice(1) + "'s Cards"}</h6>
 								</Col>
 								<Col className="text-right">
-									<Button variant="light" size="sm" style={{margin: "0 50px 0 0"}} onClick={() => toggleEditing(true)}>Add</Button>
+									<Button variant="light" size="sm" style={{margin: "0 50px 0 0"}} onClick={() => toggleAdding(true)}>Add</Button>
 								</Col>
 							</Row>
 							<Row style={{margin: "20px 0 20px 0"}} className="justify-content-center">
 								{data[0].front && data.map((cards) => {
-									return (<Card key={cards.id} style={{margin: "10px 10px 10px 10px", width: "10rem", height: "15rem"}}>
+									return (<Card key={cards.id} style={{cursor: "pointer", margin: "10px 10px 10px 10px", width: "10rem", height: "15rem"}} onClick={() => {
+										setEditID(cards.id)
+										toggleEditing(true)
+									}}>
 										<Card.Body>
 											<Card.Subtitle className="mb-2 text-muted">Front</Card.Subtitle>
 											<Card.Text>{cards.front}</Card.Text>
@@ -59,9 +63,10 @@ const Deck = WithAuth((props) => {
 								})}
 
 							</Row>
-							{editing && <CreateCard slug={props.slug} data={data[0]} toggleShow={toggleEditing} show={editing}></CreateCard>}
+							{adding && <CreateCard slug={props.slug} data={data[0]} toggleShow={toggleAdding} show={adding}></CreateCard>}
+							{editing && <EditCard show={editing} toggleShow={toggleEditing}  data={data.filter(card => card.id === editID)[0]}></EditCard>}
 						</Container>
-						: <NotFound></NotFound>}
+						: <NotFound ></NotFound>}
 				</div>
 				:
 				<Loading fetched={fetched}></Loading>
