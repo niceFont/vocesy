@@ -17,6 +17,7 @@
     "@zeit/next-css": "^1.0.1",
     "bootstrap": "^4.3.1",
     "dotenv": "^8.1.0",
+    "draft-js": "^0.11.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "isomorphic-fetch": "^2.2.1",
@@ -28,6 +29,7 @@
     "react-dom": "^16.9.0",
     "serverless-mysql": "^1.5.1",
     "sql-template-strings": "^2.2.2",
+    "styled-jsx": "^3.2.2",
     "uuid": "^3.3.3"
   },
   "devDependencies": {

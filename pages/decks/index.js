@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react"
-import {Row, Button, Container, Card} from "react-bootstrap"
+import {Row, Button, Container, Card, Col} from "react-bootstrap"
 import Link from "next/link"
 import fetch from "isomorphic-fetch"
-import {WithAuth} from "../../components/WithAuth"
+import {WithAuth} from "../../components/Auth/WithAuth"
 
 
 const Decks = WithAuth(({user}) => {
@@ -26,12 +26,16 @@ const Decks = WithAuth(({user}) => {
 
 	return (
 
-		<Container>
-			<h3 style={{marginBottom: 80,textAlign: "center", fontWeight: "bold"}}>{`${user.displayName}'s Decks`}</h3>
+		<Container style={{marginTop: 200}}>
+			<Row className="justify-content-center">
+				<Col className="text-center" md="6" lg="3">
+					<h5 style={{ borderBottom: "1px solid black", paddingBottom: 50, marginBottom: 40, textAlign: "center" }}> Your Decks</h5>
+				</Col>
+			</Row>
 			<Row className="justify-content-md-center">
 				{decks && decks.map((deck, i) => {
 					return (
-						<Card style={{margin: 50, width: "18rem"}} key={i}>
+						<Card style={{margin: 30, width: "18rem"}} key={i}>
 							<Link href={`/decks/${deck.slug}`}>
 								<a>
 									<Card.Img variant="top" src="https://via.placeholder.com/450"/>

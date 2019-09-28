@@ -1,7 +1,7 @@
 import React from "react"
 import App from "next/app"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Layout } from "../components/Layout"
+import { Layout } from "../components/Helpers/Layout"
 
 
 

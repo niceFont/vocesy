@@ -82,6 +82,7 @@ app.prepare().then(() => {
     server.use("/decks", isAuth)
     server.use("/decks/:slug", isAuth)
     server.use("/new", isAuth)
+    server.use("/play/:slug", isAuth)
 	server.get("*", (req, res) => {
 		return handle(req, res)
 	})
