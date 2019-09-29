@@ -1,4 +1,12 @@
-import { Modal, Card, Button, Row, Col, ButtonGroup } from "react-bootstrap"
+import {
+	Modal,
+	Alert,
+	Card,
+	Button,
+	Row,
+	Col,
+	ButtonGroup
+} from "react-bootstrap"
 import React, { useState } from "react"
 import fetch from "isomorphic-fetch"
 
@@ -7,10 +15,11 @@ export const CreateCard = props => {
 	const [back, editBack] = useState("")
 	const [side, switchSideTo] = useState("front")
 	const textAreaRef = React.createRef()
+	const [error, setError] = useState()
 
-	const handleSave = async () => {
-		//TODO Add error message on empty String
-		if (front !== "" && back !== "") {
+	const _handelSave = async () => {
+		if (front.trim() !== "" && back.trim() !== "") {
+			setError(null)
 			await fetch("/api/cards/create", {
 				method: "POST",
 				body: JSON.stringify({
@@ -19,9 +28,15 @@ export const CreateCard = props => {
 					deck_id: props.data.deck_id
 				})
 			})
-				.then(res => res.json())
+				.then(res => {
+					console.log(res.json())
+					props.toggleShow(false)
+				})
 				.catch(err => console.error(err))
+			return
 		}
+
+		setError("Front or Back can not be empty.")
 	}
 	return (
 		<Modal
@@ -37,6 +52,11 @@ export const CreateCard = props => {
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
+				{error && (
+					<Row className="justify-content-center">
+						<Alert variant="danger">{error}</Alert>
+					</Row>
+				)}
 				<Row
 					style={{ margin: "0 0 20px 0" }}
 					className="justify-content-center">
@@ -94,7 +114,12 @@ export const CreateCard = props => {
 						</Card>
 					</Col>
 				</Row>
-				<Button variant="dark" block onClick={() => handleSave()}>
+				<Button
+					variant="dark"
+					block
+					onClick={() => {
+						_handelSave()
+					}}>
 					Save
 				</Button>
 			</Modal.Body>

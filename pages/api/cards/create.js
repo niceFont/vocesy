@@ -2,21 +2,19 @@
 const db = require("../../../lib/db")
 const escape = require("sql-template-strings")
 
-module.exports = async (req, res) => {
-
-    if (req.method === "POST") {
-        try {
-            let {front, back, deck_id} = JSON.parse(req.body)
-            console.log(req.body)
-            let res = await db.query(escape`
+module.exports = async function(req, res) {
+	if (req.method === "POST") {
+		try {
+			let { front, back, deck_id } = JSON.parse(req.body)
+			console.log(req.body)
+			let response = await db.query(escape`
         INSERT INTO cards(front, back, deck_id) VALUES(${front}, ${back}, ${deck_id});
-        `) 
+        `)
 
-            console.log(res)
-        } catch (err) {
-            res.status(400).send(err)
-        }
-    
-}
-
+			res.status(200).send(JSON.stringify(response))
+		} catch (err) {
+			console.log(err)
+			res.send(err)
+		}
+	}
 }

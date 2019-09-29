@@ -3,8 +3,12 @@ import { Container, Row, Col, Card, Button, ButtonGroup } from "react-bootstrap"
 export const PlayViewer = props => {
 	return (
 		<Container>
-			<Row style={{ margin: 20 }} className="justify-content-center">
-				<Col className="text-center">
+			<Row
+				style={{
+					margin: 20
+				}}
+				className="justify-content-center">
+				<Col md="2" className="text-center">
 					<span>{props.current + "/" + props.max}</span>
 				</Col>
 			</Row>
@@ -12,7 +16,7 @@ export const PlayViewer = props => {
 				<Row>
 					<Col className="text-center">
 						<ul>
-							{props.userInput.map((input, index) => {
+							{props.verify().map((input, index) => {
 								return <li key={index}>{input}</li>
 							})}
 						</ul>

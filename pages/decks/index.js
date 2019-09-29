@@ -19,7 +19,7 @@ const Decks = WithAuth(({ user }) => {
 			}
 		}
 		fetchData()
-	})
+	}, [user.displayName])
 
 	return (
 		<Container style={{ marginTop: 200 }}>
@@ -32,7 +32,6 @@ const Decks = WithAuth(({ user }) => {
 							marginBottom: 40,
 							textAlign: "center"
 						}}>
-						{" "}
 						Your Decks
 					</h5>
 				</Col>

@@ -14,6 +14,7 @@ const Deck = WithAuth(props => {
 	const [data, setData] = useState([])
 	const [adding, toggleAdding] = useState(false)
 	const [editing, toggleEditing] = useState(false)
+	const [removing, toggleRemove] = useState(false)
 	const [setting, toggleSetting] = useState(false)
 	const [settings, changeSettings] = useState({ userValidation: false })
 	const [editID, setEditID] = useState()
@@ -24,17 +25,32 @@ const Deck = WithAuth(props => {
 			)
 				.then(res => res.json())
 				.catch(err => console.error(err))
-			if (res.length) {
+			if (typeof res !== "undefined") {
 				setExists(true)
+				console.log("fetched")
 				setData(res)
 			}
 			setFetched(true)
 			return
 		}
 		fetchData()
-	}, [editing, adding, props.slug, props.user.displayName])
+	}, [adding, removing, editing, props.slug, props.user.displayName])
 
-	// TODO Add Card Editing
+	async function _removeCard(id) {
+		try {
+			await fetch("/api/cards/remove", {
+				method: "DELETE",
+				body: JSON.stringify({ id })
+			})
+				.then(res => {
+					res.json()
+					toggleRemove(false)
+				})
+				.catch(err => console.error(err))
+		} catch (err) {
+			console.error(err)
+		}
+	}
 	return (
 		<Container style={{ marginTop: 200 }}>
 			{fetched ? (
@@ -136,14 +152,40 @@ const Deck = WithAuth(props => {
 															"10px 10px 10px 10px",
 														width: "10rem",
 														height: "15rem"
-													}}
-													onClick={() => {
-														setEditID(cards.id)
-														toggleEditing(true)
 													}}>
-													<Card.Body>
-														<Card.Subtitle className="mb-2 text-muted">
-															Front
+													<Card.Body
+														onClick={() => {
+															setEditID(cards.id)
+															toggleEditing(true)
+														}}
+														style={{
+															padding:
+																"10px 5px 10px 5px"
+														}}>
+														<Card.Subtitle className="mb-2 text-right">
+															<span
+																style={{
+																	margin: 5,
+																	color: "red"
+																}}
+																onClick={e => {
+																	e.stopPropagation()
+
+																	if (
+																		confirm(
+																			"Are you sure you want to delete this Card?"
+																		)
+																	) {
+																		_removeCard(
+																			cards.id
+																		)
+																		toggleRemove(
+																			true
+																		)
+																	}
+																}}>
+																x
+															</span>
 														</Card.Subtitle>
 														<Card.Text>
 															{cards.front}

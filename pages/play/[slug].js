@@ -15,6 +15,7 @@ const Play = WithAuth(props => {
 	const [current, goNext] = useState(0)
 	const [userInput, pushInput] = useState([])
 	const [done, toggleDone] = useState(false)
+	const [roundResult, editResult] = useState([])
 
 	useEffect(() => {
 		async function fetchData() {
@@ -32,7 +33,7 @@ const Play = WithAuth(props => {
 		}
 
 		fetchData()
-	})
+	}, [props.slug, props.user.displayName])
 
 	function _restart() {
 		setShuffled(cards => Shuffle(cards))
@@ -41,7 +42,12 @@ const Play = WithAuth(props => {
 		toggleDone(false)
 	}
 
-	console.log(props)
+	function _verifyResult() {
+		return userInput.map((input, index) => {
+			return (input === shuffled[index].back && "true") || "false"
+		})
+	}
+
 	return (
 		<Container style={{ marginTop: 200 }}>
 			{!fetched ? (
@@ -55,6 +61,7 @@ const Play = WithAuth(props => {
 								max={shuffled.length}
 								current={current + 1}
 								userInput={userInput}
+								verify={_verifyResult}
 								data={shuffled[current]}></PlayViewer>
 							<PlayControl
 								restart={_restart}
