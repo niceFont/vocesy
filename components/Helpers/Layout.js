@@ -1,10 +1,8 @@
-import {
-	Nav,
+import {Nav,
 	NavDropdown,
 	Navbar,
 	Container,
-	NavbarBrand
-} from "react-bootstrap"
+	NavbarBrand} from "react-bootstrap"
 import Link from "next/link"
 
 export const Layout = props => {
@@ -22,7 +20,9 @@ export const Layout = props => {
 				<NavbarBrand>
 					<Link href="/">
 						<img
-							style={{ width: 120, height: 40 }}
+							style={{
+								width: 120, height: 40 
+							}}
 							src="/static/logo.png"
 						/>
 					</Link>
@@ -51,9 +51,7 @@ export const Layout = props => {
 								title={props.user.displayName}
 								id="nav-dropdown">
 								<Link
-									href={`/user/${encodeURI(
-										props.user.displayName
-									)}`}>
+									href={`/user/${encodeURI(props.user.displayName)}`}>
 									<NavDropdown.Item as="a">
 										Profile
 									</NavDropdown.Item>
@@ -61,7 +59,9 @@ export const Layout = props => {
 
 								<Link href="/logout">
 									<NavDropdown.Item
-										style={{ color: "#e84646" }}
+										style={{
+											color: "#e84646" 
+										}}
 										as="a">
 										Log Out
 									</NavDropdown.Item>

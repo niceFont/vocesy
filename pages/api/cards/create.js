@@ -5,10 +5,10 @@ const escape = require("sql-template-strings")
 module.exports = async function(req, res) {
 	if (req.method === "POST") {
 		try {
-			let { front, back, deck_id } = JSON.parse(req.body)
+			let { front, back, deckId } = JSON.parse(req.body)
 			console.log(req.body)
 			let response = await db.query(escape`
-        INSERT INTO cards(front, back, deck_id) VALUES(${front}, ${back}, ${deck_id});
+        INSERT INTO cards(front, back, deck_id) VALUES(${front}, ${back}, ${deckId});
         `)
 
 			res.status(200).send(JSON.stringify(response))

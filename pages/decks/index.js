@@ -22,7 +22,9 @@ const Decks = WithAuth(({ user }) => {
 	}, [user.displayName])
 
 	return (
-		<Container style={{ marginTop: 200 }}>
+		<Container style={{
+			marginTop: 200 
+		}}>
 			<Row className="justify-content-center">
 				<Col className="text-center" md="6" lg="3">
 					<h5
@@ -41,7 +43,9 @@ const Decks = WithAuth(({ user }) => {
 					decks.map((deck, i) => {
 						return (
 							<Card
-								style={{ margin: 30, width: "18rem" }}
+								style={{
+									margin: 30, width: "18rem" 
+								}}
 								key={i}>
 								<Link href={`/decks/${deck.slug}`}>
 									<a>

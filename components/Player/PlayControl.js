@@ -5,7 +5,9 @@ export const PlayControl = props => {
 	const [userValue, setUserValue] = useState("")
 
 	return (
-		<Container style={{ margin: "50px 0 100px 0px" }}>
+		<Container style={{
+			margin: "50px 0 100px 0px" 
+		}}>
 			<Row className="justify-content-center">
 				{props.done ? (
 					<Col md="4">
@@ -19,7 +21,9 @@ export const PlayControl = props => {
 							<Col md="8">
 								<Form.Control
 									placeholder="Enter your Answer..."
-									style={{ resize: "none" }}
+									style={{
+										resize: "none" 
+									}}
 									as="textarea"
 									onKeyPress={({ key, target }) => {
 										if (key === "Enter") {

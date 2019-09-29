@@ -1,12 +1,10 @@
-import {
-	Modal,
+import {Modal,
 	Alert,
 	Card,
 	Button,
 	Row,
 	Col,
-	ButtonGroup
-} from "react-bootstrap"
+	ButtonGroup} from "react-bootstrap"
 import React, { useState } from "react"
 import fetch from "isomorphic-fetch"
 
@@ -25,7 +23,7 @@ export const CreateCard = props => {
 				body: JSON.stringify({
 					front,
 					back,
-					deck_id: props.data.deck_id
+					deckId: props.data.deck_id
 				})
 			})
 				.then(res => {
@@ -58,7 +56,9 @@ export const CreateCard = props => {
 					</Row>
 				)}
 				<Row
-					style={{ margin: "0 0 20px 0" }}
+					style={{
+						margin: "0 0 20px 0" 
+					}}
 					className="justify-content-center">
 					<ButtonGroup>
 						<Button
@@ -82,12 +82,16 @@ export const CreateCard = props => {
 					</ButtonGroup>
 				</Row>
 				<Row
-					style={{ marginBottom: 30 }}
+					style={{
+						marginBottom: 30 
+					}}
 					className="justify-content-center">
 					<Col className="text-center">
 						<Card
 							className="mx-auto"
-							style={{ width: "18rem", height: "25rem" }}>
+							style={{
+								width: "18rem", height: "25rem" 
+							}}>
 							<Card.Body
 								style={{
 									display: "flex",

@@ -1,12 +1,10 @@
-import {
-	Modal,
+import {Modal,
 	Alert,
 	Row,
 	Col,
 	ButtonGroup,
 	Button,
-	Card
-} from "react-bootstrap"
+	Card} from "react-bootstrap"
 import React, { useState } from "react"
 
 export const EditCard = props => {
@@ -21,7 +19,9 @@ export const EditCard = props => {
 			setError(null)
 			await fetch("/api/cards/edit", {
 				method: "POST",
-				body: JSON.stringify({ front, back, id: props.data.id })
+				body: JSON.stringify({
+					front, back, id: props.data.id 
+				})
 			})
 				.then(res => {
 					res.json()
@@ -53,7 +53,9 @@ export const EditCard = props => {
 					</Row>
 				)}
 				<Row
-					style={{ margin: "0 0 20px 0" }}
+					style={{
+						margin: "0 0 20px 0" 
+					}}
 					className="justify-content-center">
 					<ButtonGroup>
 						<Button
@@ -77,12 +79,16 @@ export const EditCard = props => {
 					</ButtonGroup>
 				</Row>
 				<Row
-					style={{ marginBottom: 30 }}
+					style={{
+						marginBottom: 30 
+					}}
 					className="justify-content-center">
 					<Col className="text-center">
 						<Card
 							className="mx-auto"
-							style={{ width: "18rem", height: "25rem" }}>
+							style={{
+								width: "18rem", height: "25rem" 
+							}}>
 							<Card.Body
 								style={{
 									display: "flex",

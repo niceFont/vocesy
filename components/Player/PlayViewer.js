@@ -25,7 +25,9 @@ export const PlayViewer = props => {
 			) : (
 				<Row className="justify-content-center">
 					<Col md="6">
-						<Card style={{ height: "25rem" }}>
+						<Card style={{
+							height: "25rem" 
+						}}>
 							<Card.Header>
 								<Card.Subtitle>Front</Card.Subtitle>
 							</Card.Header>

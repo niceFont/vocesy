@@ -19,9 +19,7 @@ const Play = WithAuth(props => {
 
 	useEffect(() => {
 		async function fetchData() {
-			let response = await fetch(
-				`/api/decks?user=${props.user.displayName}&slug=${props.slug}`
-			)
+			let response = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
 				.then(res => res.json())
 				.catch(err => console.error(err))
 
@@ -49,7 +47,9 @@ const Play = WithAuth(props => {
 	}
 
 	return (
-		<Container style={{ marginTop: 200 }}>
+		<Container style={{
+			marginTop: 200 
+		}}>
 			{!fetched ? (
 				<Loading fetched={fetched}></Loading>
 			) : (
@@ -87,9 +87,13 @@ Play.getInitialProps = async function(ctx) {
 	let settings = ctx.req.query
 
 	if (!settings) {
-		settings = { userValidation: "false" }
+		settings = {
+			userValidation: "false" 
+		}
 	}
-	return { slug, settings }
+	return {
+		slug, settings 
+	}
 }
 
 export default Play

@@ -16,13 +16,13 @@ const Deck = WithAuth(props => {
 	const [editing, toggleEditing] = useState(false)
 	const [removing, toggleRemove] = useState(false)
 	const [setting, toggleSetting] = useState(false)
-	const [settings, changeSettings] = useState({ userValidation: false })
+	const [settings, changeSettings] = useState({
+		userValidation: false 
+	})
 	const [editID, setEditID] = useState()
 	useEffect(() => {
 		const fetchData = async () => {
-			let res = await fetch(
-				`/api/decks?user=${props.user.displayName}&slug=${props.slug}`
-			)
+			let res = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
 				.then(res => res.json())
 				.catch(err => console.error(err))
 			if (typeof res !== "undefined") {
@@ -40,7 +40,9 @@ const Deck = WithAuth(props => {
 		try {
 			await fetch("/api/cards/remove", {
 				method: "DELETE",
-				body: JSON.stringify({ id })
+				body: JSON.stringify({
+					id 
+				})
 			})
 				.then(res => {
 					res.json()
@@ -52,12 +54,15 @@ const Deck = WithAuth(props => {
 		}
 	}
 	return (
-		<Container style={{ marginTop: 200 }}>
+		<Container style={{
+			marginTop: 200 
+		}}>
 			{fetched ? (
 				<div>
-					{" "}
 					{exists ? (
-						<Container style={{ marginBottom: 100 }}>
+						<Container style={{
+							marginBottom: 100 
+						}}>
 							<Container
 								style={{
 									padding: 5,
@@ -65,7 +70,9 @@ const Deck = WithAuth(props => {
 								}}>
 								<Row
 									className="justify-content-between"
-									style={{ padding: 5 }}>
+									style={{
+										padding: 5 
+									}}>
 									<Col className="my-auto">
 										<h6
 											className="text-capitalize"
@@ -80,7 +87,9 @@ const Deck = WithAuth(props => {
 										<Link
 											href={`/play/${props.slug}?uv=${settings.userValidation}`}>
 											<Button
-												style={{ fontWeight: "bold" }}
+												style={{
+													fontWeight: "bold" 
+												}}
 												disabled={!data[0].front}
 												block
 												variant="outline-success"
@@ -93,14 +102,18 @@ const Deck = WithAuth(props => {
 										<Button
 											variant="light"
 											size="sm"
-											style={{ margin: "0 5px 0 0" }}
+											style={{
+												margin: "0 5px 0 0" 
+											}}
 											onClick={() => toggleAdding(true)}>
 											Add
 										</Button>
 										<Button
 											variant="light"
 											size="sm"
-											style={{ margin: "0 50px 0 0" }}
+											style={{
+												margin: "0 50px 0 0" 
+											}}
 											onClick={() =>
 												toggleSetting(s => !s)
 											}>
@@ -111,7 +124,9 @@ const Deck = WithAuth(props => {
 								{setting && (
 									<Row>
 										<Col
-											style={{ margin: "20px 0 20px 0" }}>
+											style={{
+												margin: "20px 0 20px 0" 
+											}}>
 											<div className="text-center custom-control custom-switch">
 												<input
 													type="checkbox"
@@ -119,13 +134,11 @@ const Deck = WithAuth(props => {
 													id="customSwitches"
 													readOnly
 													onChange={() => {
-														changeSettings(
-															settings =>
-																Object.assign({
-																	...settings,
-																	userValidation: !settings.userValidation
-																})
-														)
+														changeSettings(settings =>
+															Object.assign({
+																...settings,
+																userValidation: !settings.userValidation
+															}))
 													}}
 												/>
 												<label
@@ -139,61 +152,60 @@ const Deck = WithAuth(props => {
 								)}
 							</Container>
 							<Row
-								style={{ margin: "20px 0 20px 0" }}
+								style={{
+									margin: "20px 0 20px 0",
+									overflowY: "auto",
+									height: 400
+								}}
 								className="justify-content-center">
 								{data[0].front
 									? data.map(cards => {
-											return (
-												<Card
-													key={cards.id}
-													style={{
-														cursor: "pointer",
-														margin:
+										return (
+											<Card
+												key={cards.id}
+												style={{
+													cursor: "pointer",
+													margin:
 															"10px 10px 10px 10px",
-														width: "10rem",
-														height: "15rem"
-													}}>
-													<Card.Body
-														onClick={() => {
-															setEditID(cards.id)
-															toggleEditing(true)
-														}}
-														style={{
-															padding:
-																"10px 5px 10px 5px"
-														}}>
-														<Card.Subtitle className="mb-2 text-right">
+													width: "15rem",
+													height: "20rem"
+												}}>
+												<Container>
+													<Row>
+														<Col style={{
+															padding: "0 3px 0 3px"
+														}} className="text-right">
 															<span
 																style={{
 																	margin: 5,
-																	color: "red"
+																	color: "#b0041d"
 																}}
 																onClick={e => {
 																	e.stopPropagation()
-
-																	if (
-																		confirm(
-																			"Are you sure you want to delete this Card?"
-																		)
-																	) {
-																		_removeCard(
-																			cards.id
-																		)
-																		toggleRemove(
-																			true
-																		)
+																	if (confirm("Are you sure you want to delete this Card?")) {
+																		_removeCard(cards.id)
+																		toggleRemove(true)
 																	}
-																}}>
-																x
-															</span>
-														</Card.Subtitle>
-														<Card.Text>
-															{cards.front}
-														</Card.Text>
-													</Card.Body>
-												</Card>
-											)
-									  })
+																}}> x </span>
+														</Col>
+													</Row>
+												</Container>
+												<Card.Body
+													onClick={() => {
+														setEditID(cards.id)
+														toggleEditing(true)
+													}}
+													className="align-middle"
+													style={{
+														padding: "10px 5px 10px 5px"
+													}}>
+													<Card.Text className="text-center">
+														{cards.front}
+													</Card.Text>
+												</Card.Body>
+											</Card>
+										)
+									})
 									: "No Cards yet :("}
 							</Row>
 							<Row
@@ -214,9 +226,7 @@ const Deck = WithAuth(props => {
 									show={editing}
 									toggleShow={toggleEditing}
 									data={
-										data.filter(
-											card => card.id === editID
-										)[0]
+										data.filter(card => card.id === editID)[0]
 									}></EditCard>
 							)}
 						</Container>
@@ -235,5 +245,7 @@ export default Deck
 
 Deck.getInitialProps = async function(ctx) {
 	let slug = ctx.req.params[0].replace(/\/decks\//gi, "")
-	return { slug }
+	return {
+		slug 
+	}
 }

@@ -13,7 +13,9 @@ const Index = () => {
 				backgroundPosition: "center"
 			}}>
 			<Container>
-				<Row style={{ marginTop: 250 }}>
+				<Row style={{
+					marginTop: 250 
+				}}>
 					<Col sm="12" md="10" lg="8">
 						<Jumbotron
 							style={{

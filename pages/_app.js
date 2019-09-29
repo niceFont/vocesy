@@ -10,7 +10,8 @@ class MyApp extends App {
 	// be server-side rendered.
 	//
 	static async getInitialProps({ ctx, Component }) {
-		let pageProps = {}
+		let pageProps = {
+		}
 
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx)
@@ -19,7 +20,9 @@ class MyApp extends App {
 			pageProps.user = ctx.req.session.passport.user
 		}
 
-		return { pageProps }
+		return {
+			pageProps 
+		}
 	}
 
 	constructor(props) {
