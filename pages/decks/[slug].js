@@ -27,7 +27,6 @@ const Deck = WithAuth(props => {
 				.catch(err => console.error(err))
 			if (typeof res !== "undefined") {
 				setExists(true)
-				console.log("fetched")
 				setData(res)
 			}
 			setFetched(true)

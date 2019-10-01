@@ -28,8 +28,9 @@ export const EditCard = props => {
 					props.toggleShow(false)
 				})
 				.catch(err => console.error(err))
+		} else {
+			setError("Front or Back can not be empty.")
 		}
-		setError("Front or Back can not be empty.")
 	}
 	return (
 		<Modal

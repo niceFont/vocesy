@@ -2,17 +2,22 @@
 
 const db = require("../../../lib/db")
 const escape = require("sql-template-strings")
+const {CheckForValues} = require("../../../lib/utils")
 
 module.exports = async (req, res) => {
 	if (req.method === "POST") {
 		try {
 			const { front, back, id } = JSON.parse(req.body)
+			CheckForValues([front,back,id])
 			let response = await db.query(escape`
             UPDATE cards SET front = ${front}, back = ${back} WHERE id = ${id};
             `)
-			res.status(200).send(JSON.stringify(response))
+			res.status(200).json(response)
 		} catch (err) {
-			res.status(400).send(err)
+			if (err instanceof TypeError) res.status(400).send(err.message)
+			else res.status(500).send(err)
 		}
+	} else {
+		res.status(400).send("Request Method " + req.method + " is not allowed." )
 	}
 }

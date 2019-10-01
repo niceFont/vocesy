@@ -27,7 +27,7 @@ export const CreateCard = props => {
 				})
 			})
 				.then(res => {
-					console.log(res.json())
+					res.json()
 					props.toggleShow(false)
 				})
 				.catch(err => console.error(err))
@@ -45,8 +45,8 @@ export const CreateCard = props => {
 			dialogClassName="modal-90w">
 			<Modal.Header closeButton>
 				<Modal.Title>
-					Add a new Card to{" "}
-					<b className="text-capitalize">{props.data.title} </b>
+					Add a new Card to 
+					<b className="text-capitalize">{" " + props.data.title} </b>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>

@@ -5,7 +5,7 @@ import { WithAuth } from "../../components/Auth/WithAuth"
 import fetch from "isomorphic-fetch"
 import { Loading } from "../../components/Helpers/Loading"
 import { NotFound } from "../../components/Helpers/NotFound"
-import Shuffle from "../../lib/shuffle"
+import {Shuffle} from "../../lib/utils"
 import { PlayControl } from "../../components/Player/PlayControl"
 
 const Play = WithAuth(props => {
@@ -15,7 +15,6 @@ const Play = WithAuth(props => {
 	const [current, goNext] = useState(0)
 	const [userInput, pushInput] = useState([])
 	const [done, toggleDone] = useState(false)
-	const [roundResult, editResult] = useState([])
 
 	useEffect(() => {
 		async function fetchData() {
