@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 	if (req.method === "GET") {
 		try {
 			const { user, slug } = req.query
-			CheckForValues([user, slug])
+			CheckForValues([user])
 			
 			let queryString
 

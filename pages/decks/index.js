@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
-import { Row, Button, Container, Card, Col } from "react-bootstrap"
+import { Row, Button, Container, Card, Col, ButtonGroup } from "react-bootstrap"
+import { WithAuth } from "../../components/Auth/WithAuth"
 import Link from "next/link"
 import fetch from "isomorphic-fetch"
-import { WithAuth } from "../../components/Auth/WithAuth"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faTrash, faCog} from "@fortawesome/free-solid-svg-icons"
 
 const Decks = WithAuth(({ user }) => {
 	const [decks, setDecks] = useState()
@@ -47,23 +49,26 @@ const Decks = WithAuth(({ user }) => {
 									margin: 30, width: "18rem" 
 								}}
 								key={i}>
+								<Card.Header style={{
+									background: "black"
+								}} className="text-right">
+									<ButtonGroup>
+
+										<Button variant="outline-light" size="sm"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon></Button>
+										<Button variant="outline-danger" size="sm"><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></Button>
+									</ButtonGroup>
+								</Card.Header>
 								<Link href={`/decks/${deck.slug}`}>
-									<a>
-										<Card.Img
-											variant="top"
-											src="https://via.placeholder.com/450"
-										/>
-									</a>
-								</Link>
-								<Card.Body>
-									<Card.Title>
-										{deck.title[0].toUpperCase() +
+									<Card.Body>
+										<Card.Title>
+											{deck.title[0].toUpperCase() +
 											deck.title.slice(1)}
-									</Card.Title>
-									<Button size="sm" variant="light" disabled>
-										{deck.privacy ? "Private" : "Public"}
-									</Button>
-								</Card.Body>
+										</Card.Title>
+										<Button size="sm" variant="light" disabled>
+											{deck.privacy ? "Private" : "Public"}
+										</Button>
+									</Card.Body>
+								</Link>
 							</Card>
 						)
 					})}
