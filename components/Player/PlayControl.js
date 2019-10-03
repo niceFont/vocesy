@@ -25,10 +25,10 @@ export const PlayControl = props => {
 										resize: "none" 
 									}}
 									as="textarea"
-									onKeyPress={({ key, target }) => {
-										if (key === "Enter") {
-											target.value = ""
-											target.blur()
+									onKeyPress={(e) => {
+										if (e.key === "Enter" || e.keyCode === 13) {
+											e.preventDefault()
+											e.target.value = "".replace(/(\r\n|\n|\r)/gm, "")
 											if (
 												props.current + 1 ===
 												props.max
@@ -42,6 +42,7 @@ export const PlayControl = props => {
 												userValue
 											])
 											setUserValue("")
+											return false
 										}
 									}}
 									onChange={({ target }) =>

@@ -3,38 +3,46 @@ import { useState } from "react"
 import fetch from "isomorphic-fetch"
 
 export const CreateDeck = props => {
-	console.log(props)
 	const [privacy, setPrivacy] = useState(0)
 	const [title, setTitle] = useState(null)
 
 	const _handleSubmit = async () => {
 		if (title) {
-			let res = await fetch("/api/decks/create", {
-				method: "POST",
-				body: JSON.stringify({
-					title,
-					privacy,
-					user: props.user.displayName
-				})
-			})
+			try {
 
-			if (res.status === 200) {
-				window.location.replace("http://localhost:3000/decks")
+				let res = await fetch("/api/decks/create", {
+					method: "POST",
+					body: JSON.stringify({
+						title,
+						privacy,
+						user: props.user.displayName
+					})
+				})
+	
+				if (res.status === 200) {
+					window.location.replace("http://localhost:3000/decks")
+				}
+				return
+			} catch (err) {
+				console.error(err)
 			}
-			return
 		}
 	}
 
 	return (
-		<Row className="justify-content-md-center">
-			<Col lg="6">
+		<Row style={{
+			margin: "20px 0 0 0",
+			border: "1px solid black",
+			padding: "80px 0 80px 0",
+		}} className="justify-content-md-center">
+			<Col md="6" lg="6">
 				<Form
 					onSubmit={e => {
 						e.preventDefault()
 						_handleSubmit()
 					}}>
 					<Form.Group>
-						<Form.Label>Deck Title:</Form.Label>
+						<Form.Label>Title:</Form.Label>
 						<Form.Control
 							lg="2"
 							type="text"
@@ -42,7 +50,9 @@ export const CreateDeck = props => {
 						/>
 					</Form.Group>
 
-					<Form.Group>
+					<Form.Group style={{
+						margin: "10px 0 40px 0"
+					}}>
 						<ButtonGroup>
 							<Button
 								variant={!privacy ? "primary" : "secondary"}
@@ -59,7 +69,7 @@ export const CreateDeck = props => {
 						</ButtonGroup>
 					</Form.Group>
 					<Form.Group>
-						<Form.Control type="submit" />
+						<Button variant="dark" type="submit" block>Submit</Button>
 					</Form.Group>
 				</Form>
 			</Col>

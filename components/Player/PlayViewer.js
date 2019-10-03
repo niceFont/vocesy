@@ -1,6 +1,15 @@
-import { Container, Row, Col, Card, Button, ButtonGroup } from "react-bootstrap"
+import { Container, Row, Col, Card, Table } from "react-bootstrap"
 
 export const PlayViewer = props => {
+
+	function _setDiffs(diffs) {
+
+		return {
+			__html: diffs.inputDiff + "<span style='color: red'>" + diffs.lengthDiff.join("") + "</span>"
+		}
+	}
+
+
 	return (
 		<Container>
 			<Row
@@ -9,17 +18,40 @@ export const PlayViewer = props => {
 				}}
 				className="justify-content-center">
 				<Col md="2" className="text-center">
-					<span>{props.current + "/" + props.max}</span>
+					{!props.done ? 
+						<span>{props.current + "/" + props.max}</span>
+						:
+						<span>Done</span>
+					}
 				</Col>
 			</Row>
 			{props.done ? (
 				<Row>
 					<Col className="text-center">
-						<ul>
-							{props.verify().map((input, index) => {
-								return <li key={index}>{input}</li>
-							})}
-						</ul>
+						<Table>
+							<thead>
+								<tr>
+									<th>Number</th>
+									<th>Result</th>
+									<th>Answer</th>
+									<th>Diffs</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{props.verify().map((result, index) => {
+									console.log(result)
+									return (
+										<tr key={index}>
+											<td>{index + 1}</td>
+											<td>{result.result ? "Right" : "Wrong"}</td>
+											<td>{result.answer}</td>
+											<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
+										</tr>
+									)
+								})}
+							</tbody>
+						</Table>
 					</Col>
 				</Row>
 			) : (

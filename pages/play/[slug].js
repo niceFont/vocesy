@@ -7,6 +7,7 @@ import { Loading } from "../../components/Helpers/Loading"
 import { NotFound } from "../../components/Helpers/NotFound"
 import {Shuffle} from "../../lib/utils"
 import { PlayControl } from "../../components/Player/PlayControl"
+import {CheckResult, ReturnDiffs} from "../../lib/utils"
 
 const Play = WithAuth(props => {
 	const [data, setData] = useState([])
@@ -41,7 +42,13 @@ const Play = WithAuth(props => {
 
 	function _verifyResult() {
 		return userInput.map((input, index) => {
-			return (input === shuffled[index].back && "true") || "false"
+
+			return {
+				result: CheckResult(input, shuffled[index].back),
+				answer: shuffled[index].back,
+				diffs: ReturnDiffs(input, shuffled[index].back)
+			}
+
 		})
 	}
 

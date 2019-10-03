@@ -1,7 +1,6 @@
 import {Nav,
 	NavDropdown,
 	Navbar,
-	Container,
 	NavbarBrand} from "react-bootstrap"
 import Link from "next/link"
 
@@ -28,7 +27,7 @@ export const Layout = props => {
 					</Link>
 				</NavbarBrand>
 				<Nav>
-					<Link href="/new">
+					<Link href="/decks/create">
 						<Nav.Link as="a">Create</Nav.Link>
 					</Link>
 					<Nav.Item>

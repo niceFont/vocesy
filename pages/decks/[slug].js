@@ -7,6 +7,8 @@ import { Container, Card, Button, Row, Col } from "react-bootstrap"
 import { CreateCard } from "../../components/Cards/CreateCard"
 import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
+import {faTrash} from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 const Deck = WithAuth(props => {
 	const [exists, setExists] = useState(false)
@@ -172,12 +174,11 @@ const Deck = WithAuth(props => {
 												<Container>
 													<Row>
 														<Col style={{
-															padding: "0 3px 0 3px"
+															padding: "7px 3px 0 3px"
 														}} className="text-right">
 															<span
 																style={{
-																	margin: 5,
-																	color: "#b0041d"
+																	margin: 10
 																}}
 																onClick={e => {
 																	e.stopPropagation()
@@ -185,7 +186,7 @@ const Deck = WithAuth(props => {
 																		_removeCard(cards.id)
 																		toggleRemove(true)
 																	}
-																}}> x </span>
+																}}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></span>
 														</Col>
 													</Row>
 												</Container>

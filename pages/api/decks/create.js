@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
     if (req.method === "POST") {
         try {
             const {title, privacy, user} = JSON.parse(req.body)
+            console.log(req.body)
             CheckForValues([title, privacy, user])
             let slug = uuid.v4().slice(0, 5)
             let deck = await db.query(escape`

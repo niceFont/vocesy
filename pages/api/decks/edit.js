@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     
     if (req.method === "POST") {
         const {deckId, privacy, title } = JSON.parse(req.body)
-        CheckForValues(deckId, privacy, title)
+        CheckForValues([deckId, privacy, title])
         try {
             let response = await db.query(escape`
                 UPDATE decks SET title = ${title}, privacy = ${privacy} WHERE deck_id = ${deckId}; 
