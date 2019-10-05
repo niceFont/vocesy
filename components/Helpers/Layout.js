@@ -46,26 +46,33 @@ export const Layout = props => {
 							</Nav.Item>
 						)}
 						{props.user && (
-							<NavDropdown
-								title={props.user.displayName}
-								id="nav-dropdown">
-								<Link
-									href={`/user/${encodeURI(props.user.displayName)}`}>
-									<NavDropdown.Item as="a">
+							<div style={{
+								display: "flex", flexDirection: "row"
+							}}>
+								<img style={{
+									width: 30, height: 30, borderRadius: "100%", margin: "5px 0 5px 0"
+								}} src={props.user.picture}></img>
+								<NavDropdown
+									title={props.user.displayName}
+									id="nav-dropdown">
+									<Link
+										href={`/user/${encodeURI(props.user.displayName.split(" ").join("").toLowerCase())}`}>
+										<NavDropdown.Item as="a">
 										Profile
-									</NavDropdown.Item>
-								</Link>
+										</NavDropdown.Item>
+									</Link>
 
-								<Link href="/logout">
-									<NavDropdown.Item
-										style={{
-											color: "#e84646" 
-										}}
-										as="a">
+									<Link href="/logout">
+										<NavDropdown.Item
+											style={{
+												color: "#e84646" 
+											}}
+											as="a">
 										Log Out
-									</NavDropdown.Item>
-								</Link>
-							</NavDropdown>
+										</NavDropdown.Item>
+									</Link>
+								</NavDropdown>
+							</div>
 						)}
 					</Nav>
 				</Navbar.Collapse>

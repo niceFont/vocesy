@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import { PlayViewer } from "../../components/Player/PlayViewer"
 import React, { useEffect, useState } from "react"
 import { WithAuth } from "../../components/Auth/WithAuth"
@@ -43,10 +43,19 @@ const Play = WithAuth(props => {
 	function _verifyResult() {
 		return userInput.map((input, index) => {
 
-			return {
-				result: CheckResult(input, shuffled[index].back),
-				answer: shuffled[index].back,
-				diffs: ReturnDiffs(input, shuffled[index].back)
+			if (props.settings.uv === "false") {
+				
+				return {
+					result: CheckResult(input, shuffled[index].back),
+					answer: shuffled[index].back,
+					diffs: ReturnDiffs(input, shuffled[index].back)
+				}
+			} else {
+				return {
+					result: input,
+					answer: shuffled[index].back,
+					diffs: null
+				}
 			}
 
 		})
@@ -68,6 +77,7 @@ const Play = WithAuth(props => {
 								current={current + 1}
 								userInput={userInput}
 								verify={_verifyResult}
+								settings={props.settings}
 								data={shuffled[current]}></PlayViewer>
 							<PlayControl
 								restart={_restart}

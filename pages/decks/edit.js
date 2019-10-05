@@ -10,9 +10,8 @@ const Edit = (props) => {
 			<h5 style={{
 				textAlign: "center",
 				padding: 5,
-				background: "black",
-				color: "white"
-			}}>Edit your Deck</h5>
+				fontWeight: 600
+			}}>Edit your deck</h5>
 			<EditDeck slug={props.slug} user={props.user}></EditDeck>
 		</Container>
 	)

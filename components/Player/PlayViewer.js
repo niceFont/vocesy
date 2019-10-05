@@ -1,5 +1,7 @@
 import { Container, Row, Col, Card, Table } from "react-bootstrap"
-
+import { PlayCard } from "./PlayCard"
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 export const PlayViewer = props => {
 
 	function _setDiffs(diffs) {
@@ -34,7 +36,9 @@ export const PlayViewer = props => {
 									<th>Number</th>
 									<th>Result</th>
 									<th>Answer</th>
+									{props.settings.uv === "false" &&
 									<th>Diffs</th>
+									}
 								</tr>
 							</thead>
 							<tbody>
@@ -46,7 +50,9 @@ export const PlayViewer = props => {
 											<td>{index + 1}</td>
 											<td>{result.result ? "Right" : "Wrong"}</td>
 											<td>{result.answer}</td>
+											{props.settings.uv === "false" &&
 											<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
+											}
 										</tr>
 									)
 								})}
@@ -57,16 +63,25 @@ export const PlayViewer = props => {
 			) : (
 				<Row className="justify-content-center">
 					<Col md="6">
-						<Card style={{
-							height: "25rem" 
-						}}>
-							<Card.Header>
-								<Card.Subtitle>Front</Card.Subtitle>
-							</Card.Header>
-							<Card.Body>
-								<Card.Text>{props.data.front}</Card.Text>
-							</Card.Body>
-						</Card>
+						{props.settings.uv === "false" ?
+							<Card style={{
+								height: "25em"
+							}}>
+								<Card.Header>Front</Card.Header>
+								<Card.Body>
+									<Card.Text>
+										{props.data.front}
+									</Card.Text>
+								</Card.Body>
+							</Card>
+							:
+							<div className="text-center">
+								<span style={{
+									color: "gray"
+								}} ><FontAwesomeIcon icon={faInfoCircle} ></FontAwesomeIcon> Click the Card to see if you're right!</span>	
+								<PlayCard data={props.data}></PlayCard>
+							</div>
+						}
 					</Col>
 				</Row>
 			)}

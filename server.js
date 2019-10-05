@@ -12,52 +12,62 @@ const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== "production"
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const strategy = new Auth0Strategy(
-	{
-		clientID: process.env.AUTH0_CLIENT_ID,
-		domain: process.env.AUTH0_DOMAIN,
-		clientSecret: process.env.AUTH0_CLIENT_SECRET,
-		callbackURL:
-			process.env.CALLBACK_URL || "http://localhost:3000/callback"
-	},
-	function(accessToken, refreshToken, extraParams, profile, done) {
-		return done(null, profile)
-	}
-)
 
-passport.use(strategy)
-passport.serializeUser(function(user, done) {
-	done(null, user)
-})
-
-passport.deserializeUser(function(user, done) {
-	done(null, user)
-})
-
-const sess = {
-	secret: process.env.SECRET,
-	cookie: {
-		maxAge: 3600 * 24
-	},
-	resave: false,
-	saveUninitialized: true
-}
-
-if (process.env.NODE_ENV === "production") {
-	sess.cookie.secure = true
-}
-
-function isAuth(req, res, next) {
-	if (req.isAuthenticated()) return next()
-	res.redirect("/login")
-}
 
 app.prepare().then(() => {
 	const server = express()
-
+	const sess = {
+		secret: process.env.SECRET,
+		cookie: {
+			maxAge: 86400 * 1000
+		},
+		resave: false,
+		saveUninitialized: true
+	}
+	
+	if (process.env.NODE_ENV === "production") {
+		sess.cookie.secure = true
+	}
 	server.use(session(sess))
-	server.use(passport.initialize())
-	server.use(passport.session())
+	
+	const strategy = new Auth0Strategy(
+		{
+			clientID: process.env.AUTH0_CLIENT_ID,
+			domain: process.env.AUTH0_DOMAIN,
+			clientSecret: process.env.AUTH0_CLIENT_SECRET,
+			callbackURL:
+			process.env.CALLBACK_URL || "http://localhost:3000/callback"
+		},
+		function(accessToken, refreshToken, extraParams, profile, done) {
+			return done(null, profile, accessToken)
+		}
+		)
+		
+		passport.use(strategy)
+		passport.serializeUser(function(user, done) {
+			done(null, user)
+		})
+		
+		passport.deserializeUser(function(user, done) {
+			done(null, user)
+		})
+		
+		server.use(passport.initialize())
+		server.use(passport.session())
+		
+		function isAuth(req, res, next) {
+			if (req.isAuthenticated()) return next()
+			res.redirect("/login")
+		}
+		
+		function apiAuth(req, res, next) {
+			if (req.isAuthenticated()) return next()
+			res.send(401)
+		} 
+
+	
+
+
 	server.get("/", (req, res) => {
 		return app.render(req, res, "/", req.query)
 	})
@@ -89,6 +99,7 @@ app.prepare().then(() => {
 	server.use("/decks/:slug", isAuth)
 	server.use("/new", isAuth)
 	server.use("/play/:slug", isAuth)
+	server.use("/api", apiAuth)
 	server.get("*", (req, res) => {
 		return handle(req, res)
 	})

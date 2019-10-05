@@ -44,13 +44,14 @@ const Decks = WithAuth(({ user }) => {
 			marginTop: 200 
 		}}>
 			<Row className="justify-content-center">
-				<Col className="text-center" md="6" lg="3">
+				<Col className="text-center" md="10" lg="3">
 					<h5
 						style={{
-							borderBottom: "1px solid black",
-							paddingBottom: 30,
+							borderBottom: "1px solid lightgray",
+							paddingBottom: 20,
 							marginBottom: 40,
-							textAlign: "center"
+							textAlign: "center",
+							fontWeight: 600
 						}}>
 						Decks
 					</h5>

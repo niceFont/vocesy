@@ -9,6 +9,8 @@ import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
 import {faTrash} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import { useSpring, animated } from "react-spring"
+import {AnimatedCard} from "../../components/Cards/AnimatedCard"
 
 const Deck = WithAuth(props => {
 	const [exists, setExists] = useState(false)
@@ -21,6 +23,10 @@ const Deck = WithAuth(props => {
 	const [settings, changeSettings] = useState({
 		userValidation: false 
 	})
+	const [animationProps, set] = useSpring(() => ({
+		s: 1
+	})) 
+
 	const [editID, setEditID] = useState()
 	useEffect(() => {
 		const fetchData = async () => {
@@ -162,48 +168,7 @@ const Deck = WithAuth(props => {
 								{data[0].front
 									? data.map(cards => {
 										return (
-											<Card
-												key={cards.id}
-												style={{
-													cursor: "pointer",
-													margin:
-															"10px 10px 10px 10px",
-													width: "15rem",
-													height: "20rem"
-												}}>
-												<Container>
-													<Row>
-														<Col style={{
-															padding: "7px 3px 0 3px"
-														}} className="text-right">
-															<span
-																style={{
-																	margin: 10
-																}}
-																onClick={e => {
-																	e.stopPropagation()
-																	if (confirm("Are you sure you want to delete this Card?")) {
-																		_removeCard(cards.id)
-																		toggleRemove(true)
-																	}
-																}}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></span>
-														</Col>
-													</Row>
-												</Container>
-												<Card.Body
-													onClick={() => {
-														setEditID(cards.id)
-														toggleEditing(true)
-													}}
-													className="align-middle"
-													style={{
-														padding: "10px 5px 10px 5px"
-													}}>
-													<Card.Text className="text-center">
-														{cards.front}
-													</Card.Text>
-												</Card.Body>
-											</Card>
+											<AnimatedCard key={cards.id} cards={cards} toggleRemove={toggleRemove} _removeCard={_removeCard} setEditID={setEditID} toggleEditing={toggleEditing} ></AnimatedCard>
 										)
 									})
 									: "No Cards yet :("}

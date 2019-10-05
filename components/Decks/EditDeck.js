@@ -58,7 +58,7 @@ export const EditDeck = (props) => {
 
 		<Row style={{
 			margin: "20px 0 0 0",
-			border: "1px solid black",
+			border: "1px solid lightgray",
 			padding: "80px 0 80px 0",
 		}} className="justify-content-md-center">
 			{!fetched ? <Loading fetched={fetched}></Loading>

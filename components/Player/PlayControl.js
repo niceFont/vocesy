@@ -51,7 +51,7 @@ export const PlayControl = props => {
 							</Col>
 						) : (
 							<Col md="4" className="text-center">
-								(
+								
 								<ButtonGroup>
 									<Button
 										disabled={props.done}
@@ -67,7 +67,7 @@ export const PlayControl = props => {
 											}
 											props.pushInput(arr => [
 												...arr,
-												"Wrong"
+												false
 											])
 										}}>
 										Wrong
@@ -86,13 +86,13 @@ export const PlayControl = props => {
 											}
 											props.pushInput(arr => [
 												...arr,
-												"Wrong"
+												true
 											])
 										}}>
 										Right
 									</Button>
 								</ButtonGroup>
-								)
+								
 							</Col>
 						)}
 					</React.Fragment>
