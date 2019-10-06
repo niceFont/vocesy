@@ -69,6 +69,7 @@ app.prepare().then(() => {
 
 
 	server.get("/", (req, res) => {
+		console.log(req.session)
 		return app.render(req, res, "/", req.query)
 	})
 	server.get("/callback", (req, res, next) => {
@@ -85,6 +86,7 @@ app.prepare().then(() => {
 		"/login",
 		passport.authenticate("auth0", { scope: "openid email profile" }),
 		(req, res) => {
+			console.log("SERVEERRRR")
 			res.redirect("/")
 		}
 	)
@@ -111,6 +113,5 @@ app.prepare().then(() => {
 	})
 	server.listen(port, err => {
 		if (err) throw err
-		console.log(`> Ready on http://localhost:${port}`)
 	})
 })

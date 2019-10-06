@@ -29,7 +29,7 @@ export const EditDeck = (props) => {
 	async function _handleSubmit() {
 
 		if (title.trim() === data[0].title && privacy === data[0].privacy) {
-			window.location.replace("http://localhost:3000/decks")
+			window.location.replace("/decks")
 			return
 		}
 		if (title.trim() === "") setTitle(data[0].title)
@@ -42,7 +42,7 @@ export const EditDeck = (props) => {
 				})
 			})
 				.then(res => {
-					window.location.replace("http://localhost:3000/decks")
+					window.location.replace("/decks")
 					return res.json()
 				})
 				.catch(err => {

@@ -8,7 +8,7 @@ export const WithAuth = Component => {
 
 		render() {
 			if (typeof this.props.user === "undefined") {
-				window.location.replace("http://localhost:3000/login")
+				window.location.replace("/login")
 				return null
 			}
 			return <Component {...this.props}></Component>

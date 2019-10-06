@@ -73,7 +73,7 @@ const Deck = WithAuth(props => {
 							<Container
 								style={{
 									padding: 5,
-									border: "1px solid #e3e6e4"
+									borderBottom: "1px solid lightgray"
 								}}>
 								<Row
 									className="justify-content-between"
@@ -177,7 +177,7 @@ const Deck = WithAuth(props => {
 								className="justify-content-center"
 								style={{
 									padding: 10,
-									border: "1px solid #e3e6e4"
+									borderTop: "1px solid lightgray"
 								}}></Row>
 							{adding && (
 								<CreateCard

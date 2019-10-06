@@ -3,6 +3,7 @@ import {Nav,
 	Navbar,
 	NavbarBrand} from "react-bootstrap"
 import Link from "next/link"
+import { ExtractName } from "../../lib/utils"
 
 export const Layout = props => {
 	return (
@@ -53,10 +54,10 @@ export const Layout = props => {
 									width: 30, height: 30, borderRadius: "100%", margin: "5px 0 5px 0"
 								}} src={props.user.picture}></img>
 								<NavDropdown
-									title={props.user.displayName}
+									title={ExtractName(props.user.displayName).split(" ").join("").toLowerCase()}
 									id="nav-dropdown">
 									<Link
-										href={`/user/${encodeURI(props.user.displayName.split(" ").join("").toLowerCase())}`}>
+										href={`/user/${encodeURI(ExtractName(props.user.displayName).split(" ").join("").toLowerCase())}`}>
 										<NavDropdown.Item as="a">
 										Profile
 										</NavDropdown.Item>
@@ -79,7 +80,14 @@ export const Layout = props => {
 			</Navbar>
 			{props.children}
 
-			<Navbar fixed="bottom" bg="dark" variant="dark"></Navbar>
+			<Navbar fixed="bottom" bg="light" variant="dark">
+				<Nav>
+
+					<Nav.Item>
+						<span>ver. 1.01a Still in Development...</span>
+					</Nav.Item>
+				</Nav>
+			</Navbar>
 		</React.Fragment>
 	)
 }
