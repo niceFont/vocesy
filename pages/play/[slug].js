@@ -99,7 +99,7 @@ const Play = WithAuth(props => {
 })
 
 Play.getInitialProps = async function(ctx) {
-	const slug = ctx.req.params[0].replace(/\/play\//gi, "")
+	let {slug} = ctx.query
 	let settings = ctx.req.query
 
 	if (!settings) {

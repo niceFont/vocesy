@@ -13,12 +13,14 @@ module.exports = async (req, res) => {
             CheckForValues([title, privacy, user])
             let slug = uuid.v4().slice(0, 5)
             let deck = await db.query(escape`
-               INSERT INTO decks(title, privacy, user, slug) VALUES(${title}, ${privacy}, ${user}, ${slug});
+               INSERT INTO decks(title, privacy, username, slug) VALUES(${title}, ${privacy}, ${user}, ${slug});
             `)
-            return res.send(200).json(deck)
+            if(deck instanceof Error) throw new Error(deck.message)
+            console.log(deck)
+            return res.status(200).json(deck)
         } catch (err) {
             if (err instanceof TypeError) res.status(400).send(err.message)
-            else res.status(500).send(err)
+            else res.status(500).send(err.message)
         }
     } else {
         res.status(400).send("Request Method " + req.method + " is not allowed.")

@@ -41,13 +41,7 @@ export const EditDeck = (props) => {
 					title, privacy, deckId: data[0].deck_id
 				})
 			})
-				.then(res => {
-					window.location.replace("/decks")
-					return res.json()
-				})
-				.catch(err => {
-					console.error(err)
-				})
+			window.location.replace("/decks")
 		} catch (err) {
 			console.error(err)
 		}

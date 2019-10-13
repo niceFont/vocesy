@@ -3,13 +3,10 @@ import { NotFound } from "../../components/Helpers/NotFound"
 import fetch from "isomorphic-fetch"
 import { Loading } from "../../components/Helpers/Loading"
 import { WithAuth } from "../../components/Auth/WithAuth"
-import { Container, Card, Button, Row, Col } from "react-bootstrap"
+import { Container, Button, Row, Col } from "react-bootstrap"
 import { CreateCard } from "../../components/Cards/CreateCard"
 import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
-import {faTrash} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { useSpring, animated } from "react-spring"
 import {AnimatedCard} from "../../components/Cards/AnimatedCard"
 
 const Deck = WithAuth(props => {
@@ -23,24 +20,24 @@ const Deck = WithAuth(props => {
 	const [settings, changeSettings] = useState({
 		userValidation: false 
 	})
-	const [animationProps, set] = useSpring(() => ({
-		s: 1
-	})) 
 
 	const [editID, setEditID] = useState()
 	useEffect(() => {
-		const fetchData = async () => {
-			let res = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
-				.then(res => res.json())
-				.catch(err => console.error(err))
-			if (typeof res !== "undefined") {
-				setExists(true)
-				setData(res)
+		const fetchCards = async () => {
+			try {
+
+				let response = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
+				let cards = await response.json()
+				if (cards.length) {
+					setExists(true)
+					setData(cards)
+				}
+				setFetched(true)
+			} catch (err) {
+				console.error(err)
 			}
-			setFetched(true)
-			return
 		}
-		fetchData()
+		fetchCards()
 	}, [adding, removing, editing, props.slug, props.user.displayName])
 
 	async function _removeCard(id) {
@@ -51,11 +48,7 @@ const Deck = WithAuth(props => {
 					id 
 				})
 			})
-				.then(res => {
-					res.json()
-					toggleRemove(false)
-				})
-				.catch(err => console.error(err))
+			toggleRemove(false)
 		} catch (err) {
 			console.error(err)
 		}
@@ -209,7 +202,7 @@ const Deck = WithAuth(props => {
 export default Deck
 
 Deck.getInitialProps = async function(ctx) {
-	let slug = ctx.req.params[0].replace(/\/decks\//gi, "")
+	let {slug} = ctx.query
 	return {
 		slug 
 	}

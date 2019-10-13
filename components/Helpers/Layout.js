@@ -46,6 +46,13 @@ export const Layout = props => {
 								</Link>
 							</Nav.Item>
 						)}
+						{!props.user && (
+							<Nav.Item>
+								<Link href="/signup">
+									<Nav.Link as="a">sign up</Nav.Link>
+								</Link>
+							</Nav.Item>
+						)}
 						{props.user && (
 							<div style={{
 								display: "flex", flexDirection: "row"

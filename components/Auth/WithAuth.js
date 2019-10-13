@@ -6,10 +6,11 @@ export const WithAuth = Component => {
 			super(props)
 		}
 
+		
 		render() {
 			if (typeof this.props.user === "undefined") {
-				window.location.replace("/login")
-				return null
+				if(typeof window !== "undefined") window.location.replace("/login")
+				return null 
 			}
 			return <Component {...this.props}></Component>
 		}

@@ -2,6 +2,7 @@ import React from "react"
 import App from "next/app"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Layout } from "../components/Helpers/Layout"
+import nextCookies from "next-cookies"
 
 class MyApp extends App {
 	// Only uncomment this method if you have blocking data requirements for
@@ -16,8 +17,12 @@ class MyApp extends App {
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx)
 		}
-		if (ctx.req && ctx.req.session && ctx.req.session.passport) {
-			pageProps.user = ctx.req.session.passport.user
+		if (ctx) {
+			let {user} = nextCookies(ctx)
+			if (user) {
+				pageProps.user = JSON.parse(user)
+				pageProps.ctx = ctx
+			}
 		}
 
 		return {

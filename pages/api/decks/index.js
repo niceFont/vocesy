@@ -13,9 +13,9 @@ module.exports = async (req, res) => {
 			let queryString
 
 			if (typeof slug !== "undefined") {
-				queryString = escape`SELECT * FROM vocesy.decks LEFT OUTER JOIN vocesy.cards USING(deck_id) WHERE decks.user=${user} AND decks.slug=${slug};`
+				queryString = escape`SELECT * FROM decks LEFT OUTER JOIN cards USING(deck_id) WHERE decks.username=${user} AND decks.slug=${slug};`
 			} else {
-				queryString = escape`SELECT * FROM vocesy.decks WHERE user=${user};`
+				queryString = escape`SELECT * FROM decks WHERE username=${user};`
 			}
 
 			let decks = await db.query(queryString)
