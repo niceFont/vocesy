@@ -2,6 +2,7 @@ import {CheckForValues} from "../../lib/utils"
 import escape from "sql-template-strings"
 import db from "../../lib/db"
 const { CompareHash } = require("../../lib/hash")
+const jwt = require("jsonwebtoken")
 
 export default async (req, res) => {
 
@@ -14,8 +15,20 @@ export default async (req, res) => {
             `)
 			if(!user.length) throw new Error("Either your Password or your Username is wrong")
 			if(! await CompareHash(user[0].password, password)) throw new Error("Either your Password or your Username is wrong")
+
+			let token = jwt.sign(
+				{
+					displayName: user[0].username,
+					email: user[0].email
+				}, process.env.SECRET, {
+					expiresIn: "24h"
+				}
+			)
+
 			res.json({
-				displayName: user[0].username, email: user[0].email
+				success: true,
+				message: "Authentification successful",
+				token
 			})
 		} catch (err) {
 			res.status(500).send(err.message) 

@@ -3,6 +3,7 @@ import App from "next/app"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Layout } from "../components/Helpers/Layout"
 import nextCookies from "next-cookies"
+import fetch from "isomorphic-fetch"
 
 class MyApp extends App {
 	// Only uncomment this method if you have blocking data requirements for
@@ -20,7 +21,18 @@ class MyApp extends App {
 		if (ctx) {
 			let {user} = nextCookies(ctx)
 			if (user) {
-				pageProps.user = JSON.parse(user)
+				try {
+					let response = await fetch("http://localhost:3000/api/authorize", {
+						headers: {
+							method: "POST",
+							"authorization": "Bearer " + user
+						}
+					})
+					if(!response.ok) throw response.statusText
+					pageProps.user = await response.json()
+				} catch (err) {
+					console.error(err)
+				}
 			}
 		}
 

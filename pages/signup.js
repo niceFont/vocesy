@@ -13,7 +13,7 @@ const SignUp = () => {
 	const [completed, toggleCompleted] = useState(false)
 
 	useEffect(() => {
-		if (password.length >= 8 && email.includes("@") && username.length >= 3) {
+		if (password.length >= 8 && email.includes("@") && username.length >= 3 && passVerify.length) {
 			toggleCompleted(true)
 		} else {
 			toggleCompleted(false)

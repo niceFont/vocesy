@@ -31,9 +31,10 @@ const Login = () => {
 				})
 				if(!response.ok) throw await response.text()
 				setError(null)
+				let {token} = await response.json()
 				Cookies.set(
-					"user", await response.json(), {
-						expires: 30
+					"user", token, {
+						expires: 1
 					}
 				)
 				if(typeof Cookies.get("user") !== "undefined") window.location.replace("/")

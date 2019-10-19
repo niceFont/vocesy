@@ -44,7 +44,6 @@ export const PlayViewer = props => {
 							<tbody>
 
 								{props.verify().map((result, index) => {
-									console.log(result)
 									return (
 										<tr key={index}>
 											<td>{index + 1}</td>
