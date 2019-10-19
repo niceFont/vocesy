@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import { Form, Button, ButtonGroup, Row, Col} from "react-bootstrap"
+import { Container, Form, Button, ButtonGroup, Row, Col} from "react-bootstrap"
 import {Loading} from "../../components/Helpers/Loading"
 import fetch from "isomorphic-fetch"
 
@@ -11,19 +11,23 @@ export const EditDeck = (props) => {
 	const [privacy, setPrivacy] = useState(0)
 
 	useEffect(() => {
-		async function fetchData() {
-			let data = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
-				.then(res => res.json())
-				.catch(err => console.error(err))
-			
-			setData(data)
-			toggleFetched(true)
-			if (data.length) {
-				setTitle(data[0].title)
-				setPrivacy(data[0].privacy)
-			} 
+		async function fetchDeck() {
+			try {
+				let response = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
+				if (!response.ok) throw new Error(response.statusText)
+				let deck = await response.json()			
+	
+				setData(deck)
+				toggleFetched(true)
+				if (deck.length) {
+					setTitle(deck[0].title)
+					setPrivacy(deck[0].privacy)
+				} 
+			} catch (err) {
+				console.error(err)
+			}
 		}
-		fetchData()
+		fetchDeck()
 	},[props.slug, props.user.displayName])
 
 	async function _handleSubmit() {
@@ -50,64 +54,67 @@ export const EditDeck = (props) => {
 
 	return (
 
-		<Row style={{
-			margin: "20px 0 0 0",
-			border: "1px solid lightgray",
-			padding: "80px 0 80px 0",
-		}} className="justify-content-md-center">
-			{!fetched ? <Loading fetched={fetched}></Loading>
-				:
-				<React.Fragment>
-					{!data.length ? 
-						<Row>
-							<Col>
-				Not Found
-							</Col>
-						</Row>
-						:
-						<Col md="6" lg="6">
-							<Form
-								onSubmit={e => {
-									e.preventDefault()
-									_handleSubmit()
-								}}>
-								<Form.Group>
-									<Form.Label>Title:</Form.Label>
-									<Form.Control
-										lg="2"
-										type="text"
-										value={title}
-										onChange={e => {
-											setTitle(e.target.value)
-										}}
-									/>
-								</Form.Group>
+		<Container>
 
-								<Form.Group style={{
-									margin: "10px 0 40px 0"
-								}}>
-									<ButtonGroup>
-										<Button
-											variant={!privacy ? "primary" : "secondary"}
-											size="sm"
-											onClick={() => setPrivacy(0)}>
+			<Row style={{
+				margin: "20px 0 0 0",
+				border: "1px solid lightgray",
+				padding: "80px 0 80px 0",
+			}} className="justify-content-md-center">
+				{!fetched ? <Loading fetched={fetched}></Loading>
+					:
+					<React.Fragment>
+						{!data.length ? 
+							<Row>
+								<Col>
+									Deck doesn't exist.
+								</Col>
+							</Row>
+							:
+							<Col sm="10" md="8" lg="6">
+								<Form
+									onSubmit={e => {
+										e.preventDefault()
+										_handleSubmit()
+									}}>
+									<Form.Group>
+										<Form.Label>Title:</Form.Label>
+										<Form.Control
+											lg="2"
+											type="text"
+											value={title}
+											onChange={e => {
+												setTitle(e.target.value)
+											}}
+										/>
+									</Form.Group>
+
+									<Form.Group style={{
+										margin: "10px 0 40px 0"
+									}}>
+										<ButtonGroup>
+											<Button
+												variant={!privacy ? "primary" : "secondary"}
+												size="sm"
+												onClick={() => setPrivacy(0)}>
 								Public
-										</Button>
-										<Button
-											variant={privacy ? "primary" : "secondary"}
-											size="sm"
-											onClick={() => setPrivacy(1)}>
+											</Button>
+											<Button
+												variant={privacy ? "primary" : "secondary"}
+												size="sm"
+												onClick={() => setPrivacy(1)}>
 								Private
-										</Button>
-									</ButtonGroup>
-								</Form.Group>
-								<Form.Group>
-									<Button type="submit" variant="dark" block >Save</Button>
-								</Form.Group>
-							</Form>
-						</Col>
-					}
-				</React.Fragment>}
-		</Row>
+											</Button>
+										</ButtonGroup>
+									</Form.Group>
+									<Form.Group>
+										<Button type="submit" variant="dark" block >Save</Button>
+									</Form.Group>
+								</Form>
+							</Col>
+						}
+					</React.Fragment>}
+			</Row>
+		</Container>
 	)
 }

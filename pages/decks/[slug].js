@@ -3,7 +3,7 @@ import { NotFound } from "../../components/Helpers/NotFound"
 import fetch from "isomorphic-fetch"
 import { Loading } from "../../components/Helpers/Loading"
 import { WithAuth } from "../../components/Auth/WithAuth"
-import { Container, Button, Row, Col, Navbar, Nav, Dropdown } from "react-bootstrap"
+import { Container, Button, Row, Col, Dropdown } from "react-bootstrap"
 import { CreateCard } from "../../components/Cards/CreateCard"
 import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
@@ -20,7 +20,6 @@ const Deck = WithAuth(props => {
 	const [adding, toggleAdding] = useState(false)
 	const [editing, toggleEditing] = useState(false)
 	const [removing, toggleRemove] = useState(false)
-	const [setting, toggleSetting] = useState(false)
 	const [settings, changeSettings] = useState({
 		userValidation: false 
 	})
@@ -31,6 +30,7 @@ const Deck = WithAuth(props => {
 			try {
 
 				let response = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
+				if(!response.ok) throw new Error(response.statusText)
 				let cards = await response.json()
 				if (cards.length) {
 					setExists(true)
@@ -46,12 +46,13 @@ const Deck = WithAuth(props => {
 
 	async function _removeCard(id) {
 		try {
-			await fetch("/api/cards/remove", {
+			let response = await fetch("/api/cards/remove", {
 				method: "DELETE",
 				body: JSON.stringify({
 					id 
 				})
 			})
+			if(!response.ok) throw new Error(response.statusText)
 			toggleRemove(false)
 		} catch (err) {
 			console.error(err)
@@ -75,14 +76,15 @@ const Deck = WithAuth(props => {
 						<Container style={{
 							margin: "50px 0 100px 0px"
 						}}>
-							<Row
-								style={{
-									padding: 5,
-									borderBottom: "1px solid lightgray"
-								}}>
-								<Col className="my-auto">
+							<Row style={{
+								padding: 5,
+								borderBottom: "1px solid lightgray"
+							}}>
+								<Col style={{
+									display: "flex"
+								}} className="align-items-center">
 									<h6
-										className="text-capitalize"
+										className="my-auto text-capitalize"
 										style={{
 											fontWeight: "bold",
 											fontStyle: "italic"
@@ -91,8 +93,7 @@ const Deck = WithAuth(props => {
 									</h6>
 								</Col>
 								<Col className="text-right">
-									<Link
-										href={`/play/${props.slug}?uv=${settings.userValidation}`}>
+									<Link href={`/play/${props.slug}?uv=${settings.userValidation}`}>
 										<Button
 											disabled={!data[0].front}
 											style={{
@@ -122,17 +123,18 @@ const Deck = WithAuth(props => {
 									>
 										<FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
 									</DropdownToggle>
-									<Dropdown.Menu changeSettings={changeSettings} as={SettingsMenu}>
+									<Dropdown.Menu style={{
+										padding: 10
+									}} changeSettings={changeSettings} as={SettingsMenu}>
 									</Dropdown.Menu>
 								</Dropdown>
 							</Row>
-							<Row
-								style={{
-									margin: "20px 0 20px 0",
-									overflowY: "auto",
-									height: 400
-								}}
-								className="justify-content-center">
+							<Row style={{
+								margin: "20px 0 20px 0",
+								overflowY: "auto",
+								height: 400
+							}}
+							className="justify-content-center">
 								{data[0].front
 									? data.map(cards => {
 										return (
@@ -141,8 +143,7 @@ const Deck = WithAuth(props => {
 									})
 									: "No Cards yet :("}
 							</Row>
-							<Row
-								className="justify-content-center"
+							<Row className="justify-content-center"
 								style={{
 									padding: 10,
 									borderTop: "1px solid lightgray"
@@ -164,11 +165,27 @@ const Deck = WithAuth(props => {
 							)}
 						</Container>
 					) : (
-						<NotFound></NotFound>
+						<Container>
+							<Row style={{
+								marginTop: 100
+							}}>
+								<Col>
+									<NotFound></NotFound>
+								</Col>
+							</Row>
+						</Container>
 					)}
 				</div>
 			) : (
-				<Loading fetched={fetched}></Loading>
+				<Container>
+					<Row style={{
+						marginTop: 250
+					}}>
+						<Col>
+							<Loading fetched={fetched}></Loading>
+						</Col>
+					</Row>
+				</Container>
 			)}
 		</Container>
 	)

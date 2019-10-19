@@ -13,27 +13,31 @@ const Decks = WithAuth(({ user }) => {
 	const [fetched, toggleFetched] = useState(false)
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const url = `/api/decks?user=${user.displayName}`
-			let decks = await fetch(url)
-				.then(res => res.json())
-				.catch(err => console.error(err))
-			setDecks(decks)
-			toggleFetched(true)
+		const fetchDecks = async () => {
+			try {
+				const url = `/api/decks?user=${user.displayName}`
+				let response = await fetch(url)
+				if(!response.ok) throw new Error(response.statusText) 
+				let decks = await response.json()
+				setDecks(decks)
+				toggleFetched(true)
+			} catch (err) {
+				console.error(err)
+			}
 		}
-		fetchData()
+		fetchDecks()
 	}, [removing, user.displayName])
 
 	async function _removeDeck(id) {
 		try {
-			await fetch("/api/decks/remove", {
+			let response = await fetch("/api/decks/remove", {
 				method: "DELETE",
 				body: JSON.stringify({
 					id
 				})
-			}).then(() => {
-				toggleRemoving(false)
 			})
+			if(!response.ok) throw new Error(response.statusText)
+			toggleRemoving(false)
 		} catch (err) {
 			console.error(err)
 		}

@@ -21,6 +21,9 @@ const SettingsMenu = forwardRef(({style, changeSettings, children, className, "a
 					}}
 				/>
 				<label
+					style={{
+						fontSize: 14
+					}}
 					className="custom-control-label"
 					htmlFor="customSwitches">
 					User validation

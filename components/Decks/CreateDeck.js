@@ -7,10 +7,10 @@ export const CreateDeck = props => {
 	const [title, setTitle] = useState(null)
 
 	const _handleSubmit = async () => {
-		if (title) {
+		if (title.length) {
 			try {
 
-				let res = await fetch("/api/decks/create", {
+				let response = await fetch("/api/decks/create", {
 					method: "POST",
 					body: JSON.stringify({
 						title,
@@ -19,10 +19,11 @@ export const CreateDeck = props => {
 					})
 				})
 	
-				if (res.status === 200) {
+				if (response.ok) {
 					window.location.replace("/decks")
+				} else {
+					throw new Error(response.statusText)
 				}
-				return
 			} catch (err) {
 				console.error(err)
 			}

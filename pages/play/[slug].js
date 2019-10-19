@@ -18,19 +18,22 @@ const Play = WithAuth(props => {
 	const [done, toggleDone] = useState(false)
 
 	useEffect(() => {
-		async function fetchData() {
-			let response = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
-				.then(res => res.json())
-				.catch(err => console.error(err))
-
-			if (response.length) {
-				setData(response)
-				setShuffled(Shuffle(response))
+		async function fetchCards() {
+			try {
+				
+				let response = await fetch(`/api/decks?user=${props.user.displayName}&slug=${props.slug}`)
+				if(!response.ok) throw new Error(response.statusText)
+				let cards = await response.json()
+				if (cards.length) {
+					setData(cards)
+					setShuffled(Shuffle(cards))
+				}
+				setFetched(true)
+			} catch (err) {
+				console.error(err)
 			}
-			setFetched(true)
 		}
-
-		fetchData()
+		fetchCards()
 	}, [props.slug, props.user.displayName])
 
 	function _restart() {
