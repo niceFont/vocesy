@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout renders 1`] = `
+Array [
+  <nav
+    className="navbar navbar-expand-md navbar-light fixed-top"
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderBottom": "1px solid lightgray",
+        "paddingLeft": "4%",
+        "paddingRight": "4%",
+      }
+    }
+  >
+    <span
+      className="navbar-brand"
+    >
+      <img
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        src="/static/logo.png"
+        style={
+          Object {
+            "height": 40,
+            "width": 120,
+          }
+        }
+      />
+    </span>
+    <button
+      aria-controls="main-menu"
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      aria-expanded={null}
+      className="navbar-collapse collapse"
+      id="main-menu"
+    >
+      <div
+        className="navbar-nav"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            data-rb-event-key={null}
+            disabled={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            role="tab"
+            tabIndex={-1}
+          >
+            Create
+          </a>
+        </div>
+        <div
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            data-rb-event-key={null}
+            disabled={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            role="tab"
+            tabIndex={-1}
+          >
+            My Decks
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-expanded={null}
+      className="justify-content-end navbar-collapse collapse"
+    >
+      <div
+        className="navbar-nav"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="navbar-nav"
+          onKeyDown={[Function]}
+        >
+          <div
+            className="nav-item"
+          >
+            <a
+              className="nav-link"
+              data-rb-event-key={null}
+              disabled={false}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              role="tab"
+              tabIndex={-1}
+            >
+              log in
+            </a>
+          </div>
+          <div
+            className="nav-item"
+          >
+            <a
+              className="nav-link"
+              data-rb-event-key={null}
+              disabled={false}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              role="tab"
+              tabIndex={-1}
+            >
+              sign up
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>,
+  <nav
+    className="navbar navbar-expand navbar-dark bg-light fixed-bottom"
+  >
+    <div
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    >
+      <div
+        className="nav-item"
+      >
+        <span>
+          ver. 1.01a Still in Development...
+        </span>
+      </div>
+    </div>
+  </nav>,
+]
+`;

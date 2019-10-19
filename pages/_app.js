@@ -21,7 +21,6 @@ class MyApp extends App {
 			let {user} = nextCookies(ctx)
 			if (user) {
 				pageProps.user = JSON.parse(user)
-				pageProps.ctx = ctx
 			}
 		}
 

@@ -5,7 +5,6 @@ import React from "react"
 import { mount } from "enzyme"
 import { CreateCard } from "../components/Cards/CreateCard"
 
-
 describe("CreateCard", () => {
 	const component = mount(<CreateCard
 		data={{
@@ -34,6 +33,3 @@ describe("CreateCard", () => {
 	})
 
 })
-
-
-

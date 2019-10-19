@@ -6,6 +6,7 @@ const {CheckForValues} = require("../../../lib/utils")
 
 module.exports = async (req, res) => {
 	if (req.method === "GET") {
+		console.log(req.headers)
 		try {
 			const { user, slug } = req.query
 			CheckForValues([user])

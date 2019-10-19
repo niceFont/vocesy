@@ -4,8 +4,22 @@ import {Nav,
 	NavbarBrand} from "react-bootstrap"
 import Link from "next/link"
 import { ExtractName } from "../../lib/utils"
+import Cookies from "js-cookie"
+import React, { PureComponent } from "react"
+
 
 export const Layout = props => {
+
+	const _logout = () => {
+
+		Cookies.remove("user")
+		if (typeof localStorage !== "undefined") {
+			localStorage.removeItem("loggedIn")
+			window.location.reload()
+		}
+		
+	}
+
 	return (
 		<React.Fragment>
 			<Navbar
@@ -16,6 +30,7 @@ export const Layout = props => {
 					borderBottom: "1px solid lightgray"
 				}}
 				fixed="top"
+				expand="md"
 				variant="light">
 				<NavbarBrand>
 					<Link href="/">
@@ -27,60 +42,55 @@ export const Layout = props => {
 						/>
 					</Link>
 				</NavbarBrand>
-				<Nav>
-					<Link href="/decks/create">
-						<Nav.Link as="a">Create</Nav.Link>
-					</Link>
-					<Nav.Item>
-						<Link href="/decks">
-							<Nav.Link as="a">My Decks</Nav.Link>
-						</Link>
-					</Nav.Item>
-				</Nav>
+				<Navbar.Toggle aria-controls="main-menu"></Navbar.Toggle>
+				<Navbar.Collapse id="main-menu" >
+					<Nav>
+						<Nav.Item>
+							<Link href="/decks/create">
+								<Nav.Link as="a">Create</Nav.Link>
+							</Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Link href="/decks">
+								<Nav.Link as="a">My Decks</Nav.Link>
+							</Link>
+						</Nav.Item>
+					</Nav>
+				</Navbar.Collapse>
 				<Navbar.Collapse className="justify-content-end">
 					<Nav>
 						{!props.user && (
-							<Nav.Item>
-								<Link href="/login" replace>
-									<Nav.Link as="a">log in</Nav.Link>
-								</Link>
-							</Nav.Item>
-						)}
-						{!props.user && (
-							<Nav.Item>
-								<Link href="/signup">
-									<Nav.Link as="a">sign up</Nav.Link>
-								</Link>
-							</Nav.Item>
+							<Nav>
+
+								<Nav.Item>
+									<Link href="/login" replace>
+										<Nav.Link as="a">log in</Nav.Link>
+									</Link>
+								</Nav.Item>
+								<Nav.Item>
+									<Link href="/signup">
+										<Nav.Link as="a">sign up</Nav.Link>
+									</Link>
+								</Nav.Item>
+							</Nav>
 						)}
 						{props.user && (
-							<div style={{
-								display: "flex", flexDirection: "row"
-							}}>
-								<img style={{
-									width: 30, height: 30, borderRadius: "100%", margin: "5px 0 5px 0"
-								}} src={props.user.picture}></img>
-								<NavDropdown
-									title={ExtractName(props.user.displayName).split(" ").join("").toLowerCase()}
-									id="nav-dropdown">
-									<Link
-										href={`/user/${encodeURI(ExtractName(props.user.displayName).split(" ").join("").toLowerCase())}`}>
-										<NavDropdown.Item as="a">
-										Profile
-										</NavDropdown.Item>
+							<Nav>
+								<Nav.Item>
+									<Link href={`/user/${encodeURI(ExtractName(props.user.displayName).split(" ").join("").toLowerCase())}`}>
+										<Nav.Link as="a">
+											{ExtractName(props.user.displayName).split(" ").join("").toLowerCase()}
+										</Nav.Link>
 									</Link>
-
-									<Link href="/logout">
-										<NavDropdown.Item
-											style={{
-												color: "#e84646" 
-											}}
-											as="a">
-										Log Out
-										</NavDropdown.Item>
-									</Link>
-								</NavDropdown>
-							</div>
+								</Nav.Item>
+								<Nav.Item onClick={_logout}>
+									<Nav.Link style={{
+										color: "#e84646" 
+									}}>	
+										logout
+									</Nav.Link>
+								</Nav.Item>
+							</Nav>
 						)}
 					</Nav>
 				</Navbar.Collapse>

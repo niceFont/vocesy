@@ -62,7 +62,7 @@ export const PlayViewer = props => {
 				</Row>
 			) : (
 				<Row className="justify-content-center">
-					<Col md="6">
+					<Col md="6" lg="4">
 						{props.settings.uv === "false" ?
 							<Card style={{
 								height: "25em"

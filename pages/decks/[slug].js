@@ -3,11 +3,15 @@ import { NotFound } from "../../components/Helpers/NotFound"
 import fetch from "isomorphic-fetch"
 import { Loading } from "../../components/Helpers/Loading"
 import { WithAuth } from "../../components/Auth/WithAuth"
-import { Container, Button, Row, Col } from "react-bootstrap"
+import { Container, Button, Row, Col, Navbar, Nav, Dropdown } from "react-bootstrap"
 import { CreateCard } from "../../components/Cards/CreateCard"
 import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft, faPlay, faPlus, faCog } from "@fortawesome/free-solid-svg-icons"
 import {AnimatedCard} from "../../components/Cards/AnimatedCard"
+import DropdownToggle from "react-bootstrap/DropdownToggle"
+import SettingsMenu from "../../components/Decks/SettingsMenu"
 
 const Deck = WithAuth(props => {
 	const [exists, setExists] = useState(false)
@@ -54,103 +58,74 @@ const Deck = WithAuth(props => {
 		}
 	}
 	return (
+		
 		<Container style={{
-			marginTop: 200 
+			marginTop: 40 
 		}}>
 			{fetched ? (
 				<div>
+					<Link href="/decks">
+						<Button variant="outline-dark" style={{
+							marginTop: 100
+						}}>
+							<FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+						</Button>
+					</Link>
 					{exists ? (
 						<Container style={{
-							marginBottom: 100 
+							margin: "50px 0 100px 0px"
 						}}>
-							<Container
+							<Row
 								style={{
 									padding: 5,
 									borderBottom: "1px solid lightgray"
 								}}>
-								<Row
-									className="justify-content-between"
-									style={{
-										padding: 5 
-									}}>
-									<Col className="my-auto">
-										<h6
-											className="text-capitalize"
-											style={{
-												fontWeight: "bold",
-												margin: "0 0 0 50px"
-											}}>
-											{data[0].title + "-cards"}
-										</h6>
-									</Col>
-									<Col>
-										<Link
-											href={`/play/${props.slug}?uv=${settings.userValidation}`}>
-											<Button
-												style={{
-													fontWeight: "bold" 
-												}}
-												disabled={!data[0].front}
-												block
-												variant="outline-success"
-												size="md">
-												START
-											</Button>
-										</Link>
-									</Col>
-									<Col className="text-right my-auto">
+								<Col className="my-auto">
+									<h6
+										className="text-capitalize"
+										style={{
+											fontWeight: "bold",
+											fontStyle: "italic"
+										}}>
+										{data[0].title + "s cards"}
+									</h6>
+								</Col>
+								<Col className="text-right">
+									<Link
+										href={`/play/${props.slug}?uv=${settings.userValidation}`}>
 										<Button
-											variant="light"
-											size="sm"
+											disabled={!data[0].front}
 											style={{
 												margin: "0 5px 0 0" 
 											}}
-											onClick={() => toggleAdding(true)}>
-											Add
+											variant="success"
+											size="sm">
+											<FontAwesomeIcon icon={faPlay}></FontAwesomeIcon>
 										</Button>
-										<Button
-											variant="light"
-											size="sm"
-											style={{
-												margin: "0 50px 0 0" 
-											}}
-											onClick={() =>
-												toggleSetting(s => !s)
-											}>
-											Settings
-										</Button>
-									</Col>
-								</Row>
-								{setting && (
-									<Row>
-										<Col
-											style={{
-												margin: "20px 0 20px 0" 
-											}}>
-											<div className="text-center custom-control custom-switch">
-												<input
-													type="checkbox"
-													className="custom-control-input"
-													id="customSwitches"
-													readOnly
-													onChange={() => {
-														changeSettings(settings =>
-															Object.assign({
-																...settings,
-																userValidation: !settings.userValidation
-															}))
-													}}
-												/>
-												<label
-													className="custom-control-label"
-													htmlFor="customSwitches">
-													Toggle User Validation
-												</label>
-											</div>
-										</Col>
-									</Row>
-								)}
-							</Container>
+									</Link>
+									<Button
+										variant="info"
+										size="sm"
+										style={{
+											margin: "0 5px 0 0" 
+										}}
+										onClick={() => toggleAdding(true)}>
+										<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+									</Button>
+								</Col>
+								<Dropdown alignRight>
+									<DropdownToggle
+										variant="light"
+										size="sm"
+										style={{
+										}}
+									>
+										<FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
+									</DropdownToggle>
+									<Dropdown.Menu changeSettings={changeSettings} as={SettingsMenu}>
+									</Dropdown.Menu>
+								</Dropdown>
+							</Row>
 							<Row
 								style={{
 									margin: "20px 0 20px 0",

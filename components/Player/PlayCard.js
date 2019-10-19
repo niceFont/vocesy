@@ -18,10 +18,12 @@ export const PlayCard = (props) => {
 		<Container style={{
 			overflow: "hidden"
 		}} onClick={()=> set(state => !state)}>
-			<animated.div style={{
-				opacity: opacity.interpolate(o => 1 - o), transform 
+			<animated.div className="justify-content-center text-center" style={{
+				opacity: opacity.interpolate(o => 1 - o), transform,
+				display: "flex",
+				justifyContent: "center"
 			}} >
-				<Card style={{
+				<Card className="mx-auto" style={{
 					height: "25rem",
 					width: "18em",
 					position: "absolute"
@@ -35,10 +37,13 @@ export const PlayCard = (props) => {
 				</Card>
 			</animated.div>
 			<animated.div style={{
-				 opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`)  
+				 opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`),  
+				display: "flex",
+				justifyContent: "center"
 			}}>
 				<Card style={{
 					height: "25rem", 
+					width: "18em",
 				}}>
 					<Card.Header>
 						<Card.Subtitle>Back</Card.Subtitle>

@@ -100,7 +100,7 @@ const Play = WithAuth(props => {
 
 Play.getInitialProps = async function(ctx) {
 	let {slug} = ctx.query
-	let settings = ctx.req.query
+	let settings = ctx.query
 
 	if (!settings) {
 		settings = {
