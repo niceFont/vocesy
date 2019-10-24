@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Layout } from "../components/Helpers/Layout"
 import nextCookies from "next-cookies"
 import fetch from "isomorphic-fetch"
+import "react-vis/dist/style.css"
 
 class MyApp extends App {
 	// Only uncomment this method if you have blocking data requirements for
