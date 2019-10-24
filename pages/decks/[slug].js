@@ -20,8 +20,12 @@ const Deck = WithAuth(props => {
 	const [adding, toggleAdding] = useState(false)
 	const [editing, toggleEditing] = useState(false)
 	const [removing, toggleRemove] = useState(false)
-	const [settings, changeSettings] = useState({
-		userValidation: false 
+	const [settings, changeSettings] = useState(() => {
+		if (typeof localStorage !== "undefined") {
+			return {
+				userValidation: localStorage.getItem("settings_uv") === "true"  
+			}
+		}
 	})
 
 	const [editID, setEditID] = useState()
@@ -56,6 +60,12 @@ const Deck = WithAuth(props => {
 			toggleRemove(false)
 		} catch (err) {
 			console.error(err)
+		}
+	}
+
+	function _saveSettingsLocal() {
+		if (typeof localStorage !== "undefined") {
+			localStorage.setItem("settings_uv", (!settings.userValidation).toString())
 		}
 	}
 	return (
@@ -125,14 +135,14 @@ const Deck = WithAuth(props => {
 									</DropdownToggle>
 									<Dropdown.Menu style={{
 										padding: 10
-									}} changeSettings={changeSettings} as={SettingsMenu}>
+									}} currentSettings={settings} saveSettingsLocal={_saveSettingsLocal} changeSettings={changeSettings} as={SettingsMenu}>
 									</Dropdown.Menu>
 								</Dropdown>
 							</Row>
 							<Row style={{
 								margin: "20px 0 20px 0",
 								overflowY: "auto",
-								height: 400
+								paddingTop: 50,
 							}}
 							className="justify-content-center">
 								{data[0].front

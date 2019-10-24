@@ -44,7 +44,7 @@ export const Layout = props => {
 				</NavbarBrand>
 				<Navbar.Toggle aria-controls="main-menu"></Navbar.Toggle>
 				<Navbar.Collapse id="main-menu" >
-					<Nav>
+					<Nav className="mr-auto">
 						<Nav.Item>
 							<Link href="/decks/create">
 								<Nav.Link as="a">Create</Nav.Link>
@@ -56,42 +56,42 @@ export const Layout = props => {
 							</Link>
 						</Nav.Item>
 					</Nav>
-				</Navbar.Collapse>
-				<Navbar.Collapse className="justify-content-end">
-					<Nav>
-						{!props.user && (
-							<Nav>
+					<Nav className="justify-content-end">
+						<Nav>
+							{!props.user && (
+								<Nav>
 
-								<Nav.Item>
-									<Link href="/login" replace>
-										<Nav.Link as="a">log in</Nav.Link>
-									</Link>
-								</Nav.Item>
-								<Nav.Item>
-									<Link href="/signup">
-										<Nav.Link as="a">sign up</Nav.Link>
-									</Link>
-								</Nav.Item>
-							</Nav>
-						)}
-						{props.user && (
-							<Nav>
-								<Nav.Item>
-									<Link href={`/user/${encodeURI(ExtractName(props.user.displayName).split(" ").join("").toLowerCase())}`}>
-										<Nav.Link as="a">
-											{ExtractName(props.user.displayName).split(" ").join("").toLowerCase()}
-										</Nav.Link>
-									</Link>
-								</Nav.Item>
-								<Nav.Item onClick={_logout}>
-									<Nav.Link style={{
-										color: "#e84646" 
-									}}>	
+									<Nav.Item>
+										<Link href="/login" replace>
+											<Nav.Link as="a">log in</Nav.Link>
+										</Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Link href="/signup">
+											<Nav.Link as="a">sign up</Nav.Link>
+										</Link>
+									</Nav.Item>
+								</Nav>
+							)}
+							{props.user && (
+								<Nav>
+									<Nav.Item>
+										<Link href={`/user/${encodeURI(ExtractName(props.user.displayName).split(" ").join("").toLowerCase())}`}>
+											<Nav.Link as="a">
+												{ExtractName(props.user.displayName).split(" ").join("").toLowerCase()}
+											</Nav.Link>
+										</Link>
+									</Nav.Item>
+									<Nav.Item onClick={_logout}>
+										<Nav.Link style={{
+											color: "#e84646" 
+										}}>	
 										logout
-									</Nav.Link>
-								</Nav.Item>
-							</Nav>
-						)}
+										</Nav.Link>
+									</Nav.Item>
+								</Nav>
+							)}
+						</Nav>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

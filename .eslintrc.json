@@ -28,7 +28,7 @@
 		"react-hooks/exhaustive-deps": "warn",
 		"react/react-in-jsx-scope": "off",
 		"react/prop-types": 0,
-		"function-paren-newline": ["error", { "minItems": 3 }],
+		"function-paren-newline": ["error", { "minItems": 5 }],
 		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
 		"object-curly-newline": ["error", {
         	"ObjectExpression": "always",

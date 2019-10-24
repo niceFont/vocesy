@@ -18,9 +18,8 @@ export const PlayControl = props => {
 				) : (
 					<React.Fragment>
 						{props.settings.uv === "false" ? (
-							<Col md="8">
-								<Form.Control
-									placeholder="Enter your Answer..."
+							<Col xs="10" sm="10" lg="6" md="8">
+								<Form.Control placeholder="Enter your Answer..."
 									style={{
 										resize: "none" 
 									}}
@@ -37,10 +36,7 @@ export const PlayControl = props => {
 											} else {
 												props.next(curr => curr + 1)
 											}
-											props.pushInput(arr => [
-												...arr,
-												userValue
-											])
+											props.pushInput(arr => [ ...arr, userValue ])
 											setUserValue("")
 											return false
 										}
@@ -51,16 +47,11 @@ export const PlayControl = props => {
 							</Col>
 						) : (
 							<Col md="4" className="text-center">
-								
 								<ButtonGroup>
-									<Button
-										disabled={props.done}
+									<Button disabled={props.done}
 										variant="danger"
 										onClick={() => {
-											if (
-												props.current + 1 ===
-												props.max
-											) {
+											if ( props.current + 1 === props.max) {
 												props.toggleDone(done => !done)
 											} else {
 												props.next(curr => curr + 1)
@@ -72,27 +63,19 @@ export const PlayControl = props => {
 										}}>
 										Wrong
 									</Button>
-									<Button
-										disabled={props.done}
+									<Button disabled={props.done}
 										variant="success"
 										onClick={() => {
-											if (
-												props.current + 1 ===
-												props.max
-											) {
+											if ( props.current + 1 === props.max) {
 												props.toggleDone(done => !done)
 											} else {
 												props.next(curr => curr + 1)
 											}
-											props.pushInput(arr => [
-												...arr,
-												true
-											])
+											props.pushInput(arr => [ ...arr, true ])
 										}}>
 										Right
 									</Button>
 								</ButtonGroup>
-								
 							</Col>
 						)}
 					</React.Fragment>

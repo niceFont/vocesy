@@ -20,9 +20,11 @@ class MyApp extends App {
 		}
 		if (ctx) {
 			let {user} = nextCookies(ctx)
-			if (user) {
+			if (user && ctx.req) {
 				try {
-					let response = await fetch("http://localhost:3000/api/authorize", {
+					let protocol = ctx.req.connection.encrypted ? "https" : "http"
+					let host = ctx.req.headers.host
+					let response = await fetch(protocol + "://" + host + "/api/authorize", {
 						headers: {
 							method: "POST",
 							"authorization": "Bearer " + user

@@ -1,8 +1,8 @@
 import {CheckForValues} from "../../lib/utils"
 import escape from "sql-template-strings"
 import db from "../../lib/db"
-const { CompareHash } = require("../../lib/hash")
-const jwt = require("jsonwebtoken")
+import { CompareHash } from "../../lib/hash"
+import jwt from "jsonwebtoken"
 
 export default async (req, res) => {
 
@@ -25,13 +25,13 @@ export default async (req, res) => {
 				}
 			)
 
-			res.json({
+			return res.status(200).json({
 				success: true,
 				message: "Authentification successful",
 				token
 			})
 		} catch (err) {
-			res.status(500).send(err.message) 
+			return res.status(500).send(err.message) 
 		}
 	}
 }

@@ -11,14 +11,28 @@ export const PlayViewer = props => {
 		}
 	}
 
+	function _generateResult(roundResult) {
+
+		return roundResult.map((result, index) => {
+			return (
+				<tr key={index}>
+					<td>{index + 1}</td>
+					<td>{result.result ? "Right" : "Wrong"}</td>
+					<td>{result.answer}</td>
+					{props.settings.uv === "false" &&
+						<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
+					}
+				</tr>
+			)
+		})
+	}
 
 	return (
 		<Container>
-			<Row
-				style={{
-					margin: 20
-				}}
-				className="justify-content-center">
+			<Row style={{
+				margin: 20
+			}}
+			className="justify-content-center">
 				<Col md="2" className="text-center">
 					{!props.done ? 
 						<span>{props.current + "/" + props.max}</span>
@@ -43,25 +57,18 @@ export const PlayViewer = props => {
 							</thead>
 							<tbody>
 
-								{props.verify().map((result, index) => {
-									return (
-										<tr key={index}>
-											<td>{index + 1}</td>
-											<td>{result.result ? "Right" : "Wrong"}</td>
-											<td>{result.answer}</td>
-											{props.settings.uv === "false" &&
-											<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
-											}
-										</tr>
-									)
-								})}
+								{(() => {
+									let result = props.verifyResult()
+									props.sendStats(result)
+									return _generateResult(result) 									
+								})()}
 							</tbody>
 						</Table>
 					</Col>
 				</Row>
 			) : (
 				<Row className="justify-content-center">
-					<Col md="6" lg="4">
+					<Col xs="10" sm="8" md="6" lg="4">
 						{props.settings.uv === "false" ?
 							<Card style={{
 								height: "25em"

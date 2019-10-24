@@ -1,4 +1,6 @@
-import { Container } from "react-bootstrap"
+import { Container, Row, Col, Button} from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { PlayViewer } from "../../components/Player/PlayViewer"
 import React, { useEffect, useState } from "react"
 import { WithAuth } from "../../components/Auth/WithAuth"
@@ -8,6 +10,7 @@ import { NotFound } from "../../components/Helpers/NotFound"
 import {Shuffle} from "../../lib/utils"
 import { PlayControl } from "../../components/Player/PlayControl"
 import {CheckResult, ReturnDiffs} from "../../lib/utils"
+import Link from "next/link"
 
 const Play = WithAuth(props => {
 	const [data, setData] = useState([])
@@ -42,6 +45,21 @@ const Play = WithAuth(props => {
 		pushInput([])
 		toggleDone(false)
 	}
+	async function _sendStats(roundResult) {
+		try {
+			let results = roundResult.map(x => x.result.toString())
+			let response = await fetch("/api/stats/submit", {
+				method: "POST",
+				body: JSON.stringify({
+					roundResult: results, deckId: data[0].deck_id
+				})
+			})
+
+			if(!response.ok) throw new Error(response.statusText)
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
 	function _verifyResult() {
 		return userInput.map((input, index) => {
@@ -66,12 +84,19 @@ const Play = WithAuth(props => {
 
 	return (
 		<Container style={{
-			marginTop: 200 
+			marginTop: 150 
 		}}>
 			{!fetched ? (
 				<Loading fetched={fetched}></Loading>
 			) : (
 				<div>
+					<Link href={`/decks/${props.slug}`}>
+						<Button variant="outline-dark" style={{
+							marginTop: 0
+						}}>
+							<FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+						</Button>
+					</Link>
 					{data.length ? (
 						<React.Fragment>
 							<PlayViewer
@@ -79,8 +104,9 @@ const Play = WithAuth(props => {
 								max={shuffled.length}
 								current={current + 1}
 								userInput={userInput}
-								verify={_verifyResult}
+								verifyResult={_verifyResult}
 								settings={props.settings}
+								sendStats={_sendStats}
 								data={shuffled[current]}></PlayViewer>
 							<PlayControl
 								restart={_restart}

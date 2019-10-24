@@ -3,7 +3,6 @@ import { WithAuth } from "../../components/Auth/WithAuth"
 import { Container } from "react-bootstrap"
 
 const NewDeck = WithAuth(props => {
-	console.log(props)
 	return (
 		<Container style={{
 			marginTop: 200 

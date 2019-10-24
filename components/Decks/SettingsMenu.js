@@ -1,7 +1,7 @@
 import { forwardRef } from "react"
 
 
-const SettingsMenu = forwardRef(({style, changeSettings, children, className, "aria-labeledby" : labeledBy}, context) => {
+const SettingsMenu = forwardRef(({style, currentSettings,saveSettingsLocal, changeSettings, children, className, "aria-labeledby" : labeledBy}, context) => {
 
 
 	return (
@@ -12,7 +12,9 @@ const SettingsMenu = forwardRef(({style, changeSettings, children, className, "a
 					className="custom-control-input"
 					id="customSwitches"
 					readOnly
+					checked={currentSettings.userValidation}
 					onChange={() => {
+						saveSettingsLocal()
 						changeSettings(settings =>
 							Object.assign({
 								...settings,

@@ -23,6 +23,7 @@ const Login = () => {
 		event.preventDefault()
 		if (username && password && completed) {
 			try {
+				if(typeof Cookies.get("user") !== "undefined") Cookies.remove("user") 
 				let response = await fetch("/api/login", {
 					method: "POST",
 					body: JSON.stringify({
@@ -37,8 +38,6 @@ const Login = () => {
 						expires: 1
 					}
 				)
-				if(typeof Cookies.get("user") !== "undefined") window.location.replace("/")
-				else throw new Error("Could not create Session, try again.")
 			} catch (err) {
 				setError(err)
 			}

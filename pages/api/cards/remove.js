@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
 			let response = await db.query(escape`
                 DELETE FROM cards WHERE id=${id};
             `)
-			console.log(res, id)
 			res.status(200).json(response)
 		} catch (err) {
 			if (err instanceof TypeError) res.status(400).send(err.message)

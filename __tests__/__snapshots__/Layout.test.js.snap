@@ -31,7 +31,7 @@ Array [
     <button
       aria-controls="main-menu"
       aria-label="Toggle navigation"
-      className="navbar-toggler"
+      className="navbar-toggler collapsed"
       onClick={[Function]}
       type="button"
     >
@@ -45,7 +45,7 @@ Array [
       id="main-menu"
     >
       <div
-        className="navbar-nav"
+        className="mr-auto navbar-nav"
         onKeyDown={[Function]}
       >
         <div
@@ -57,8 +57,6 @@ Array [
             disabled={false}
             onClick={[Function]}
             onMouseEnter={[Function]}
-            role="tab"
-            tabIndex={-1}
           >
             Create
           </a>
@@ -72,20 +70,13 @@ Array [
             disabled={false}
             onClick={[Function]}
             onMouseEnter={[Function]}
-            role="tab"
-            tabIndex={-1}
           >
             My Decks
           </a>
         </div>
       </div>
-    </div>
-    <div
-      aria-expanded={null}
-      className="justify-content-end navbar-collapse collapse"
-    >
       <div
-        className="navbar-nav"
+        className="justify-content-end navbar-nav"
         onKeyDown={[Function]}
       >
         <div
@@ -93,34 +84,35 @@ Array [
           onKeyDown={[Function]}
         >
           <div
-            className="nav-item"
+            className="navbar-nav"
+            onKeyDown={[Function]}
           >
-            <a
-              className="nav-link"
-              data-rb-event-key={null}
-              disabled={false}
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              role="tab"
-              tabIndex={-1}
+            <div
+              className="nav-item"
             >
-              log in
-            </a>
-          </div>
-          <div
-            className="nav-item"
-          >
-            <a
-              className="nav-link"
-              data-rb-event-key={null}
-              disabled={false}
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              role="tab"
-              tabIndex={-1}
+              <a
+                className="nav-link"
+                data-rb-event-key={null}
+                disabled={false}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                log in
+              </a>
+            </div>
+            <div
+              className="nav-item"
             >
-              sign up
-            </a>
+              <a
+                className="nav-link"
+                data-rb-event-key={null}
+                disabled={false}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                sign up
+              </a>
+            </div>
           </div>
         </div>
       </div>

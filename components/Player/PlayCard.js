@@ -16,7 +16,9 @@ export const PlayCard = (props) => {
 	return (
         
 		<Container style={{
-			overflow: "hidden"
+			overflow: "hidden",
+			padding: "25px 0 25px 0",
+			cursor: "pointer"
 		}} onClick={()=> set(state => !state)}>
 			<animated.div className="justify-content-center text-center" style={{
 				opacity: opacity.interpolate(o => 1 - o), transform,
