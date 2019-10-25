@@ -8,7 +8,7 @@ const Index = () => {
 				position: "absolute",
 				width: "100%",
 				height: "100vh",
-				background: "url('/static/background.jpg')",
+				background: "url('/static/background-min.webp')",
 				backgroundSize: "cover",
 				backgroundPosition: "center"
 			}}>

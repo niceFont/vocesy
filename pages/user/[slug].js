@@ -2,7 +2,9 @@ import {Container, Row, Col, Dropdown, DropdownButton} from "react-bootstrap"
 import { useEffect, useState } from "react"
 import {Loading} from "../../components/Helpers/Loading"
 import {NotFound} from "../../components/Helpers/NotFound"
-import {HorizontalGridLines, VerticalGridLines, XAxis, XYPlot, YAxis, LineMarkSeries} from "react-vis"
+import {FlexibleXYPlot, HorizontalGridLines, VerticalGridLines, XAxis, XYPlot, YAxis, LineMarkSeries, Highlight, Hint} from "react-vis"
+import { faChartArea} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 
@@ -41,11 +43,8 @@ const User = (props) => {
 	
 	function getUniqueTitles() {
 		let uniqueDeckTitles = []
-		uniqueDeckTitles.push(decks[0])
 		for (let title of decks) {
-			for (let uqtitle of uniqueDeckTitles) {
-				if(title !== uqtitle) uniqueDeckTitles.push(title)
-			}
+			if(!uniqueDeckTitles.includes(title)) uniqueDeckTitles.push(title)
 		}
 		return uniqueDeckTitles
 	}
@@ -62,7 +61,8 @@ const User = (props) => {
 
 	return (
 		<Container style={{
-			marginTop: 200
+			marginTop: 200,
+			marginBottom: 200
 		}}>
 			{!fetched ? 
 				<Row>
@@ -79,9 +79,24 @@ const User = (props) => {
 					</Row>
 						:
 						<React.Fragment>
-							<Row>
-								<Col className="text-right">
-									<DropdownButton alignRight id="dropdown-basic-button" title={selected}>
+							<Row style={{
+								margin: "0 10px 0 10px",
+								borderBottom: "1px solid lightgray"
+							}}>
+								<Col>
+									<h3 className="text-capitalize"><FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>{" " +props.slug + "s performance"}</h3>
+								</Col>
+							</Row>
+							<Row style={{
+								marginTop: 50
+							}} className="justify-content-center">
+								<Col style={{
+									display: "flex", alignItems: "center"
+								}} lg="4" md="4" sm="6" xs="6">
+									<span >Decks</span>
+								</Col>
+								<Col lg="2" md="4" sm="4" xs="4" className="text-right">
+									<DropdownButton variant="light" alignRight id="dropdown-basic-button" title={selected}>
 										{getUniqueTitles(decks).map((deck, index) => {
 											return (
 												<Dropdown.Item key={index} onClick={() => setSelected(deck)}>{deck}</Dropdown.Item>
@@ -90,16 +105,19 @@ const User = (props) => {
 									</DropdownButton>
 								</Col>
 							</Row>
-							<Row className="justify-content-center">
-								<Col xs="10" sm="10" md="8" lg="6">
-									<h6>{props.slug + "s Profile"}</h6>
-									<XYPlot width={400} height={300}>
+							<Row style={{
+								marginTop: 20
+							}} className="justify-content-center">
+								<Col style={{
+									height: 300
+								}} xs="10" sm="10" md="8" lg="6">
+									<FlexibleXYPlot>
 										<XAxis title="rounds"></XAxis>
 										<YAxis title="performance in %"></YAxis>
 										<HorizontalGridLines></HorizontalGridLines>
 										<VerticalGridLines></VerticalGridLines>
-										<LineMarkSeries color="green" data={_convertToCoords()}></LineMarkSeries>
-									</XYPlot>
+										<LineMarkSeries animation="gentle" color="#000000" data={_convertToCoords()}></LineMarkSeries>
+									</FlexibleXYPlot>
 								</Col>
 							</Row>
 

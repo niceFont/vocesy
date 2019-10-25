@@ -5,6 +5,7 @@ const Edit = (props) => {
 
 	return (
 		<Container style={{
+			marginBottom: 200, 
 			marginTop: 200
 		}}>
 			<h5 style={{

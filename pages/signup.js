@@ -13,7 +13,7 @@ const SignUp = () => {
 	const [completed, toggleCompleted] = useState(false)
 
 	useEffect(() => {
-		if (password.length >= 8 && email.includes("@") && username.length >= 3 && passVerify.length) {
+		if (!username.match("[^A-Za-z0-9]") && password.length >= 8 && email.includes("@") && username.length >= 3 && passVerify.length) {
 			toggleCompleted(true)
 		} else {
 			toggleCompleted(false)
@@ -51,6 +51,7 @@ const SignUp = () => {
 
 	return (
 		<Container style={{
+			marginBottom: 200, 
 			marginTop: 200
 		}}>
 			<Row className="justify-content-center">

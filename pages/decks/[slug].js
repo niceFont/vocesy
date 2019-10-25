@@ -8,7 +8,7 @@ import { CreateCard } from "../../components/Cards/CreateCard"
 import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeft, faPlay, faPlus, faCog } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeft, faPlay, faPlus, faCog, faLayerGroup } from "@fortawesome/free-solid-svg-icons"
 import {AnimatedCard} from "../../components/Cards/AnimatedCard"
 import DropdownToggle from "react-bootstrap/DropdownToggle"
 import SettingsMenu from "../../components/Decks/SettingsMenu"
@@ -93,13 +93,9 @@ const Deck = WithAuth(props => {
 								<Col style={{
 									display: "flex"
 								}} className="align-items-center">
-									<h6
-										className="my-auto text-capitalize"
-										style={{
-											fontWeight: "bold",
-											fontStyle: "italic"
-										}}>
-										{data[0].title + "s cards"}
+									<h6 className="my-auto text-capitalize" >
+										<FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon>
+										{" " + data[0].title + "s cards"}
 									</h6>
 								</Col>
 								<Col className="text-right">

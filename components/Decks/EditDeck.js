@@ -39,13 +39,17 @@ export const EditDeck = (props) => {
 		if (title.trim() === "") setTitle(data[0].title)
 		
 		try {
-			await fetch("/api/decks/edit", {
+			let response = await fetch("/api/decks/edit", {
 				method: "POST",
 				body: JSON.stringify({
 					title, privacy, deckId: data[0].deck_id
 				})
 			})
+
+			if(!response.ok) throw new Error(response.statusText)
+
 			window.location.replace("/decks")
+
 		} catch (err) {
 			console.error(err)
 		}

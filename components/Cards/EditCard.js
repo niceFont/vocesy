@@ -13,21 +13,27 @@ export const EditCard = props => {
 	const [side, switchSideTo] = useState("front")
 	const [error, setError] = useState(null)
 	const textAreaRef = React.createRef()
+	const [sending, toggleSending] = useState(false)
 
 	const _handleSave = async () => {
 		if (front.trim() !== "" && back.trim() !== "") {
-			setError(null)
-			await fetch("/api/cards/edit", {
-				method: "POST",
-				body: JSON.stringify({
-					front, back, id: props.data.id 
+			try {
+				setError(null)
+				let response = await fetch("/api/cards/edit", {
+					method: "POST",
+					body: JSON.stringify({
+						front, back, id: props.data.id 
+					})
 				})
-			})
-				.then(res => {
-					res.json()
-					props.toggleShow(false)
-				})
-				.catch(err => console.error(err))
+
+				if (!response.ok) throw new Error(response.statusText)
+				
+				toggleSending(true)
+			} catch (err) {
+				console.error(err)
+			} finally {
+				props.toggleShow(false)
+			}
 		} else {
 			setError("Front or Back can not be empty.")
 		}
@@ -117,6 +123,7 @@ export const EditCard = props => {
 					</Col>
 				</Row>
 				<Button
+					disabled={sending}
 					variant="dark"
 					block
 					onClick={() => {

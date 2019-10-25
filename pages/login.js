@@ -13,6 +13,7 @@ const Login = () => {
 	const [completed, toggleCompleted] = useState(false)
 
 
+	if(typeof Cookies.get("user") !== "undefined") Cookies.remove("user") 
 	useEffect(() => {
 		if(password.length >= 8 && username.length >= 2) toggleCompleted(true)
 		else toggleCompleted(false)
@@ -23,7 +24,6 @@ const Login = () => {
 		event.preventDefault()
 		if (username && password && completed) {
 			try {
-				if(typeof Cookies.get("user") !== "undefined") Cookies.remove("user") 
 				let response = await fetch("/api/login", {
 					method: "POST",
 					body: JSON.stringify({
@@ -33,11 +33,10 @@ const Login = () => {
 				if(!response.ok) throw await response.text()
 				setError(null)
 				let {token} = await response.json()
-				Cookies.set(
-					"user", token, {
-						expires: 1
-					}
-				)
+				Cookies.set("user", token, {
+					expires: 1
+				})
+				window.location.replace("/")
 			} catch (err) {
 				setError(err)
 			}
@@ -46,6 +45,7 @@ const Login = () => {
 
 	return (
 		<Container style={{
+			marginBottom: 200, 
 			marginTop: 200 
 		}}>
 			<Row className="justify-content-center">

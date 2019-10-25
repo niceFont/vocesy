@@ -1,19 +1,13 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSpring, animated } from "react-spring"
 import { Card, Container, Row, Col } from "react-bootstrap"
 
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
-const trans = (
-	x, y, s
-) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
+const trans = ( x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
 export const AnimatedCard = (props) => {
 
-	const [animatedProps, set] = useSpring(() => ({
-		opacity: 1,
-		s: 1
-	}))
 
 	const [test, setTest] = useSpring(() => ({
 		xys: [0, 0, 1], config: {
@@ -63,7 +57,7 @@ export const AnimatedCard = (props) => {
 										props._removeCard(props.cards.id)
 										props.toggleRemove(true)
 									}
-								}}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></span>
+								}}><FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon></span>
 						</Col>
 					</Row>
 				</Container>

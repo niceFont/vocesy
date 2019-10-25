@@ -35,6 +35,7 @@ export const Layout = props => {
 				<NavbarBrand>
 					<Link href="/">
 						<img
+							alt="logo"
 							style={{
 								width: 120, height: 40 
 							}}
@@ -96,7 +97,6 @@ export const Layout = props => {
 				</Navbar.Collapse>
 			</Navbar>
 			{props.children}
-
 			<Navbar fixed="bottom" bg="light" variant="dark">
 				<Nav>
 
@@ -105,6 +105,11 @@ export const Layout = props => {
 					</Nav.Item>
 				</Nav>
 			</Navbar>
+			 <style jsx global>{`
+        a {
+          cursor: pointer;
+        }
+      `}</style>
 		</React.Fragment>
 	)
 }

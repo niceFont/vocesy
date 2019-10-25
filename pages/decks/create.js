@@ -5,7 +5,8 @@ import { Container } from "react-bootstrap"
 const NewDeck = WithAuth(props => {
 	return (
 		<Container style={{
-			marginTop: 200 
+			marginTop: 200, 
+			marginBottom: 200, 
 		}}>
 			<h5 style={{
 				textAlign: "center",

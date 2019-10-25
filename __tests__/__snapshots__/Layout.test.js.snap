@@ -17,6 +17,7 @@ Array [
       className="navbar-brand"
     >
       <img
+        alt="logo"
         onClick={[Function]}
         onMouseEnter={[Function]}
         src="/static/logo.png"

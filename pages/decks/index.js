@@ -5,7 +5,7 @@ import {Loading} from "../../components/Helpers/Loading"
 import Link from "next/link"
 import fetch from "isomorphic-fetch"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faTrash, faCog} from "@fortawesome/free-solid-svg-icons"
+import {faTrash, faCog, faLayerGroup} from "@fortawesome/free-solid-svg-icons"
 
 const Decks = WithAuth(({ user }) => {
 	const [decks, setDecks] = useState([])
@@ -45,6 +45,7 @@ const Decks = WithAuth(({ user }) => {
 
 	return (
 		<Container style={{
+			marginBottom: 200, 
 			marginTop: 200 
 		}}>
 			<Row className="justify-content-center">
@@ -57,7 +58,8 @@ const Decks = WithAuth(({ user }) => {
 							textAlign: "center",
 							fontWeight: 600
 						}}>
-						Decks
+						<FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon>
+						{" Decks"}
 					</h5>
 				</Col>
 			</Row>
