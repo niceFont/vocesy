@@ -58,7 +58,7 @@ const Decks = WithAuth(({ user }) => {
 							textAlign: "center",
 							fontWeight: 600
 						}}>
-						<FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon>
+						{fetched && <FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon>}
 						{" Decks"}
 					</h5>
 				</Col>
@@ -68,7 +68,7 @@ const Decks = WithAuth(({ user }) => {
 					<React.Fragment>
 						
 						{!decks.length ? <div>No decks found create one
-							<Link href="/new"><a> here.</a></Link>
+							<Link href="/create"><a> here.</a></Link>
 						</div>
 							:
 							decks.map((deck, i) => {
@@ -98,7 +98,9 @@ const Decks = WithAuth(({ user }) => {
 											</ButtonGroup>
 										</Card.Header>
 										<Link href={`/decks/${deck.slug}`}>
-											<Card.Body>
+											<Card.Body style={{
+												cursor: "pointer"
+											}}>
 												<Card.Title>
 													{deck.title[0].toUpperCase() +
 													deck.title.slice(1)}

@@ -6,6 +6,7 @@ import {Modal,
 	Button,
 	Card} from "react-bootstrap"
 import React, { useState } from "react"
+import LoadingButton from "../../components/Helpers/LoadingButton"
 
 export const EditCard = props => {
 	const [front, editFront] = useState(props.data.front)
@@ -17,6 +18,7 @@ export const EditCard = props => {
 
 	const _handleSave = async () => {
 		if (front.trim() !== "" && back.trim() !== "") {
+			toggleSending(true)
 			try {
 				setError(null)
 				let response = await fetch("/api/cards/edit", {
@@ -28,10 +30,10 @@ export const EditCard = props => {
 
 				if (!response.ok) throw new Error(response.statusText)
 				
-				toggleSending(true)
 			} catch (err) {
 				console.error(err)
 			} finally {
+				toggleSending(false)
 				props.toggleShow(false)
 			}
 		} else {
@@ -122,7 +124,7 @@ export const EditCard = props => {
 						</Card>
 					</Col>
 				</Row>
-				<Button
+				<LoadingButton
 					disabled={sending}
 					variant="dark"
 					block
@@ -130,7 +132,7 @@ export const EditCard = props => {
 						_handleSave()
 					}}>
 					Save
-				</Button>
+				</LoadingButton>
 			</Modal.Body>
 		</Modal>
 	)

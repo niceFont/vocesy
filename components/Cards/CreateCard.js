@@ -7,6 +7,7 @@ import {Modal,
 	ButtonGroup} from "react-bootstrap"
 import React, { useState } from "react"
 import fetch from "isomorphic-fetch"
+import LoadingButton from "../../components/Helpers/LoadingButton"
 
 export const CreateCard = props => {
 	const [front, editFront] = useState("")
@@ -17,7 +18,9 @@ export const CreateCard = props => {
 	const [sending, toggleSending] = useState(false)
 
 	const _handelSave = async () => {
+
 		if (front.trim() !== "" && back.trim() !== "") {
+			toggleSending(true)
 			try {
 				setError(null)
 				let response = await fetch("/api/cards/create", {
@@ -31,15 +34,15 @@ export const CreateCard = props => {
 				
 				if(!response.ok) throw new Error(response.statusText)
 				
-				toggleSending(false)
 			} catch (err) {
 				console.error(err)
 			} finally {
+				toggleSending(false)
 				props.toggleShow(false)
 			}
-		}
-
-		setError("Front or Back can not be empty.")
+		} else {
+			setError("Front or Back can not be empty.")
+		} 		
 	}
 	return (
 		<Modal
@@ -123,16 +126,15 @@ export const CreateCard = props => {
 						</Card>
 					</Col>
 				</Row>
-				<Button
+				<LoadingButton
 					disabled={sending}
 					variant="dark"
 					block
 					onClick={() => {
-						toggleSending(true)
 						_handelSave()
 					}}>
 					Save
-				</Button>
+				</LoadingButton>
 			</Modal.Body>
 		</Modal>
 	)

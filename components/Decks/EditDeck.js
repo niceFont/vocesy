@@ -2,6 +2,7 @@ import {useState, useEffect} from "react"
 import { Container, Form, Button, ButtonGroup, Row, Col} from "react-bootstrap"
 import {Loading} from "../../components/Helpers/Loading"
 import fetch from "isomorphic-fetch"
+import LoadingButton from "../../components/Helpers/LoadingButton"
 
 export const EditDeck = (props) => {
 
@@ -9,7 +10,8 @@ export const EditDeck = (props) => {
 	const [fetched, toggleFetched] = useState(false)
 	const [title, setTitle] = useState("")
 	const [privacy, setPrivacy] = useState(0)
-
+	const [sending, toggleSending] = useState(false)
+	
 	useEffect(() => {
 		async function fetchDeck() {
 			try {
@@ -31,7 +33,7 @@ export const EditDeck = (props) => {
 	},[props.slug, props.user.displayName])
 
 	async function _handleSubmit() {
-
+		toggleSending(true)
 		if (title.trim() === data[0].title && privacy === data[0].privacy) {
 			window.location.replace("/decks")
 			return
@@ -52,6 +54,8 @@ export const EditDeck = (props) => {
 
 		} catch (err) {
 			console.error(err)
+		} finally {
+			toggleSending(false)
 		}
 
 	}
@@ -112,7 +116,7 @@ export const EditDeck = (props) => {
 										</ButtonGroup>
 									</Form.Group>
 									<Form.Group>
-										<Button type="submit" variant="dark" block >Save</Button>
+										<LoadingButton sending={sending} disabled={sending} type="submit" variant="dark" block >Save</LoadingButton>
 									</Form.Group>
 								</Form>
 							</Col>

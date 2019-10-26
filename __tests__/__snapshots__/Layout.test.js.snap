@@ -135,5 +135,15 @@ Array [
       </div>
     </div>
   </nav>,
+  <style
+    global={true}
+    jsx={true}
+  >
+    
+        a {
+          cursor: pointer;
+        }
+      
+  </style>,
 ]
 `;

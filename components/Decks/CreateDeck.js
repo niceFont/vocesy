@@ -1,13 +1,16 @@
 import { Row, Col, Form, ButtonGroup, Button } from "react-bootstrap"
 import { useState } from "react"
 import fetch from "isomorphic-fetch"
+import LoadingButton from "../../components/Helpers/LoadingButton"
 
 export const CreateDeck = props => {
 	const [privacy, setPrivacy] = useState(0)
 	const [title, setTitle] = useState(null)
+	const [sending, toggleSending] = useState(false)
 
 	const _handleSubmit = async () => {
 		if (title.length) {
+			toggleSending(true)
 			try {
 
 				let response = await fetch("/api/decks/create", {
@@ -26,6 +29,8 @@ export const CreateDeck = props => {
 				}
 			} catch (err) {
 				console.error(err)
+			} finally {
+				toggleSending(false)
 			}
 		}
 	}
@@ -70,7 +75,7 @@ export const CreateDeck = props => {
 						</ButtonGroup>
 					</Form.Group>
 					<Form.Group>
-						<Button variant="dark" type="submit" block>Submit</Button>
+						<LoadingButton disabled={sending} sending={sending} variant="dark" type="submit" block>Submit</LoadingButton>
 					</Form.Group>
 				</Form>
 			</Col>
