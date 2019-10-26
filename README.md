@@ -5,4 +5,4 @@ The Goal of this App is to be simple yet helpful, offer customization and sharin
 
 **NOTE:** This is still in the early stages of development and bugs can still occur. If you encounter bugs or problems, don't hesitate to message me or create an Issue right here.
 
-**[Demo v. 1.01a:](https://vocesy.nicefont.now.sh/)** 
+**[Demo v. 1.01a](https://vocesy.nicefont.now.sh/)** 
