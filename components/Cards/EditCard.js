@@ -23,6 +23,9 @@ export const EditCard = props => {
 				setError(null)
 				let response = await fetch("/api/cards/edit", {
 					method: "POST",
+					headers: {
+						"authorization": "Bearer " + props.token
+					},
 					body: JSON.stringify({
 						front, back, id: props.data.id 
 					})

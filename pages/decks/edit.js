@@ -13,7 +13,7 @@ const Edit = (props) => {
 				padding: 5,
 				fontWeight: 600
 			}}>Edit your deck</h5>
-			<EditDeck slug={props.slug} user={props.user}></EditDeck>
+			<EditDeck {...props} ></EditDeck>
 		</Container>
 	)
 	

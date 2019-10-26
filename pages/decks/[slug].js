@@ -27,7 +27,6 @@ const Deck = WithAuth(props => {
 			}
 		}
 	})
-
 	const [editID, setEditID] = useState()
 	useEffect(() => {
 		const fetchCards = async () => {
@@ -52,6 +51,9 @@ const Deck = WithAuth(props => {
 		try {
 			let response = await fetch("/api/cards/remove", {
 				method: "DELETE",
+				headers: {
+					"authorization": "Bearer " + props.token
+				},
 				body: JSON.stringify({
 					id 
 				})
@@ -156,6 +158,7 @@ const Deck = WithAuth(props => {
 								}}></Row>
 							{adding && (
 								<CreateCard
+									token={props.token}
 									slug={props.slug}
 									data={data[0]}
 									toggleShow={toggleAdding}
@@ -163,6 +166,7 @@ const Deck = WithAuth(props => {
 							)}
 							{editing && (
 								<EditCard
+									token={props.token}
 									show={editing}
 									toggleShow={toggleEditing}
 									data={

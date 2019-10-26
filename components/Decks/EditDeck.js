@@ -42,6 +42,9 @@ export const EditDeck = (props) => {
 		
 		try {
 			let response = await fetch("/api/decks/edit", {
+				headers: {
+					"authorization": "Bearer " + props.token
+				},
 				method: "POST",
 				body: JSON.stringify({
 					title, privacy, deckId: data[0].deck_id

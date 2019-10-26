@@ -2,7 +2,8 @@
 
 const db = require("../../../lib/db")
 const escape = require("sql-template-strings")
-const {CheckForValues} = require("../../../lib/utils")
+const { CheckForValues } = require("../../../lib/utils")
+
 
 module.exports = async (req, res) => {
 	if (req.method === "GET") {

@@ -7,7 +7,7 @@ import fetch from "isomorphic-fetch"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faTrash, faCog, faLayerGroup} from "@fortawesome/free-solid-svg-icons"
 
-const Decks = WithAuth(({ user }) => {
+const Decks = WithAuth(({ user, token }) => {
 	const [decks, setDecks] = useState([])
 	const [removing, toggleRemoving] = useState(false)
 	const [fetched, toggleFetched] = useState(false)
@@ -31,6 +31,9 @@ const Decks = WithAuth(({ user }) => {
 	async function _removeDeck(id) {
 		try {
 			let response = await fetch("/api/decks/remove", {
+				headers: {
+					"authorization": "Bearer " + token
+				},
 				method: "DELETE",
 				body: JSON.stringify({
 					id

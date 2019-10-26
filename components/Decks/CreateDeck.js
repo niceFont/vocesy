@@ -15,6 +15,9 @@ export const CreateDeck = props => {
 
 				let response = await fetch("/api/decks/create", {
 					method: "POST",
+					headers: {
+						"authorization": "Bearer " + props.token
+					},
 					body: JSON.stringify({
 						title,
 						privacy,

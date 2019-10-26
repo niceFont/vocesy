@@ -16,7 +16,6 @@ export const CreateCard = props => {
 	const textAreaRef = React.createRef()
 	const [error, setError] = useState()
 	const [sending, toggleSending] = useState(false)
-
 	const _handelSave = async () => {
 
 		if (front.trim() !== "" && back.trim() !== "") {
@@ -25,6 +24,9 @@ export const CreateCard = props => {
 				setError(null)
 				let response = await fetch("/api/cards/create", {
 					method: "POST",
+					headers: {
+						"authorization": "Bearer " + props.token
+					},
 					body: JSON.stringify({
 						front,
 						back,

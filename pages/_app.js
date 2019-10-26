@@ -34,6 +34,7 @@ class MyApp extends App {
 					})
 					if(!response.ok) throw response.statusText
 					pageProps.user = await response.json()
+					pageProps.token = user
 				} catch (err) {
 					console.error(err)
 				}
@@ -48,7 +49,8 @@ class MyApp extends App {
 	constructor(props) {
 		super(props)
 		this.state = {
-			user: props.pageProps.user
+			user: props.pageProps.user,
+			token: props.pageProps.token
 		}
 	}
 
@@ -56,7 +58,8 @@ class MyApp extends App {
 		const { Component, pageProps } = this.props
 		const props = {
 			...pageProps,
-			user: this.state.user
+			user: this.state.user,
+			token: this.state.token
 		}
 		return (
 			<Layout user={this.state.user}>

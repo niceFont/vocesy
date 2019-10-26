@@ -13,7 +13,7 @@ const NewDeck = WithAuth(props => {
 				padding: 5,
 				fontWeight: 600
 			}}>Create a deck</h5>
-			<CreateDeck user={props.user}></CreateDeck>
+			<CreateDeck {...props}></CreateDeck>
 		</Container>
 	)
 })

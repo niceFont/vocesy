@@ -3,8 +3,9 @@
 const db = require("../../../lib/db")
 const escape = require("sql-template-strings")
 const {CheckForValues} = require("../../../lib/utils")
+import { apiWithAuth } from "../../../lib/middlewares";
 
-module.exports = async (req, res) => {
+module.exports = apiWithAuth(async (req, res) => {
 	if (req.method === "DELETE") {
 		try {
 			const { id } = JSON.parse(req.body)
@@ -20,4 +21,4 @@ module.exports = async (req, res) => {
 	} else {
 		res.status(400).send("Request Method " + req.method + " is not allowed." )
 	}
-}
+})
