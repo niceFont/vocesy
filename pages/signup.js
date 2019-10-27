@@ -2,6 +2,7 @@ import { Container, Row, Col, Button, Form, OverlayTrigger, Tooltip } from "reac
 import { useState, useEffect } from "react"
 import { useError } from "../hooks/hooks"
 import InputWithOverlay from "../components/Signup/InputWithOverlay"
+import React from "react"
 
 const SignUp = () => {
 

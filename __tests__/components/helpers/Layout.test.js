@@ -2,7 +2,7 @@
 /*eslint camelcase: off*/
 import renderer from "react-test-renderer"
 import React from "react"
-import { Layout } from "../components/Helpers/Layout"
+import { Layout } from "../../../components/Helpers/Layout"
 import {mount} from "enzyme"
 
 describe("Layout", () => {

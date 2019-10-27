@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index should render 1`] = `
+<div
+  style={
+    Object {
+      "background": "url('/static/background-min.webp')",
+      "backgroundPosition": "center",
+      "backgroundSize": "cover",
+      "height": "100vh",
+      "position": "absolute",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+      style={
+        Object {
+          "marginTop": 200,
+        }
+      }
+    >
+      <div
+        className="col-lg-8 col-md-10 col-sm-12"
+      >
+        <div
+          className="jumbotron"
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, .8)",
+              "color": "black",
+            }
+          }
+        >
+          <h1>
+            Welcome to Vocesy!
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          </p>
+          <button
+            className="btn btn-dark btn-lg"
+            disabled={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            type="button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

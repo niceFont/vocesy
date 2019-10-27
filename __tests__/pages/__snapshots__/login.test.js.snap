@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login should render 1`] = `
+<div
+  className="container"
+  style={
+    Object {
+      "marginBottom": 200,
+      "marginTop": 200,
+    }
+  }
+>
+  <div
+    className="justify-content-center row"
+  >
+    <div
+      className="text-center col-md-4"
+    >
+      <h5
+        style={
+          Object {
+            "fontWeight": 600,
+          }
+        }
+      >
+        Login
+      </h5>
+    </div>
+  </div>
+  <div
+    className="justify-content-center row"
+  >
+    <div
+      className="col-lg-6 col-md-8 col-sm-10"
+    />
+  </div>
+  <div
+    className="justify-content-center row"
+  >
+    <div
+      className="col-lg-6 col-md-8 col-sm-4"
+      style={
+        Object {
+          "border": "1px solid lightgray",
+          "margin": "0 5% 0 5%",
+          "padding": "10%",
+        }
+      }
+    >
+      <form
+        className=""
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+          >
+            Username:
+          </label>
+          <input
+            className="form-control"
+            onChange={[Function]}
+            placeholder="Enter your Username..."
+            required={true}
+            type="username"
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+          >
+            Password:
+          </label>
+          <input
+            className="form-control"
+            onChange={[Function]}
+            placeholder="Enter your Password..."
+            required={true}
+            type="password"
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <button
+            className="btn btn-dark btn-block"
+            disabled={true}
+            type="submit"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

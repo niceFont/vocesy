@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound should render 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="justify-content-center row"
+  >
+    <div
+      className="text-center col"
+    >
+      <h5>
+         404 | We could not find what you were looking for.
+      </h5>
+    </div>
+  </div>
+</div>
+`;

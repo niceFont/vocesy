@@ -1,25 +1,33 @@
+
 /*eslint no-undef: off*/
 /*eslint camelcase: off*/
 
 import React from "react"
 import { mount } from "enzyme"
-import { CreateCard } from "../components/Cards/CreateCard"
+import { EditCard } from "../../components/Cards/EditCard"
 
-describe("CreateCard", () => {
-	const component = mount(<CreateCard
+describe("EditCard", () => {
+	const component = mount(<EditCard
 		data={{
-			deck_id: 1, title: "unitTest", privacy: 0
+			deck_id: 1, title: "unitTest", privacy: 0, front: "unit", back: "test"
 		}}
 		toggleShow={() => { }}
 		show={true}
-	></CreateCard>)
+	></EditCard>)
 	it("should render correctly with passed Props.", () => {
 
-		expect(component.find("div.modal-title b").text()).toEqual(" unitTest ")
+		expect(component.find("div.modal-title b").text().trim()).toEqual("unitTest")
 			
 	})
 	
 	it("should render an alert on empty input.", () => {
+		let component = mount(<EditCard
+			data={{
+				deck_id: 1, title: "unitTest", privacy: 0, front: "", back: ""
+			}}
+			toggleShow={() => { }}
+			show={true}
+		></EditCard>)
 		component.find(".btn-block").simulate("click")
 		expect(component.find(".alert-danger").exists()).toEqual(true)
 	})
