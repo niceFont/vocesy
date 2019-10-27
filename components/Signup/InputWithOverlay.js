@@ -1,4 +1,5 @@
 import { Form, Overlay, Tooltip } from "react-bootstrap"
+import React from "react"
 import { useState, useRef } from "react"
 
 const InputWithOverlay = ({overlayId, tooltip, label, placeholder, handleChangeFn, type}) => {

@@ -1,4 +1,6 @@
 import {Button, Spinner} from "react-bootstrap"
+import React from "react"
+
 
 export default function LoadingButton({sending,...props}) {
 	return (

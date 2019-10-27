@@ -1,4 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap"
+import React from "react"
+
 
 export const NotFound = () => {
 	return (

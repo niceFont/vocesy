@@ -1,10 +1,10 @@
 import escape from "sql-template-strings"
 import db from "../../../lib/db"
 import { CheckForValues, CalcPerformance } from "../../../lib/utils"
+import {apiWithAuth} from "../../../lib/middlewares"
 
 
-
-export default async (req, res) => {
+export default async apiWithAuth((req, res) => {
 	if (req.method === "POST") {
 		try {
 			let {roundResult, deckId} = JSON.parse(req.body)
@@ -34,4 +34,4 @@ export default async (req, res) => {
 			res.status(500).send(err)
 		}
 	}
-}
+})

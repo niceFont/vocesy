@@ -49,6 +49,9 @@ const Play = WithAuth(props => {
 		try {
 			let results = roundResult.map(x => x.result.toString())
 			let response = await fetch("/api/stats/submit", {
+				headers: {
+					"authorization": "Bearer " + props.token
+				},
 				method: "POST",
 				body: JSON.stringify({
 					roundResult: results, deckId: data[0].deck_id
