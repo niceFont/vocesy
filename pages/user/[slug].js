@@ -58,6 +58,10 @@ const User = (props) => {
 			}
 		})
 	}
+
+	function _generateTicks() {
+		return new Array(11).fill(0).map((x, index) => index * 10)
+	}
 	console.log(stats)
 	return (
 		<Container style={{
@@ -74,7 +78,9 @@ const User = (props) => {
 				<React.Fragment>
 					{!stats.length ? <Row>
 						<Col>
-							<NotFound></NotFound>
+							<div>
+								Either user doesn't exist or needs to play atleast once for stats to show... 
+							</div>
 						</Col>
 					</Row>
 						:
@@ -113,7 +119,7 @@ const User = (props) => {
 								}} xs="10" sm="10" md="8" lg="6">
 									<FlexibleXYPlot>
 										<XAxis title="rounds"></XAxis>
-										<YAxis title="performance in %"></YAxis>
+										<YAxis tickValues={_generateTicks()} title="performance in %"></YAxis>
 										<HorizontalGridLines></HorizontalGridLines>
 										<VerticalGridLines></VerticalGridLines>
 										<LineMarkSeries animation="gentle" color="#000000" data={_convertToCoords()}></LineMarkSeries>
