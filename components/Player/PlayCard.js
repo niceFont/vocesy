@@ -1,13 +1,11 @@
 import { useSpring, animated } from "react-spring"
 import { Card, Container } from "react-bootstrap"
-import { useState } from "react"
 
 export const PlayCard = (props) => {
 
-	const [flipped, set] = useState(false)
 	const { transform, opacity } = useSpring({
-		opacity: flipped ? 1 : 0,
-		transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
+		opacity: props.flipped ? 1 : 0,
+		transform: `perspective(600px) rotateY(${props.flipped ? 180 : 0}deg)`,
 		config: {
 			mass: 15, tension: 800, friction: 80 
 		}
@@ -19,7 +17,7 @@ export const PlayCard = (props) => {
 			overflow: "hidden",
 			padding: "25px 0 25px 0",
 			cursor: "pointer"
-		}} onClick={()=> set(state => !state)}>
+		}} onClick={()=> props.toggleFlipped(o => !o)}>
 			<animated.div className="justify-content-center text-center" style={{
 				opacity: opacity.interpolate(o => 1 - o), transform,
 				display: "flex",

@@ -58,7 +58,7 @@ const User = (props) => {
 			}
 		})
 	}
-
+	console.log(stats)
 	return (
 		<Container style={{
 			marginTop: 200,
@@ -93,7 +93,7 @@ const User = (props) => {
 								<Col style={{
 									display: "flex", alignItems: "center"
 								}} lg="4" md="4" sm="6" xs="6">
-									<span >Decks</span>
+									<span >Overall Deck Performance</span>
 								</Col>
 								<Col lg="2" md="4" sm="4" xs="4" className="text-right">
 									<DropdownButton variant="light" alignRight id="dropdown-basic-button" title={selected}>

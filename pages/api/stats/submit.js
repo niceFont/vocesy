@@ -4,7 +4,7 @@ import { CheckForValues, CalcPerformance } from "../../../lib/utils"
 import {apiWithAuth} from "../../../lib/middlewares"
 
 
-export default async apiWithAuth((req, res) => {
+export default apiWithAuth(async (req, res) => {
 	if (req.method === "POST") {
 		try {
 			let {roundResult, deckId} = JSON.parse(req.body)

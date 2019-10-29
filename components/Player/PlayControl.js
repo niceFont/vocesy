@@ -26,19 +26,18 @@ export const PlayControl = props => {
 									as="textarea"
 									onKeyPress={(e) => {
 										if (e.key === "Enter" || e.keyCode === 13) {
-											e.preventDefault()
-											e.target.value = "".replace(/(\r\n|\n|\r)/gm, "")
-											if (
-												props.current + 1 ===
-												props.max
-											) {
-												props.toggleDone(true)
-											} else {
-												props.next(curr => curr + 1)
+											if (e.target.value.trim() !== "") {
+												e.preventDefault()
+												e.target.value = "".replace(/(\r\n|\n|\r)/gm, "")
+												if (props.current + 1 === props.max) {
+													props.toggleDone(true)
+												} else {
+													props.next(curr => curr + 1)
+												}
+												props.pushInput(arr => [ ...arr, userValue ])
+												setUserValue("")
+												return false
 											}
-											props.pushInput(arr => [ ...arr, userValue ])
-											setUserValue("")
-											return false
 										}
 									}}
 									onChange={({ target }) =>
@@ -51,27 +50,57 @@ export const PlayControl = props => {
 									<Button disabled={props.done}
 										variant="danger"
 										onClick={() => {
-											if ( props.current + 1 === props.max) {
-												props.toggleDone(done => !done)
+											if (props.flipped) {
+												props.toggleFlipped(false)
+												
+												setTimeout(() => {
+	
+													if ( props.current + 1 === props.max) {
+														props.toggleDone(done => !done)
+													} else {
+														props.next(curr => curr + 1)
+													}
+													props.pushInput(arr => [
+														...arr,
+														false
+													])
+												}, 1500)
 											} else {
-												props.next(curr => curr + 1)
+												if ( props.current + 1 === props.max) {
+													props.toggleDone(done => !done)
+												} else {
+													props.next(curr => curr + 1)
+												}
+												props.pushInput(arr => [
+													...arr,
+													false
+												])
 											}
-											props.pushInput(arr => [
-												...arr,
-												false
-											])
 										}}>
 										Wrong
 									</Button>
 									<Button disabled={props.done}
 										variant="success"
 										onClick={() => {
-											if ( props.current + 1 === props.max) {
-												props.toggleDone(done => !done)
+											if (props.flipped) {
+												props.toggleFlipped(false)
+												setTimeout(() => {
+													if (props.current + 1 === props.max) {
+														props.toggleDone(done => !done)
+													} else {
+														props.next(curr => curr + 1)
+													}
+													props.pushInput(arr => [ ...arr, true ])
+
+												}, 1500)
 											} else {
-												props.next(curr => curr + 1)
+												if (props.current + 1 === props.max) {
+													props.toggleDone(done => !done)
+												} else {
+													props.next(curr => curr + 1)
+												}
+												props.pushInput(arr => [ ...arr, true ])
 											}
-											props.pushInput(arr => [ ...arr, true ])
 										}}>
 										Right
 									</Button>

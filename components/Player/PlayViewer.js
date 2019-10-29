@@ -2,7 +2,9 @@ import { Container, Row, Col, Card, Table } from "react-bootstrap"
 import { PlayCard } from "./PlayCard"
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import { useState } from "react"
 export const PlayViewer = props => {
+
 
 	function _setDiffs(diffs) {
 
@@ -26,7 +28,7 @@ export const PlayViewer = props => {
 			)
 		})
 	}
-
+	// PlayCard backside is showing when its not on front
 	return (
 		<Container>
 			<Row style={{
@@ -85,7 +87,7 @@ export const PlayViewer = props => {
 								<span style={{
 									color: "gray"
 								}} ><FontAwesomeIcon icon={faInfoCircle} ></FontAwesomeIcon> Click the Card to see if you're right!</span>	
-								<PlayCard data={props.data}></PlayCard>
+								<PlayCard toggleFlipped={props.toggleFlipped} flipped={props.flipped} data={props.data}></PlayCard>
 							</div>
 						}
 					</Col>

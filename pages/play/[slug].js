@@ -19,6 +19,7 @@ const Play = WithAuth(props => {
 	const [current, goNext] = useState(0)
 	const [userInput, pushInput] = useState([])
 	const [done, toggleDone] = useState(false)
+	const [flipped, toggleFlipped] = useState(false)
 
 	useEffect(() => {
 		async function fetchCards() {
@@ -103,6 +104,8 @@ const Play = WithAuth(props => {
 					{data.length ? (
 						<React.Fragment>
 							<PlayViewer
+								flipped={flipped}
+								toggleFlipped={toggleFlipped}
 								done={done}
 								max={shuffled.length}
 								current={current + 1}
@@ -113,6 +116,8 @@ const Play = WithAuth(props => {
 								data={shuffled[current]}></PlayViewer>
 							<PlayControl
 								restart={_restart}
+								flipped={flipped}
+								toggleFlipped={toggleFlipped}
 								done={done}
 								toggleDone={toggleDone}
 								pushInput={pushInput}
