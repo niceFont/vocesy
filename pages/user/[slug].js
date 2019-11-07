@@ -1,8 +1,7 @@
 import {Container, Row, Col, Dropdown, DropdownButton} from "react-bootstrap"
 import { useEffect, useState } from "react"
 import {Loading} from "../../components/Helpers/Loading"
-import {NotFound} from "../../components/Helpers/NotFound"
-import {FlexibleXYPlot, HorizontalGridLines, VerticalGridLines, XAxis, XYPlot, YAxis, LineMarkSeries, Highlight, Hint} from "react-vis"
+import {FlexibleXYPlot, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, LineMarkSeries} from "react-vis"
 import { faChartArea} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -62,7 +61,6 @@ const User = (props) => {
 	function _generateTicks() {
 		return new Array(11).fill(0).map((x, index) => index * 10)
 	}
-	console.log(stats)
 	return (
 		<Container style={{
 			marginTop: 200,
@@ -126,9 +124,7 @@ const User = (props) => {
 									</FlexibleXYPlot>
 								</Col>
 							</Row>
-
 						</React.Fragment>
-						
 					}
 				</React.Fragment>
 			}

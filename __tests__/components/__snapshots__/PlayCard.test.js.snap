@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayCard should render correctly with passed Props. 1`] = `
+<div
+  className="container"
+  id="toggler"
+  onClick={[Function]}
+  style={
+    Object {
+      "cursor": "pointer",
+      "overflow": "hidden",
+      "padding": "25px 0 25px 0",
+      "position": "absolute",
+    }
+  }
+>
+  <div>
+    <div
+      className="justify-content-center text-center"
+      id="front"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "opacity": 1,
+          "transform": "perspective(600px) rotateY(0deg)",
+        }
+      }
+    >
+      <div
+        className="mx-auto card"
+        style={
+          Object {
+            "height": "22rem",
+            "position": "absolute",
+            "width": "16em",
+          }
+        }
+      >
+        <div
+          className="card-header"
+        >
+          <div
+            className="card-subtitle h6"
+          >
+            Front
+          </div>
+        </div>
+        <div
+          className="card-body"
+        >
+          <p
+            className="card-text"
+          >
+            hello
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      id="back"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "opacity": 0,
+          "transform": "perspective(600px) rotateY(0deg) rotateY(180deg)",
+        }
+      }
+    >
+      <div
+        className="card"
+        style={
+          Object {
+            "height": "22rem",
+            "width": "16em",
+          }
+        }
+      >
+        <div
+          className="card-header"
+        >
+          <div
+            className="card-subtitle h6"
+          >
+            Back
+          </div>
+        </div>
+        <div
+          className="card-body"
+        >
+          <p
+            className="card-text"
+          >
+            world
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

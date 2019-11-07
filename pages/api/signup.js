@@ -8,7 +8,6 @@ export default async (req, res) => {
 		try {
 			const {email, username, password} = JSON.parse(req.body)
 			CheckForValues([email, username, password])
-			console.log(req.body)
 			const hashed = await HashPassword(password)            
             
 			let response = await db.query(escape`

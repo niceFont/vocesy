@@ -18,7 +18,9 @@ export const PlayControl = props => {
 				) : (
 					<React.Fragment>
 						{props.settings.uv === "false" ? (
-							<Col xs="10" sm="10" lg="6" md="8">
+							<Col style={{
+								marginTop: 350
+							}} xs="12" sm="10" lg="6" md="8">
 								<Form.Control placeholder="Enter your Answer..."
 									style={{
 										resize: "none" 
@@ -45,27 +47,19 @@ export const PlayControl = props => {
 									}></Form.Control>
 							</Col>
 						) : (
-							<Col md="4" className="text-center">
+							<Col style={{
+								marginTop: 350
+							}} md="4" className="text-center">
 								<ButtonGroup>
 									<Button disabled={props.done}
 										variant="danger"
 										onClick={() => {
 											if (props.flipped) {
 												props.toggleFlipped(false)
-												
-												setTimeout(() => {
+											}
+											const timeout = props.flipped ? 1000 : 0
+											setTimeout(() => {
 	
-													if ( props.current + 1 === props.max) {
-														props.toggleDone(done => !done)
-													} else {
-														props.next(curr => curr + 1)
-													}
-													props.pushInput(arr => [
-														...arr,
-														false
-													])
-												}, 1500)
-											} else {
 												if ( props.current + 1 === props.max) {
 													props.toggleDone(done => !done)
 												} else {
@@ -75,7 +69,7 @@ export const PlayControl = props => {
 													...arr,
 													false
 												])
-											}
+											}, timeout)
 										}}>
 										Wrong
 									</Button>
@@ -84,23 +78,17 @@ export const PlayControl = props => {
 										onClick={() => {
 											if (props.flipped) {
 												props.toggleFlipped(false)
-												setTimeout(() => {
-													if (props.current + 1 === props.max) {
-														props.toggleDone(done => !done)
-													} else {
-														props.next(curr => curr + 1)
-													}
-													props.pushInput(arr => [ ...arr, true ])
-
-												}, 1500)
-											} else {
+											}
+											const timeout = props.flipped ? 1000 : 0
+											setTimeout(() => {
 												if (props.current + 1 === props.max) {
 													props.toggleDone(done => !done)
 												} else {
 													props.next(curr => curr + 1)
 												}
 												props.pushInput(arr => [ ...arr, true ])
-											}
+
+											}, timeout)
 										}}>
 										Right
 									</Button>

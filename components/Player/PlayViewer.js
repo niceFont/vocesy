@@ -2,9 +2,51 @@ import { Container, Row, Col, Card, Table } from "react-bootstrap"
 import { PlayCard } from "./PlayCard"
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { useState } from "react"
-export const PlayViewer = props => {
+import { useTransition, animated } from "react-spring"
+import React, { useCallback } from "react"
 
+
+
+export const PlayViewer = React.memo(props => {
+
+	const pages = props.data.map((card) => useCallback(({ style }) => {
+		return (
+			<animated.div style={{
+				...style, display: "flex", justifyContent: "center"
+			}}>
+				<Card style={{
+					position: "absolute",
+					height: "22em",
+					width: "16em"
+				}}>
+					<Card.Header>Front</Card.Header>
+					<Card.Body className="text-center">
+						<Card.Text >
+							{card.front}
+						</Card.Text>
+					</Card.Body>
+				</Card>
+			</animated.div>)}, [card]))
+			
+	const uvPages = props.data.map(card => useCallback(({ style, flipped, toggleFlipped }) => {
+		return (
+			<animated.div style={style}>
+				<PlayCard toggleFlipped={toggleFlipped} flipped={flipped} data={card}>
+				</PlayCard>
+			</animated.div>
+		)
+	}, [card]))
+	const transitions = useTransition(props.current - 1,p => p, {
+		from: {
+			opacity: 0, transform: "translate3d(100%,0,0)" 
+		},
+		enter: {
+			opacity: 1, transform: "translate3d(0%,0,0)" 
+		},
+		leave: {
+			opacity: 0, transform: "translate3d(-50%,0,0)" 
+		},
+	})
 
 	function _setDiffs(diffs) {
 
@@ -28,7 +70,6 @@ export const PlayViewer = props => {
 			)
 		})
 	}
-	// PlayCard backside is showing when its not on front
 	return (
 		<Container>
 			<Row style={{
@@ -70,29 +111,26 @@ export const PlayViewer = props => {
 				</Row>
 			) : (
 				<Row className="justify-content-center">
-					<Col xs="10" sm="8" md="6" lg="4">
-						{props.settings.uv === "false" ?
-							<Card style={{
-								height: "25em"
-							}}>
-								<Card.Header>Front</Card.Header>
-								<Card.Body>
-									<Card.Text>
-										{props.data.front}
-									</Card.Text>
-								</Card.Body>
-							</Card>
-							:
-							<div className="text-center">
-								<span style={{
-									color: "gray"
-								}} ><FontAwesomeIcon icon={faInfoCircle} ></FontAwesomeIcon> Click the Card to see if you're right!</span>	
-								<PlayCard toggleFlipped={props.toggleFlipped} flipped={props.flipped} data={props.data}></PlayCard>
-							</div>
-						}
-					</Col>
+					{props.settings.uv === "false" ?
+						<Col xs="10" sm="8" md="6" lg="4">
+							{transitions.map(({ item, props, key }) => {
+								const Page = pages[item]
+								return <Page key={key} style={props}></Page>
+							})}
+						</Col>
+						:
+						<div className="text-center">
+							<span style={{
+								color: "gray"
+							}} ><FontAwesomeIcon icon={faInfoCircle} ></FontAwesomeIcon> Click the Card to see if you're right!</span>	
+							{transitions.map(({item, "props" : styles, key }) => {
+								const Page = uvPages[item]
+								return <Page toggleFlipped={props.toggleFlipped} flipped={props.flipped} style={styles} key={key}></Page>
+							})}
+						</div>
+					}
 				</Row>
 			)}
 		</Container>
 	)
-}
+})

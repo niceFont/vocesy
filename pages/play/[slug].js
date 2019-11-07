@@ -46,6 +46,7 @@ const Play = WithAuth(props => {
 		pushInput([])
 		toggleDone(false)
 	}
+
 	async function _sendStats(roundResult) {
 		try {
 			let results = roundResult.map(x => x.result.toString())
@@ -113,7 +114,7 @@ const Play = WithAuth(props => {
 								verifyResult={_verifyResult}
 								settings={props.settings}
 								sendStats={_sendStats}
-								data={shuffled[current]}></PlayViewer>
+								data={shuffled}></PlayViewer>
 							<PlayControl
 								restart={_restart}
 								flipped={flipped}
