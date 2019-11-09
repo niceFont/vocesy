@@ -1,17 +1,19 @@
 import { useSpring, animated } from "react-spring"
 import { Card, Container } from "react-bootstrap"
-import React from "react"
+import React, {useState} from "react"
 
 
 export const PlayCard = (props) => {
-
+	
+	const [flipped, toggleFlipped] = useState(false)
 	const { transform, opacity } = useSpring({
-		opacity: props.flipped ? 1 : 0,
-		transform: `perspective(600px) rotateY(${props.flipped ? 180 : 0}deg)`,
+		opacity: flipped ? 1 : 0,
+		transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
 		config: {
 			mass: 10, tension: 500, friction: 80 
 		}
 	})
+
 
 	return (
 		
@@ -22,7 +24,7 @@ export const PlayCard = (props) => {
 			position: "absolute",
 			cursor: "pointer"
 		}} onClick={() => {
-			props.toggleFlipped(o => !o)
+			toggleFlipped(o => !o)
 		}}>
 			<div>
 

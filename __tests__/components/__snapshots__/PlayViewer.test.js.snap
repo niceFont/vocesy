@@ -13,7 +13,7 @@ exports[`PlayViewer should render correctly with passed Props. 1`] = `
     }
   >
     <div
-      className="text-center col-md-2"
+      className="text-center col-md-6"
     >
       <span>
         1/1
