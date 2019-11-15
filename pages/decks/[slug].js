@@ -97,6 +97,10 @@ const Deck = WithAuth(props => {
 						<Container
 							style={{
 								margin: "50px 0 100px 0px",
+								padding: "20px 15px 40px 15px",
+								borderRadius: 5,
+								backgroundColor: "white",
+								boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
 							}}
 						>
 							<Row
@@ -161,7 +165,9 @@ const Deck = WithAuth(props => {
 							<Row
 								style={{
 									overflowY: "auto",
+									marginTop: 35,
 									paddingTop: 20,
+									paddingBottom: 20
 								}}
 								className="justify-content-center"
 							>
@@ -180,13 +186,6 @@ const Deck = WithAuth(props => {
 									})
 									: "No Cards yet :("}
 							</Row>
-							<Row
-								className="justify-content-center"
-								style={{
-									padding: 10,
-									borderTop: "1px solid lightgray",
-								}}
-							></Row>
 							{adding && (
 								<CreateCard
 									token={props.token}
@@ -232,6 +231,17 @@ const Deck = WithAuth(props => {
 					</Row>
 				</Container>
 			)}
+				<style global jsx>
+					{`
+						.ck-balloon-panel {
+							z-index: 1100 !important;
+						}
+						.ck-editor__editable {
+							overflow: hidden;
+							height: 100% !important;
+						}
+					`}
+				</style>
 		</Container>
 	)
 })

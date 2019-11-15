@@ -13,14 +13,14 @@ const Login = () => {
 	const [completed, toggleCompleted] = useState(false)
 
 
-	if(typeof Cookies.get("user") !== "undefined") Cookies.remove("user") 
 	useEffect(() => {
 		if(password.length >= 8 && username.length >= 2) toggleCompleted(true)
 		else toggleCompleted(false)
 	}, [password, username])
-
-
+	
+	
 	const _handleLogin = async (event) => {
+		if(typeof Cookies.get("user") !== "undefined") Cookies.remove("user") 
 		event.preventDefault()
 		if (username && password && completed) {
 			try {
@@ -56,7 +56,7 @@ const Login = () => {
 				</Col>
 			</Row>
 			<Row className="justify-content-center">
-				<Col sm="10" md="8" lg="6">
+				<Col sm="10" md="8" lg="6" style={{backgroundColor: "white"}}>
 					{error}
 				</Col>
 			</Row>
@@ -64,6 +64,7 @@ const Login = () => {
 				<Col sm="4" md="8" lg="6" style={{
 					border: "1px solid lightgray",
 					padding: "10%",
+					backgroundColor: "white",
 					margin: "0 5% 0 5%"
 				}} >
 					<Form onSubmit={_handleLogin}>

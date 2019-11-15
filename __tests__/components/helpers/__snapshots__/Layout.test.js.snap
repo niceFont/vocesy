@@ -3,13 +3,16 @@
 exports[`Layout renders 1`] = `
 Array [
   <nav
-    className="navbar navbar-expand-md navbar-light fixed-top"
+    className="navbar navbar-expand-md navbar-light"
     style={
       Object {
-        "backgroundColor": "white",
-        "borderBottom": "1px solid lightgray",
+        "backgroundColor": "rgba(0,0,0,0)",
+        "fontWeight": 600,
         "paddingLeft": "4%",
         "paddingRight": "4%",
+        "position": "absolute",
+        "width": "100%",
+        "zIndex": 1,
       }
     }
   >
@@ -46,44 +49,39 @@ Array [
       id="main-menu"
     >
       <div
-        className="mr-auto navbar-nav"
-        onKeyDown={[Function]}
-      >
-        <div
-          className="nav-item"
-        >
-          <a
-            className="nav-link"
-            data-rb-event-key={null}
-            disabled={false}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-          >
-            Create
-          </a>
-        </div>
-        <div
-          className="nav-item"
-        >
-          <a
-            className="nav-link"
-            data-rb-event-key={null}
-            disabled={false}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-          >
-            My Decks
-          </a>
-        </div>
-      </div>
-      <div
-        className="justify-content-end navbar-nav"
+        className="ml-auto justify-content-end navbar-nav"
         onKeyDown={[Function]}
       >
         <div
           className="navbar-nav"
           onKeyDown={[Function]}
         >
+          <div
+            className="nav-item"
+          >
+            <a
+              className="nav-link"
+              data-rb-event-key={null}
+              disabled={false}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Create
+            </a>
+          </div>
+          <div
+            className="nav-item"
+          >
+            <a
+              className="nav-link"
+              data-rb-event-key={null}
+              disabled={false}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              My Decks
+            </a>
+          </div>
           <div
             className="navbar-nav"
             onKeyDown={[Function]}
@@ -98,7 +96,7 @@ Array [
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
-                log in
+                Log in
               </a>
             </div>
             <div
@@ -111,7 +109,7 @@ Array [
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
-                sign up
+                Sign up
               </a>
             </div>
           </div>

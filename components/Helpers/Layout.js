@@ -5,7 +5,7 @@ import {Nav,
 import Link from "next/link"
 import { ExtractName } from "../../lib/utils"
 import Cookies from "js-cookie"
-import React, { PureComponent } from "react"
+import React  from "react"
 
 
 export const Layout = props => {
@@ -21,17 +21,22 @@ export const Layout = props => {
 	}
 
 	return (
-		<React.Fragment>
+		<div className="justify-content-center">
 			<Navbar
 				style={{
-					paddingLeft: "4%",
-					paddingRight: "4%",
+					margin: "0 10vw 0 10vw",
+					height: 100,
 					backgroundColor: "white",
-					borderBottom: "1px solid lightgray"
+					backgroundColor: "rgba(0,0,0,0)",
+					fontWeight: 600,
+					width: "80%",
+					minWidth: "auto",
+					zIndex: 1,
+					position: "absolute"
 				}}
-				fixed="top"
 				expand="md"
-				variant="light">
+				variant="light"
+			>
 				<NavbarBrand>
 					<Link href="/">
 						<img
@@ -45,7 +50,8 @@ export const Layout = props => {
 				</NavbarBrand>
 				<Navbar.Toggle aria-controls="main-menu"></Navbar.Toggle>
 				<Navbar.Collapse id="main-menu" >
-					<Nav className="mr-auto">
+					<Nav className="ml-auto justify-content-end">
+						<Nav>
 						<Nav.Item>
 							<Link href="/decks/create">
 								<Nav.Link as="a">Create</Nav.Link>
@@ -56,20 +62,16 @@ export const Layout = props => {
 								<Nav.Link as="a">My Decks</Nav.Link>
 							</Link>
 						</Nav.Item>
-					</Nav>
-					<Nav className="justify-content-end">
-						<Nav>
 							{!props.user && (
 								<Nav>
-
 									<Nav.Item>
 										<Link href="/login" replace>
-											<Nav.Link as="a">log in</Nav.Link>
+											<Nav.Link as="a">Log in</Nav.Link>
 										</Link>
 									</Nav.Item>
 									<Nav.Item>
 										<Link href="/signup">
-											<Nav.Link as="a">sign up</Nav.Link>
+											<Nav.Link as="a">Sign up</Nav.Link>
 										</Link>
 									</Nav.Item>
 								</Nav>
@@ -79,15 +81,13 @@ export const Layout = props => {
 									<Nav.Item>
 										<Link href={`/user/${encodeURI(ExtractName(props.user.displayName).split(" ").join("").toLowerCase())}`}>
 											<Nav.Link as="a">
-												{ExtractName(props.user.displayName).split(" ").join("").toLowerCase()}
+												{props.user.displayName[0].toUpperCase() + props.user.displayName.slice(1)}
 											</Nav.Link>
 										</Link>
 									</Nav.Item>
 									<Nav.Item onClick={_logout}>
-										<Nav.Link style={{
-											color: "#e84646" 
-										}}>	
-										logout
+										<Nav.Link>	
+										Logout
 										</Nav.Link>
 									</Nav.Item>
 								</Nav>
@@ -96,10 +96,8 @@ export const Layout = props => {
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
-			{props.children}
 			<Navbar fixed="bottom" bg="light" variant="dark">
 				<Nav>
-
 					<Nav.Item>
 						<span>ver. 1.01a Still in Development...</span>
 					</Nav.Item>
@@ -110,6 +108,6 @@ export const Layout = props => {
           cursor: pointer;
         }
       `}</style>
-		</React.Fragment>
+		</div>
 	)
 }

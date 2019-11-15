@@ -5,7 +5,8 @@ import { Layout } from "../components/Helpers/Layout"
 import nextCookies from "next-cookies"
 import fetch from "isomorphic-fetch"
 import "react-vis/dist/style.css"
-
+import "react-quill/dist/quill.snow.css"
+import Background from "../components/Helpers/Background";
 
 class MyApp extends App {
 	// Only uncomment this method if you have blocking data requirements for
@@ -62,9 +63,21 @@ class MyApp extends App {
 			token: this.state.token
 		}
 		return (
-			<Layout user={this.state.user}>
-				<Component {...props} />
-			</Layout>
+			<div>
+				<Layout user={this.state.user} />
+				<Background>
+					<Component {...props} />
+				</Background>
+				<style global jsx>
+					{
+						`
+						body, html {
+							height: 100%;
+						}
+						`
+					}
+				</style>
+			</div>
 		)
 	}
 }

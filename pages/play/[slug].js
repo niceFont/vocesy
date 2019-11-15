@@ -133,6 +133,17 @@ const Play = WithAuth(props => {
 					)}
 				</div>
 			)}
+				<style global jsx>
+					{`
+						.ck-balloon-panel {
+							z-index: 1100 !important;
+						}
+						.ck-editor__editable {
+							overflow: auto;
+							height: 100% !important;
+						}
+					`}
+				</style>
 		</Container>
 	)
 })

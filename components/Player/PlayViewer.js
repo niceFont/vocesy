@@ -1,11 +1,13 @@
 import { Container, Row, Col, Card, Table } from "react-bootstrap"
-import { PlayCard } from "./PlayCard"
+import PlayCardAnimated  from "./PlayCardAnimated"
+import PlayCard from "./PlayCard"
 import { faInfoCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useTransition, animated } from "react-spring"
 import React, { useCallback } from "react"
+import { ExtractRawText } from "../../lib/utils";
 
-export const PlayViewer = React.memo(props => {
+export const PlayViewer = props => {
 	const pages = props.data.map(card =>
 		useCallback(({ style }) => {
 			return (
@@ -16,18 +18,7 @@ export const PlayViewer = React.memo(props => {
 						justifyContent: "center",
 					}}
 				>
-					<Card
-						style={{
-							position: "absolute",
-							height: "22em",
-							width: "16em",
-						}}
-					>
-						<Card.Header>Front</Card.Header>
-						<Card.Body className="text-center">
-							<Card.Text>{card.front}</Card.Text>
-						</Card.Body>
-					</Card>
+					<PlayCard data={card.front}></PlayCard>
 				</animated.div>
 			)
 		},
@@ -37,9 +28,9 @@ export const PlayViewer = React.memo(props => {
 		useCallback(({ style }) => {
 			return (
 				<animated.div style={style}>
-					<PlayCard
+					<PlayCardAnimated
 						data={card}
-					></PlayCard>
+					></PlayCardAnimated>
 				</animated.div>
 			)
 		},
@@ -75,8 +66,8 @@ export const PlayViewer = React.memo(props => {
 				<tr key={index}>
 					<td>{index + 1}</td>
 					<td>{result.result ? "Right" : "Wrong"}</td>
-					<td>{result.front}</td>
-					<td>{result.back}</td>
+					<td>{ExtractRawText(result.front)}</td>
+					<td>{ExtractRawText(result.back)}</td>
 					{props.settings.uv === "false" && (
 						<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
 					)}
@@ -165,4 +156,4 @@ export const PlayViewer = React.memo(props => {
 			)}
 		</Container>
 	)
-})
+}

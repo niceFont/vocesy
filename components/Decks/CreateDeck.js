@@ -42,12 +42,16 @@ export const CreateDeck = props => {
 		<Row
 			style={{
 				margin: "20px 0 0 0",
-				border: "1px solid lightgray",
-				padding: "80px 0 80px 0",
 			}}
-			className="justify-content-md-center"
-		>
-			<Col md="6" lg="6">
+			className="justify-content-center"
+			>
+			<Col style={{
+			border: "1px solid lightgray",
+			padding: "80px 40px 80px 40px",
+			backgroundColor: "white",
+			boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
+
+			}} xs="11" sm="11" md="8" lg="6">
 				<Form
 					onSubmit={e => {
 						e.preventDefault()
@@ -60,6 +64,7 @@ export const CreateDeck = props => {
 							lg="2"
 							type="text"
 							onChange={e => setTitle(e.target.value)}
+							placeholder="Enter a title..."
 						/>
 					</Form.Group>
 

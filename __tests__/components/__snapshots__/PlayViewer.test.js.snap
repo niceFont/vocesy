@@ -107,12 +107,19 @@ exports[`PlayViewer should render correctly with passed Props. 1`] = `
                 </div>
                 <div
                   className="card-body"
+                  style={
+                    Object {
+                      "height": "15em",
+                    }
+                  }
                 >
-                  <p
-                    className="card-text"
-                  >
-                    hello
-                  </p>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "hello",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -147,12 +154,19 @@ exports[`PlayViewer should render correctly with passed Props. 1`] = `
                 </div>
                 <div
                   className="card-body"
+                  style={
+                    Object {
+                      "height": "10em",
+                    }
+                  }
                 >
-                  <p
-                    className="card-text"
-                  >
-                    world
-                  </p>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "world",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>

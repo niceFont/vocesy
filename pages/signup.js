@@ -70,6 +70,7 @@ const SignUp = () => {
 			<Row className="justify-content-center">
 				<Col md="8" lg="6" style={{
 					border: "1px solid lightgray",
+					backgroundColor: "white",
 					padding: "10%",
 					margin: "0 5% 0 5%"
 				}} >

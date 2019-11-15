@@ -70,9 +70,7 @@ export const EditDeck = (props) => {
 
 			<Row style={{
 				margin: "20px 0 0 0",
-				border: "1px solid lightgray",
-				padding: "80px 0 80px 0",
-			}} className="justify-content-md-center">
+			}} className="justify-content-center">
 				{!fetched ? <Loading fetched={fetched}></Loading>
 					:
 					<React.Fragment>
@@ -83,7 +81,13 @@ export const EditDeck = (props) => {
 								</Col>
 							</Row>
 							:
-							<Col sm="10" md="8" lg="6">
+							<Col style={{
+								padding: "80px 40px 80px 40px",
+								border: "1px solid lightgray",
+								backgroundColor: "white",
+								boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
+
+							}} xs="12" sm="12" md="8" lg="6">
 								<Form
 									onSubmit={e => {
 										e.preventDefault()

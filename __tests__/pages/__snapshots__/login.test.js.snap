@@ -32,6 +32,11 @@ exports[`Login should render 1`] = `
   >
     <div
       className="col-lg-6 col-md-8 col-sm-10"
+      style={
+        Object {
+          "backgroundColor": "white",
+        }
+      }
     />
   </div>
   <div
@@ -41,6 +46,7 @@ exports[`Login should render 1`] = `
       className="col-lg-6 col-md-8 col-sm-4"
       style={
         Object {
+          "backgroundColor": "white",
           "border": "1px solid lightgray",
           "margin": "0 5% 0 5%",
           "padding": "10%",

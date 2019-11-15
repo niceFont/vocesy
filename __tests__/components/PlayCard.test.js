@@ -2,7 +2,7 @@
 /*eslint camelcase: off*/
 
 import React from "react"
-import { PlayCard } from "../../components/Player/PlayCard"
+import { PlayCard } from "../../components/Player/PlayCardAnimated"
 import renderer from "react-test-renderer"
 
 describe("PlayCard", () => {

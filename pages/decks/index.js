@@ -65,7 +65,7 @@ const Decks = WithAuth(({ user, token }) => {
 				<Col className="text-center" md="10" lg="3">
 					<h5
 						style={{
-							borderBottom: "1px solid lightgray",
+							borderBottom: "1px solid black",
 							paddingBottom: 20,
 							marginBottom: 40,
 							textAlign: "center",

@@ -3,6 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSpring, animated } from "react-spring"
 import { Card, Container, Row, Col } from "react-bootstrap"
 
+let CKEditor, BalloonEditor
+if (typeof window !== "undefined") {
+	CKEditor = require("@ckeditor/ckeditor5-react")
+	BalloonEditor = require("@ckeditor/ckeditor5-build-balloon")
+}
 const calc = (x, y) => [
 	-(y - window.innerHeight / 2) / 20,
 	(x - window.innerWidth / 2) / 20,
@@ -86,9 +91,14 @@ export const AnimatedCard = props => {
 					className="align-middle"
 					style={{
 						padding: "10px 5px 10px 5px",
+						height: "18em"
 					}}
 				>
-					<Card.Text className="text-center">{props.cards.front}</Card.Text>
+					<CKEditor
+						disabled
+						data={props.cards.front}
+						editor={BalloonEditor}
+					></CKEditor>
 				</Card.Body>
 			</Card>
 		</animated.div>
