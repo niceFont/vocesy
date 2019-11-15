@@ -1,111 +1,5 @@
 import { Container, Row, Col, Card, Table } from "react-bootstrap"
 import { PlayCard } from "./PlayCard"
-<<<<<<< HEAD
-import {faInfoCircle} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { useTransition, animated } from "react-spring"
-import React, { useCallback } from "react"
-
-
-
-export const PlayViewer = React.memo(props => {
-
-	const pages = props.data.map((card) => useCallback(({ style }) => {
-		return (
-			<animated.div style={{
-				...style, display: "flex", justifyContent: "center"
-			}}>
-				<Card style={{
-					position: "absolute",
-					height: "22em",
-					width: "16em"
-				}}>
-					<Card.Header>Front</Card.Header>
-					<Card.Body className="text-center">
-						<Card.Text >
-							{card.front}
-						</Card.Text>
-					</Card.Body>
-				</Card>
-			</animated.div>)}, [card]))
-			
-	const uvPages = props.data.map(card => useCallback(({ style, flipped, toggleFlipped }) => {
-		return (
-			<animated.div style={style}>
-				<PlayCard toggleFlipped={toggleFlipped} flipped={flipped} data={card}>
-				</PlayCard>
-			</animated.div>
-		)
-	}, [card]))
-	const transitions = useTransition(props.current - 1,p => p, {
-		from: {
-			opacity: 0, transform: "translate3d(100%,0,0)" 
-		},
-		enter: {
-			opacity: 1, transform: "translate3d(0%,0,0)" 
-		},
-		leave: {
-			opacity: 0, transform: "translate3d(-50%,0,0)" 
-		},
-	})
-
-	function _setDiffs(diffs) {
-
-		return {
-			__html: diffs.inputDiff + "<span style='color: red'>" + diffs.lengthDiff.join("") + "</span>"
-		}
-	}
-
-	function _generateResult(roundResult) {
-
-		return roundResult.map((result, index) => {
-			return (
-				<tr key={index}>
-					<td>{index + 1}</td>
-					<td>{result.result ? "Right" : "Wrong"}</td>
-					<td>{result.answer}</td>
-					{props.settings.uv === "false" &&
-						<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
-					}
-				</tr>
-			)
-		})
-	}
-	return (
-		<Container>
-			<Row style={{
-				margin: 20
-			}}
-			className="justify-content-center">
-				<Col md="2" className="text-center">
-					{!props.done ? 
-						<span>{props.current + "/" + props.max}</span>
-						:
-						<span>Done</span>
-					}
-				</Col>
-			</Row>
-			{props.done ? (
-				<Row>
-					<Col className="text-center">
-						<Table>
-							<thead>
-								<tr>
-									<th>Number</th>
-									<th>Result</th>
-									<th>Answer</th>
-									{props.settings.uv === "false" &&
-									<th>Diffs</th>
-									}
-								</tr>
-							</thead>
-							<tbody>
-
-								{(() => {
-									let result = props.verifyResult()
-									props.sendStats(result)
-									return _generateResult(result) 									
-=======
 import { faInfoCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useTransition, animated } from "react-spring"
@@ -232,7 +126,6 @@ export const PlayViewer = React.memo(props => {
 									let result = props.verifyResult()
 									props.sendStats(result)
 									return _generateResult(result)
->>>>>>> a02b1f7... -Removed setTimeout fix and replaced it with Cards having their own
 								})()}
 							</tbody>
 						</Table>
@@ -240,30 +133,13 @@ export const PlayViewer = React.memo(props => {
 				</Row>
 			) : (
 				<Row className="justify-content-center">
-<<<<<<< HEAD
-					{props.settings.uv === "false" ?
-=======
 					{props.settings.uv === "false" ? (
->>>>>>> a02b1f7... -Removed setTimeout fix and replaced it with Cards having their own
 						<Col xs="10" sm="8" md="6" lg="4">
 							{transitions.map(({ item, props, key }) => {
 								const Page = pages[item]
 								return <Page key={key} style={props}></Page>
 							})}
 						</Col>
-<<<<<<< HEAD
-						:
-						<div className="text-center">
-							<span style={{
-								color: "gray"
-							}} ><FontAwesomeIcon icon={faInfoCircle} ></FontAwesomeIcon> Click the Card to see if you're right!</span>	
-							{transitions.map(({item, "props" : styles, key }) => {
-								const Page = uvPages[item]
-								return <Page toggleFlipped={props.toggleFlipped} flipped={props.flipped} style={styles} key={key}></Page>
-							})}
-						</div>
-					}
-=======
 					) : (
 						<div className="text-center">
 							<span
@@ -285,7 +161,6 @@ export const PlayViewer = React.memo(props => {
 							})}
 						</div>
 					)}
->>>>>>> a02b1f7... -Removed setTimeout fix and replaced it with Cards having their own
 				</Row>
 			)}
 		</Container>
