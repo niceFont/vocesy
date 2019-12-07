@@ -1,16 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Layout renders 1`] = `
-Array [
+exports[`TopNav renders 1`] = `
+<div
+  className="justify-content-center"
+>
   <nav
     className="navbar navbar-expand-md navbar-light"
     style={
       Object {
         "backgroundColor": "rgba(0,0,0,0)",
+        "boxShadow": "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
         "fontWeight": 600,
-        "paddingLeft": "4%",
-        "paddingRight": "4%",
-        "position": "absolute",
+        "minWidth": "auto",
+        "padding": "0 10vw 0 10vw",
+        "transition": "all 0.3s cubic-bezier(.25,.8,.25,1)",
         "width": "100%",
         "zIndex": 1,
       }
@@ -23,11 +26,11 @@ Array [
         alt="logo"
         onClick={[Function]}
         onMouseEnter={[Function]}
-        src="/static/logo.png"
+        src="/static/logo_transparent_background.png"
         style={
           Object {
-            "height": 40,
-            "width": 120,
+            "height": 65,
+            "width": 160,
           }
         }
       />
@@ -47,6 +50,12 @@ Array [
       aria-expanded={null}
       className="navbar-collapse collapse"
       id="main-menu"
+      style={
+        Object {
+          "backgroundColor": "white",
+          "padding": 20,
+        }
+      }
     >
       <div
         className="ml-auto justify-content-end navbar-nav"
@@ -116,32 +125,16 @@ Array [
         </div>
       </div>
     </div>
-  </nav>,
-  <nav
-    className="navbar navbar-expand navbar-dark bg-light fixed-bottom"
-  >
-    <div
-      className="navbar-nav"
-      onKeyDown={[Function]}
-    >
-      <div
-        className="nav-item"
-      >
-        <span>
-          ver. 1.01a Still in Development...
-        </span>
-      </div>
-    </div>
-  </nav>,
+  </nav>
   <style
     global={true}
     jsx={true}
   >
     
-        a {
-          cursor: pointer;
-        }
-      
-  </style>,
-]
+				a {
+					cursor: pointer;
+				}
+			
+  </style>
+</div>
 `;

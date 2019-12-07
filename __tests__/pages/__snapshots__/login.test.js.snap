@@ -6,7 +6,7 @@ exports[`Login should render 1`] = `
   style={
     Object {
       "marginBottom": 200,
-      "marginTop": 200,
+      "marginTop": 100,
     }
   }
 >
@@ -100,6 +100,13 @@ exports[`Login should render 1`] = `
             Login
           </button>
         </div>
+        <a
+          href="/reset-password"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Forgot password?
+        </a>
       </form>
     </div>
   </div>

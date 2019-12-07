@@ -2,7 +2,7 @@
 /*eslint camelcase: off*/
 
 import React from "react"
-import { PlayCard } from "../../components/Player/PlayCardAnimated"
+import PlayCard from "../../components/Player/PlayCardAnimated"
 import renderer from "react-test-renderer"
 
 describe("PlayCard", () => {
@@ -13,11 +13,11 @@ describe("PlayCard", () => {
 				front: "hello", back: "world", id: 1, deck_id: 1
 			}}
 		></PlayCard>)
-        
+
 		expect(tree.toJSON()).toMatchSnapshot()
-        
-			
+
+
 	})
-	
+
 
 })

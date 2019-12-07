@@ -44,12 +44,12 @@ export const CreateDeck = props => {
 				margin: "20px 0 0 0",
 			}}
 			className="justify-content-center"
-			>
+		>
 			<Col style={{
-			border: "1px solid lightgray",
-			padding: "80px 40px 80px 40px",
-			backgroundColor: "white",
-			boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
+				border: "1px solid lightgray",
+				padding: "80px 40px 80px 40px",
+				backgroundColor: "white",
+				boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
 
 			}} xs="11" sm="11" md="8" lg="6">
 				<Form

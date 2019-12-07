@@ -33,17 +33,25 @@ export class EditCard extends React.PureComponent {
 
 	handleChange(event, editor) {
 		if (this.state.side === "front") {
-			this.setState({front: editor.getData()})
+			this.setState({
+				front: editor.getData()
+			})
 		} else {
-			this.setState({back: editor.getData()})
+			this.setState({
+				back: editor.getData()
+			})
 		}
 	}
 
 	async _handleSave() {
 		if (this.state.front.trim() !== "" && this.state.back.trim() !== "") {
-			this.setState({ sending: true })
+			this.setState({
+				sending: true
+			})
 			try {
-				this.setState({error: null})
+				this.setState({
+					error: null
+				})
 				let response = await fetch("/api/cards/edit", {
 					method: "POST",
 					headers: {
@@ -52,21 +60,27 @@ export class EditCard extends React.PureComponent {
 					body: JSON.stringify({
 						front: this.state.front,
 						back: this.state.back,
-						id: this.props.data.id 
+						id: this.props.data.id
 					})
 				})
 
 				if (!response.ok) throw new Error(response.statusText)
-				
+
 			} catch (err) {
 				console.error(err)
-				this.setState({error: err})
+				this.setState({
+					error: err
+				})
 			} finally {
-				this.setState({ sending: false })
+				this.setState({
+					sending: false
+				})
 				this.props.toggleShow(false)
 			}
 		} else {
-			setError("Front or Back can not be empty.")
+			this.setState({
+				error: "Front or Back can not be empty."
+			})
 		}
 	}
 
@@ -95,7 +109,7 @@ export class EditCard extends React.PureComponent {
 					)}
 					<Row
 						style={{
-							margin: "0 0 20px 0" 
+							margin: "0 0 20px 0"
 						}}
 						className="justify-content-center">
 						<ButtonGroup>
@@ -103,7 +117,9 @@ export class EditCard extends React.PureComponent {
 								variant={this.state.side === "front" ? "primary" : "secondary"}
 								size="sm"
 								onClick={() => {
-									this.setState({ side: "front" })
+									this.setState({
+										side: "front"
+									})
 								}}>
 								Front
 							</Button>
@@ -111,7 +127,9 @@ export class EditCard extends React.PureComponent {
 								variant={this.state.side === "back" ? "primary" : "secondary"}
 								size="sm"
 								onClick={() => {
-									this.setState({ side: "back" })
+									this.setState({
+										side: "back"
+									})
 								}}>
 								Back
 							</Button>
@@ -119,16 +137,18 @@ export class EditCard extends React.PureComponent {
 					</Row>
 					<Row
 						style={{
-							marginBottom: 30 
+							marginBottom: 30
 						}}
 						className="justify-content-center">
 						<Col className="text-center">
 							<Card
 								className="mx-auto"
 								style={{
-									width: "18rem", height: "25rem" 
+									width: "18rem", height: "25rem"
 								}}>
-								<Card.Body style={{height: "100%"}}>
+								<Card.Body style={{
+									height: "100%"
+								}}>
 									<CKEditor
 										editor={BalloonEditor}
 										data={this.state.side === "front" ? this.state.front : this.state.back}
@@ -150,6 +170,6 @@ export class EditCard extends React.PureComponent {
 					</LoadingButton>
 				</Modal.Body>
 			</Modal>
-			)
+		)
 	}
 }

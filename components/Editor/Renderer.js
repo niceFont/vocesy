@@ -9,14 +9,14 @@ if (typeof window !== "undefined") {
 
 const Renderer = (props) => {
 
-    return (
-        <CKEditor
-            data={props.data}
-            disabled
-            editor={BalloonEditor}
-        >
-        </CKEditor>
-    ) 
+	return (
+		<CKEditor
+			data={props.data}
+			disabled
+			editor={BalloonEditor}
+		>
+		</CKEditor>
+	) 
 }
 
 

@@ -1,40 +1,20 @@
-import { Container, Row, Col, Card, Table } from "react-bootstrap"
-import PlayCardAnimated  from "./PlayCardAnimated"
+import { Container, Row, Col, Table } from "react-bootstrap"
+import PlayCardAnimated from "./PlayCardAnimated"
 import PlayCard from "./PlayCard"
 import { faInfoCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useTransition, animated } from "react-spring"
-import React, { useCallback } from "react"
-import { ExtractRawText } from "../../lib/utils";
+import React from "react"
+import { ExtractRawText } from "../../lib/utils"
 
 export const PlayViewer = props => {
-	const pages = props.data.map(card =>
-		useCallback(({ style }) => {
-			return (
-				<animated.div
-					style={{
-						...style,
-						display: "flex",
-						justifyContent: "center",
-					}}
-				>
-					<PlayCard data={card.front}></PlayCard>
-				</animated.div>
-			)
-		},
-		[card]))
+	const pages = props.data.map(card => (
+		<PlayCard data={card.front}></PlayCard>
+	))
 
-	const uvPages = props.data.map(card =>
-		useCallback(({ style }) => {
-			return (
-				<animated.div style={style}>
-					<PlayCardAnimated
-						data={card}
-					></PlayCardAnimated>
-				</animated.div>
-			)
-		},
-		[card]))
+	const uvPages = props.data.map(card => (
+		<PlayCardAnimated data={card}></PlayCardAnimated>
+	))
 	const transitions = useTransition(props.current - 1, p => p, {
 		from: {
 			opacity: 0,
@@ -53,23 +33,34 @@ export const PlayViewer = props => {
 	function _setDiffs(diffs) {
 		return {
 			__html:
-        diffs.inputDiff +
-        "<span style='color: red'>" +
-        diffs.lengthDiff.join("") +
-        "</span>",
+				diffs.inputDiff +
+				"<span style='color: red'>" +
+				diffs.lengthDiff.join("") +
+				"</span>",
 		}
 	}
 
 	function _generateResult(roundResult) {
 		return roundResult.map((result, index) => {
+			let rawFront = ExtractRawText(result.front)
+			let rawBack = ExtractRawText(result.back)
 			return (
 				<tr key={index}>
 					<td>{index + 1}</td>
 					<td>{result.result ? "Right" : "Wrong"}</td>
-					<td>{ExtractRawText(result.front)}</td>
-					<td>{ExtractRawText(result.back)}</td>
+					<td>
+						{rawFront.slice(0, 15) + rawFront.length >= 15
+							? "..."
+							: ""}
+					</td>
+					<td>
+						{rawBack.slice(0, 15) + rawBack.length >= 15
+							? "..."
+							: ""}
+					</td>
 					{props.settings.uv === "false" && (
-						<td dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
+						<td
+							dangerouslySetInnerHTML={_setDiffs(result.diffs)}></td>
 					)}
 				</tr>
 			)
@@ -81,8 +72,7 @@ export const PlayViewer = props => {
 				style={{
 					margin: 20,
 				}}
-				className="justify-content-center"
-			>
+				className="justify-content-center">
 				<Col md="6" className="text-center">
 					{!props.done ? (
 						<span>{props.current + "/" + props.max}</span>
@@ -90,11 +80,10 @@ export const PlayViewer = props => {
 						<span>
 							<FontAwesomeIcon
 								style={{
-									color: "seagreen" 
+									color: "seagreen",
 								}}
-								icon={faCheckCircle}
-							></FontAwesomeIcon>{" "}
-              Complete
+								icon={faCheckCircle}></FontAwesomeIcon>{" "}
+								Complete
 						</span>
 					)}
 				</Col>
@@ -109,7 +98,9 @@ export const PlayViewer = props => {
 									<th>Result</th>
 									<th>Front</th>
 									<th>Back</th>
-									{props.settings.uv === "false" && <th>Diffs</th>}
+									{props.settings.uv === "false" && (
+										<th>Diffs</th>
+									)}
 								</tr>
 							</thead>
 							<tbody>
@@ -126,9 +117,19 @@ export const PlayViewer = props => {
 				<Row className="justify-content-center">
 					{props.settings.uv === "false" ? (
 						<Col xs="10" sm="8" md="6" lg="4">
-							{transitions.map(({ item, props, key }) => {
+							{transitions.map(({ item, props: style, key }) => {
 								const Page = pages[item]
-								return <Page key={key} style={props}></Page>
+								return (
+									<animated.div
+										key={key}
+										style={{
+											...style,
+											display: "flex",
+											justifyContent: "center",
+										}}>
+										{Page}
+									</animated.div>
+								)
 							})}
 						</Col>
 					) : (
@@ -136,18 +137,17 @@ export const PlayViewer = props => {
 							<span
 								style={{
 									color: "gray",
-								}}
-							>
-								<FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon> Click
-                the Card to see if you're right!
+								}}>
+								<FontAwesomeIcon
+									icon={faInfoCircle}></FontAwesomeIcon>{" "}
+										Click the Card to see if you're right!
 							</span>
-							{transitions.map(({ item, props: styles, key }) => {
+							{transitions.map(({ item, props: style, key }) => {
 								const Page = uvPages[item]
 								return (
-									<Page
-										style={styles}
-										key={key}
-									></Page>
+									<animated.div style={style} key={key}>
+										{Page}
+									</animated.div>
 								)
 							})}
 						</div>
