@@ -11,6 +11,7 @@ import { Shuffle } from "../../lib/utils"
 import { PlayControl } from "../../components/Player/PlayControl"
 import { CheckResult, ReturnDiffs } from "../../lib/utils"
 import Link from "next/link"
+import WhiteContainer from "../../components/Helpers/WhiteContainer"
 
 const Play = WithAuth(props => {
 	const [data, setData] = useState([])
@@ -86,51 +87,54 @@ const Play = WithAuth(props => {
 	}
 
 	return (
-		<Container
+		<WhiteContainer
 			style={{
-				marginTop: 100,
+				marginTop: 150,
+				marginBottom: 200,
+				padding: "60px 50px 50px 50px",
+				minHeight: "70vh"
 			}}>
 			{!fetched ? (
 				<Loading fetched={fetched}></Loading>
 			) : (
-				<div>
-					<Link href={`/decks/${props.slug}`}>
-						<Button
-							variant="dark"
-							style={{
-								marginTop: 0,
-								paddingRight: 60,
-							}}>
-							<FontAwesomeIcon
-								icon={faArrowLeft}></FontAwesomeIcon>
-						</Button>
-					</Link>
-					{data.length ? (
-						<React.Fragment>
-							<PlayViewer
-								done={done}
-								max={shuffled.length}
-								current={current + 1}
-								userInput={userInput}
-								verifyResult={_verifyResult}
-								settings={props.settings}
-								sendStats={_sendStats}
-								data={shuffled}></PlayViewer>
-							<PlayControl
-								restart={_restart}
-								done={done}
-								toggleDone={toggleDone}
-								pushInput={pushInput}
-								current={current}
-								max={shuffled.length}
-								next={goNext}
-								settings={props.settings}></PlayControl>
-						</React.Fragment>
-					) : (
-						<NotFound></NotFound>
-					)}
-				</div>
-			)}
+					<div>
+						<Link href={`/decks/${props.slug}`}>
+							<Button
+								variant="dark"
+								style={{
+									marginTop: 0,
+									paddingRight: 60,
+								}}>
+								<FontAwesomeIcon
+									icon={faArrowLeft}></FontAwesomeIcon>
+							</Button>
+						</Link>
+						{data.length ? (
+							<React.Fragment>
+								<PlayViewer
+									done={done}
+									max={shuffled.length}
+									current={current + 1}
+									userInput={userInput}
+									verifyResult={_verifyResult}
+									settings={props.settings}
+									sendStats={_sendStats}
+									data={shuffled}></PlayViewer>
+								<PlayControl
+									restart={_restart}
+									done={done}
+									toggleDone={toggleDone}
+									pushInput={pushInput}
+									current={current}
+									max={shuffled.length}
+									next={goNext}
+									settings={props.settings}></PlayControl>
+							</React.Fragment>
+						) : (
+								<NotFound></NotFound>
+							)}
+					</div>
+				)}
 			<style global jsx>
 				{`
 					.ck-balloon-panel {
@@ -142,11 +146,11 @@ const Play = WithAuth(props => {
 					}
 				`}
 			</style>
-		</Container>
+		</WhiteContainer>
 	)
 })
 
-Play.getInitialProps = async function(ctx) {
+Play.getInitialProps = async function (ctx) {
 	let { slug } = ctx.query
 	let settings = ctx.query
 

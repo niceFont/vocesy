@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { Container, Row, Col, Form } from "react-bootstrap"
+import { Row, Col, Form } from "react-bootstrap"
 import fetch from "isomorphic-fetch"
 import { Loading } from "../components/Helpers/Loading"
+import WhiteContainer from "../components/Helpers/WhiteContainer"
+import { useError } from "../hooks/hooks"
+
 
 function Pw(props) {
 
@@ -9,8 +12,9 @@ function Pw(props) {
 	const [repeatPassword, setRepeatPassword] = useState("")
 	const [success, setSuccess] = useState()
 	const [user, setUser] = useState({
-
 	})
+	const [error, setError] = useError()
+
 	const [fetched, toggleFetched] = useState(false)
 
 
@@ -30,22 +34,23 @@ function Pw(props) {
 				})
 				if (!response.ok) throw response.statusText
 				const user = await response.json()
-				console.log(user)
 				setUser(user)
+				setError(null)
 
 			} catch (error) {
 				console.error(error)
+				setError(error)
 			} finally {
 				toggleFetched(true)
 			}
 
 		}
 		UserExists()
-	}, [props.email, props.resetToken, props.token])
+	}, [props.email, props.resetToken, props.token, setError])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		if (password === repeatPassword) {
+		if (password === repeatPassword && password.length >= 8) {
 			try {
 				const result = await fetch("/api/users/update", {
 					method: "PUT",
@@ -64,12 +69,14 @@ function Pw(props) {
 				console.error(error)
 				setSuccess(false)
 			}
+		} else {
+			setError("Make Sure the Passwords match and are atleast 8 characters long.")
 		}
 	}
 
 
 	return (
-		<Container style={{
+		<WhiteContainer style={{
 			marginTop: 50,
 			padding: "100px 0",
 			background: "white"
@@ -77,32 +84,44 @@ function Pw(props) {
 			{fetched ?
 				<>
 					{user.authenticated ?
+						<>
+							<Row>
+								{error}
+							</Row>
+							<Row className="justify-content-center">
+								<Col lg="6" md="6">
+									<Form onSubmit={handleSubmit}>
+										<Form.Group>
+											<Form.Label>New Password:</Form.Label>
+											<Form.Control onChange={({ target }) => setPassword(target.value)} type="password"></Form.Control>
+										</Form.Group>
+										<Form.Group>
+											<Form.Label>Repeat new Password:</Form.Label>
+											<Form.Control onChange={({ target }) => setRepeatPassword(target.value)} type="password"></Form.Control>
+										</Form.Group>
+										<Form.Group>
+											<Form.Control type="submit" value="Send" />
+										</Form.Group>
+									</Form>
+								</Col>
+							</Row>
+						</>
+						:
 						<Row className="justify-content-center">
-							<Col lg="6" md="6">
-								<Form onSubmit={handleSubmit}>
-									<Form.Group>
-										<Form.Label>New Password:</Form.Label>
-										<Form.Control onChange={({ target }) => setPassword(target.value)} type="password"></Form.Control>
-									</Form.Group>
-									<Form.Group>
-										<Form.Label>Repeat new Password:</Form.Label>
-										<Form.Control onChange={({ target }) => setRepeatPassword(target.value)} type="password"></Form.Control>
-									</Form.Group>
-									<Form.Group>
-										<Form.Control type="submit" value="Send" />
-									</Form.Group>
-								</Form>
+							<Col md="6" lg="6">
+								<div>Error: Token is either <span style={{
+									borderBottom: "3px solid rgba(235,60,60,1)",
+									fontWeight: 600
+								}}>invalid or expired. </span></div>
 							</Col>
 						</Row>
-						:
-						<div>Token is invalid or expired </div>
 					}
 					{success && <div>YAYYYYY</div>}
 				</>
 				:
 				<Loading fetched={fetched}></Loading>
 			}
-		</Container>
+		</WhiteContainer>
 	)
 }
 

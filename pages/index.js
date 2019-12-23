@@ -92,8 +92,8 @@ const Index = () => {
 			<div
 				style={{
 					width: "100%",
-					height: "95vh",
-					background: "url('/static/background1.webp')",
+					height: "100vh",
+					background: "url('/static/background3.png')",
 					backgroundSize: "cover",
 					backgroundPosition: "center",
 				}}>
@@ -101,18 +101,17 @@ const Index = () => {
 					<Col sm="8" md="8" lg="6" xs="10">
 						<div
 							style={{
-								margin: "25% 0 0 20%",
+								margin: "40% 0 0 20%",
 								width: "100%",
-								color: "white",
 							}}>
 							<h3
 								style={{
-									fontSize: "3em",
+									fontSize: "5em",
 								}}>
-								Welcome to Vocesy
+								Vocesy
 							</h3>
-							<h5>
-								Where traditional learning meets modern
+							<h5 className="stroked">
+								Traditional learning meets modern
 								solutions
 							</h5>
 							<Button
@@ -136,7 +135,7 @@ const Index = () => {
 										fontWeight: 800,
 									}}
 									size="lg"
-									variant="info" as="a">
+									variant="light" as="a">
 									Get Started
 								</Button>
 							</Link>
@@ -147,8 +146,8 @@ const Index = () => {
 			<WhiteContainer
 				ref={scrollRef}
 				style={{
-					marginTop: 10,
-					marginBottom: 100,
+					marginTop: 100,
+					marginBottom: 150,
 					padding: "150px 50px",
 					minHeight: "90vh",
 				}}>
@@ -208,7 +207,6 @@ const Index = () => {
 							md="6"
 							lg="4"
 							style={{ borderBottom: "5px dotted #ffa922" }}>
-							>
 							<div
 								style={{
 									height: 100,
@@ -307,6 +305,15 @@ const Index = () => {
 					</Row>
 				</Container>
 			</WhiteContainer>
+			<style global jsx>
+				{
+					`
+						.stroked {
+							text-shadow: -1px -1px 0 rgba(255,255,255,.5), 1px -1px 0 rgba(255,255,255,.3), -1px 1px 0 rgba(255,255,255,.5), 1px 1px 0 rgba(255,255,255,.5);
+						}
+					`
+				}
+			</style>
 		</React.Fragment>
 	)
 }

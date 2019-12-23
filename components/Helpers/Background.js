@@ -5,10 +5,11 @@ const Background = props => {
 				position: "absolute",
 				width: "100%",
 				minHeight: "100%",
-				background: "url('/static/background2.jpg')",
-				backgroundSize: "cover",
-				backgroundAttachment: "fixed",
-				backgroundPosition: "center",
+				backgroundColor: "white"
+				/* 				background: "url('/static/background2.jpg')",
+								backgroundSize: "cover",
+								backgroundAttachment: "fixed",
+								backgroundPosition: "center", */
 			}}
 		>
 			{props.children}

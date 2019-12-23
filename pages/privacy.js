@@ -6,7 +6,7 @@ import { faUnlockAlt } from "@fortawesome/free-solid-svg-icons"
 function privacy() {
 	return (
 		<Container style={{
-			marginTop: 50,
+			marginTop: 150,
 			background: "white",
 			padding: "100px 50px"
 		}}>

@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react"
-import {Row,
+import {
+	Row,
 	Button,
 	Container,
 	Card,
 	Col,
-	ButtonGroup,} from "react-bootstrap"
+	ButtonGroup,
+} from "react-bootstrap"
 import { WithAuth } from "../../components/Auth/WithAuth"
 import { Loading } from "../../components/Helpers/Loading"
 import Link from "next/link"
 import fetch from "isomorphic-fetch"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faTrash,
+import {
+	faTrash,
 	faCog,
-	faLayerGroup,} from "@fortawesome/free-solid-svg-icons"
+	faLayerGroup,
+} from "@fortawesome/free-solid-svg-icons"
 
 
 
@@ -61,7 +65,7 @@ const Decks = WithAuth(({ user, token }) => {
 		<Container
 			style={{
 				marginBottom: 200,
-				marginTop: 50,
+				marginTop: 150,
 				boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
 				backgroundColor: "white",
 				padding: "100px 0 300px 0",
@@ -87,74 +91,74 @@ const Decks = WithAuth(({ user, token }) => {
 				{!fetched ? (
 					<Loading fetched={fetched}></Loading>
 				) : (
-					<React.Fragment>
-						{!decks.length ? (
-							<div>
+						<React.Fragment>
+							{!decks.length ? (
+								<div>
 									No decks found create one
 								<Link href="/create">
-									<a> here.</a>
-								</Link>
-							</div>
-						) : (
-							decks.map((deck, i) => {
-								return (
-									<Card
-										style={{
-											margin: 30,
-											width: "18rem",
-										}}
-										key={i}
-									>
-										<Card.Header
-											style={{
-												background: "black",
-											}}
-											className="text-right"
-										>
-											<ButtonGroup>
-												<Link href={`/decks/edit?deck=${deck.slug}`}>
-													<Button variant="outline-light" size="sm">
-														<FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
-													</Button>
-												</Link>
-												<Button
-													variant="outline-danger"
-													size="sm"
-													onClick={() => {
-														if (
-															confirm("Are you sure you want to Delete " +
+										<a> here.</a>
+									</Link>
+								</div>
+							) : (
+									decks.map((deck, i) => {
+										return (
+											<Card
+												style={{
+													margin: 30,
+													width: "18rem",
+												}}
+												key={i}
+											>
+												<Card.Header
+													style={{
+														background: "black",
+													}}
+													className="text-right"
+												>
+													<ButtonGroup>
+														<Link href={`/decks/edit?deck=${deck.slug}`}>
+															<Button variant="outline-light" size="sm">
+																<FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
+															</Button>
+														</Link>
+														<Button
+															variant="outline-danger"
+															size="sm"
+															onClick={() => {
+																if (
+																	confirm("Are you sure you want to Delete " +
 																		deck.title +
 																		"?")
-														) {
-															_removeDeck(deck.deck_id)
-															toggleRemoving(true)
-														}
-													}}
-												>
-													<FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-												</Button>
-											</ButtonGroup>
-										</Card.Header>
-										<Link href={`/decks/${deck.slug}`}>
-											<Card.Body
-												style={{
-													cursor: "pointer",
-												}}
-											>
-												<Card.Title>
-													{deck.title[0].toUpperCase() + deck.title.slice(1)}
-												</Card.Title>
-												<Button size="sm" variant="light" disabled>
-													{deck.privacy ? "Private" : "Public"}
-												</Button>
-											</Card.Body>
-										</Link>
-									</Card>
-								)
-							})
-						)}
-					</React.Fragment>
-				)}
+																) {
+																	_removeDeck(deck.deck_id)
+																	toggleRemoving(true)
+																}
+															}}
+														>
+															<FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+														</Button>
+													</ButtonGroup>
+												</Card.Header>
+												<Link href={`/decks/${deck.slug}`}>
+													<Card.Body
+														style={{
+															cursor: "pointer",
+														}}
+													>
+														<Card.Title>
+															{deck.title[0].toUpperCase() + deck.title.slice(1)}
+														</Card.Title>
+														<Button size="sm" variant="light" disabled>
+															{deck.privacy ? "Private" : "Public"}
+														</Button>
+													</Card.Body>
+												</Link>
+											</Card>
+										)
+									})
+								)}
+						</React.Fragment>
+					)}
 			</Row>
 		</Container>
 	)

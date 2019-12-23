@@ -8,11 +8,13 @@ import { CreateCard } from "../../components/Cards/CreateCard"
 import { EditCard } from "../../components/Cards/EditCard"
 import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faArrowLeft,
+import {
+	faArrowLeft,
 	faPlay,
 	faPlus,
 	faCog,
-	faLayerGroup,} from "@fortawesome/free-solid-svg-icons"
+	faLayerGroup,
+} from "@fortawesome/free-solid-svg-icons"
 import { AnimatedCard } from "../../components/Cards/AnimatedCard"
 import DropdownToggle from "react-bootstrap/DropdownToggle"
 import SettingsMenu from "../../components/Decks/SettingsMenu"
@@ -78,7 +80,8 @@ const Deck = WithAuth(props => {
 	return (
 		<Container
 			style={{
-				marginTop: 40,
+				marginTop: 150,
+				marginBottom: 150,
 				borderRadius: 5,
 				backgroundColor: "white",
 				boxShadow:
@@ -186,7 +189,7 @@ const Deck = WithAuth(props => {
 													toggleEditing
 												}></AnimatedCard>
 										)
-									  })
+									})
 									: "No Cards yet :("}
 							</Row>
 							{adding && (
@@ -208,27 +211,27 @@ const Deck = WithAuth(props => {
 							)}
 						</Container>
 					) : (
-						<Container>
-							<Row style={{
-							}}>
-								<Col>
-									<NotFound></NotFound>
-								</Col>
-							</Row>
-						</Container>
-					)}
+							<Container>
+								<Row style={{
+								}}>
+									<Col>
+										<NotFound></NotFound>
+									</Col>
+								</Row>
+							</Container>
+						)}
 				</div>
 			) : (
-				<Container>
-					<Row>
-						<Col style={{
-							marginTop: 200 
-						}}>
-							<Loading fetched={fetched}></Loading>
-						</Col>
-					</Row>
-				</Container>
-			)}
+					<Container>
+						<Row>
+							<Col style={{
+								marginTop: 200
+							}}>
+								<Loading fetched={fetched}></Loading>
+							</Col>
+						</Row>
+					</Container>
+				)}
 			<style global jsx>
 				{`
 					.ck-balloon-panel {
@@ -246,7 +249,7 @@ const Deck = WithAuth(props => {
 
 export default Deck
 
-Deck.getInitialProps = async function(ctx) {
+Deck.getInitialProps = async function (ctx) {
 	let { slug } = ctx.query
 	return {
 		slug,

@@ -1,11 +1,11 @@
-import {EditDeck} from "../../components/Decks/EditDeck"
-import {Container} from "react-bootstrap"
+import { EditDeck } from "../../components/Decks/EditDeck"
+import { Container } from "react-bootstrap"
 
 const Edit = (props) => {
 
 	return (
 		<Container style={{
-			marginBottom: 200, 
+			marginBottom: 200,
 			marginTop: 200
 		}}>
 			<h5 style={{
@@ -16,7 +16,6 @@ const Edit = (props) => {
 			<EditDeck {...props} ></EditDeck>
 		</Container>
 	)
-	
 }
 
 

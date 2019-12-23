@@ -19,7 +19,7 @@ const SignUp = () => {
 		} else {
 			toggleCompleted(false)
 		}
-		
+
 	}, [password, passVerify, email, username])
 
 	const _handleSubmit = async (event) => {
@@ -29,7 +29,7 @@ const SignUp = () => {
 				setError("Passwords dont match!")
 				return
 			}
-			
+
 			try {
 				let response = await fetch("/api/signup", {
 					method: "POST",
@@ -37,7 +37,7 @@ const SignUp = () => {
 						username, email, password
 					})
 				})
-				
+
 				if (response.ok) {
 					setError(null)
 					window.location.replace("/login")
@@ -47,13 +47,13 @@ const SignUp = () => {
 			} catch (err) {
 				setError(err)
 			}
-		} 
+		}
 	}
 
 	return (
 		<Container style={{
-			marginBottom: 200, 
-			marginTop: 100
+			marginBottom: 200,
+			marginTop: 150
 		}}>
 			<Row className="justify-content-center">
 				<Col className="text-center" md="4">
@@ -63,7 +63,7 @@ const SignUp = () => {
 				</Col>
 			</Row>
 			<Row className="justify-content-center">
-				<Col sm="10" md="8" lg="6"> 
+				<Col sm="10" md="8" lg="6">
 					{error}
 				</Col>
 			</Row>
@@ -114,7 +114,7 @@ const SignUp = () => {
 								<Button disabled={!completed} type="submit" variant="dark" block>Sign up</Button>
 							</OverlayTrigger>
 						</Form.Group>
-					</Form>        
+					</Form>
 				</Col>
 			</Row>
 		</Container>

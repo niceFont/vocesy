@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { Container, Row, Col, Form } from "react-bootstrap"
+import { Row, Col, Form } from "react-bootstrap"
 import fetch from "isomorphic-fetch"
-
+import WhiteContainer from "../components/Helpers/WhiteContainer"
 
 function ResetPassword() {
 
@@ -31,13 +31,22 @@ function ResetPassword() {
 	}
 
 	return (
-		<Container style={{
+		<WhiteContainer style={{
 			padding: "100px 0",
-			margin: "50px auto",
+			margin: "150px auto",
 			background: "white"
 		}}>
+			<Row style={{
+				marginBottom: 25
+			}} className="justify-content-center">
+				<Col sm="8" xs="8" md="6" lg="4">
+					<h4 style={{
+						fontWeight: 600
+					}}>Recover Account</h4>
+				</Col>
+			</Row>
 			<Row className="justify-content-center">
-				<Col lg="6" md="6">
+				<Col xs="8" sm="8" lg="4" md="6">
 					<Form onSubmit={handleSubmit}>
 						<Form.Label>Enter your E-mail address:</Form.Label>
 						<Form.Group>
@@ -56,7 +65,7 @@ function ResetPassword() {
 					</Col>
 				</Row>
 			}
-		</Container >
+		</WhiteContainer >
 	)
 }
 

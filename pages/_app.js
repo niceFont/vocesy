@@ -67,7 +67,7 @@ class MyApp extends App {
 			token: this.state.token,
 		}
 		return (
-			<div>
+			<>
 				<TopNav user={this.state.user} />
 				<Background>
 					<Component {...props} />
@@ -85,7 +85,7 @@ class MyApp extends App {
 						}
 					`}
 				</style>
-			</div>
+			</>
 		)
 	}
 }

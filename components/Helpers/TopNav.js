@@ -1,4 +1,4 @@
-import { Nav, NavDropdown, Navbar, NavbarBrand } from "react-bootstrap"
+import { Container, Nav, NavDropdown, Navbar, NavbarBrand } from "react-bootstrap"
 import Link from "next/link"
 import { ExtractName } from "../../lib/utils"
 import Cookies from "js-cookie"
@@ -15,19 +15,17 @@ const TopNav = props => {
 	}
 
 	return (
-		<div className="justify-content-center">
+		<div style={{
+		}} className="justify-content-center">
 			<Navbar
+				className="topnav"
 				style={{
-					padding: "0 10vw 0 10vw",
-					backgroundColor: "white",
-					backgroundColor: "rgba(0,0,0,0)",
-					fontWeight: 600,
-					width: "100%",
-					minWidth: "auto",
+					position: "absolute",
+					padding: "0px 10%",
 					zIndex: 1,
-					boxShadow:
-						"0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
-					transition: "all 0.3s cubic-bezier(.25,.8,.25,1)",
+					width: "100%",
+					fontWeight: 500,
+					backgroundColor: "none"
 				}}
 				expand="md"
 				variant="light">
@@ -36,20 +34,23 @@ const TopNav = props => {
 						<img
 							alt="logo"
 							style={{
-								width: 160,
-								height: 65,
+								width: 140,
+								height: 55,
 							}}
 							src="/static/logo_transparent_background.png"
 						/>
 					</Link>
 				</NavbarBrand>
-				<Navbar.Toggle aria-controls="main-menu"></Navbar.Toggle>
+				<Navbar.Toggle className="text-right" style={{
+				}} aria-controls="main-menu"></Navbar.Toggle>
 				<Navbar.Collapse
 					id="main-menu"
 					style={{
-						backgroundColor: "white", padding: 20 
+
+						padding: 20
 					}}>
-					<Nav className="ml-auto justify-content-end">
+					<Nav style={{
+					}} className="ml-auto justify-content-end">
 						<Nav>
 							<Nav.Item>
 								<Link href="/decks/create">
@@ -105,6 +106,7 @@ const TopNav = props => {
 				a {
 					cursor: pointer;
 				}
+
 			`}</style>
 		</div>
 	)

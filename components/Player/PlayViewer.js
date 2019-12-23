@@ -49,14 +49,14 @@ export const PlayViewer = props => {
 					<td>{index + 1}</td>
 					<td>{result.result ? "Right" : "Wrong"}</td>
 					<td>
-						{rawFront.slice(0, 15) + rawFront.length >= 15
+						{`${rawFront.slice(0, 15)}${rawFront.length >= 15
 							? "..."
-							: ""}
+							: ""}`}
 					</td>
 					<td>
-						{rawBack.slice(0, 15) + rawBack.length >= 15
+						{`${rawBack.slice(0, 15)}${rawBack.length >= 15
 							? "..."
-							: ""}
+							: ""}`}
 					</td>
 					{props.settings.uv === "false" && (
 						<td

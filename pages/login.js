@@ -47,7 +47,7 @@ const Login = () => {
 	return (
 		<Container style={{
 			marginBottom: 200,
-			marginTop: 100
+			marginTop: 150
 		}}>
 			<Row className="justify-content-center">
 				<Col className="text-center" md="4">

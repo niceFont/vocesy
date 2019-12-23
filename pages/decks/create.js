@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap"
 const NewDeck = WithAuth(props => {
 	return (
 		<Container style={{
-			marginTop: 100,
+			marginTop: 150,
 			marginBottom: 200,
 		}}>
 			<h5 style={{
