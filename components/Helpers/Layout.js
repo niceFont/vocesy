@@ -1,11 +1,10 @@
 import {Nav,
-	NavDropdown,
 	Navbar,
 	NavbarBrand} from "react-bootstrap"
 import Link from "next/link"
 import { ExtractName } from "../../lib/utils"
 import Cookies from "js-cookie"
-import React, { PureComponent } from "react"
+import React from "react"
 
 
 export const Layout = props => {

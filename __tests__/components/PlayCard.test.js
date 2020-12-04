@@ -15,8 +15,6 @@ describe("PlayCard", () => {
 		></PlayCard>)
         
 		expect(tree.toJSON()).toMatchSnapshot()
-        
-			
 	})
 	
 
